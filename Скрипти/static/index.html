@@ -376,6 +376,46 @@
 <div class="container">
   <noscript><div style="background:#fee2e2; color:#991b1b; padding:12px 16px; border-radius:8px; margin:16px 0; font-weight:600; text-align:center;">У вашому браузері вимкнено JavaScript. Будь ласка, увімкніть JavaScript для повноцінної роботи з кабінетом платформи.</div></noscript>
   <!-- ===================== СТАРТОВА СТОРІНКА (САЙТ-ВІЗИТІВКА) + АВТОРИЗАЦІЯ ===================== -->
+  
+  <!-- ОКРЕМИЙ ЗАХИЩЕНИЙ ПОРТАЛ ВХОДУ АДМІНІСТРАТОРА (/admin) -->
+  <div id="adminPortalSection" style="display:none; background:linear-gradient(135deg, #0b1329 0%, #1e293b 100%); min-height:85vh; padding:40px 18px;">
+    <div style="max-width:460px; margin:40px auto 0; background:#ffffff; border-radius:14px; box-shadow:0 20px 40px rgba(0,0,0,0.35); overflow:hidden; border:1px solid rgba(255,255,255,0.1);">
+      <div style="background:#0f172a; padding:28px 24px; text-align:center; color:#fff; border-bottom:3px solid #f59e0b;">
+        <div style="width:58px; height:58px; background:rgba(245,158,11,0.15); border:1px solid rgba(245,158,11,0.35); border-radius:50%; display:inline-flex; align-items:center; justify-content:center; margin-bottom:12px; font-size:28px;">🛡️</div>
+        <h2 style="margin:0 0 6px; font-size:21px; font-weight:700; color:#f8fafc; letter-spacing:-0.3px;">Панель Адміністратора</h2>
+        <div style="font-size:12.5px; color:#94a3b8;">Аналітичний центр «Тендерний помічник»</div>
+        <div style="margin-top:10px;">
+          <span style="display:inline-block; background:#b45309; color:#fef3c7; font-size:10.5px; font-weight:700; padding:3px 10px; border-radius:20px; text-transform:uppercase; letter-spacing:0.5px;">Службовий доступ</span>
+        </div>
+      </div>
+
+      <div style="padding:28px 24px;">
+        <div id="adminLoginInlineError" style="display:none; margin-bottom:16px; padding:10px 14px; background:#fff1f2; border:1px solid #fecdd3; border-radius:8px; color:#be123c; font-size:13px; line-height:1.4;"></div>
+
+        <form id="adminLoginForm" onsubmit="event.preventDefault(); doAdminLogin();">
+          <div class="form-group" style="margin-bottom:16px;">
+            <label style="display:block; font-size:13px; font-weight:600; color:#1e293b; margin-bottom:6px;">Email адміністратора</label>
+            <input type="email" id="adminLoginEmail" placeholder="artemvolodymyrovych@gmail.com" autocomplete="username" required style="width:100%; box-sizing:border-box; padding:11px 14px; border:1.5px solid #cbd5e1; border-radius:8px; font-size:14px; outline:none; transition:border 0.2s;" onfocus="this.style.borderColor='#1e3a8a'" onblur="this.style.borderColor='#cbd5e1'" />
+          </div>
+
+          <div class="form-group" style="margin-bottom:20px;">
+            <label style="display:block; font-size:13px; font-weight:600; color:#1e293b; margin-bottom:6px;">Пароль доступу</label>
+            <div style="position:relative; display:flex; align-items:center;">
+              <input type="password" id="adminLoginPassword" placeholder="••••••••" autocomplete="current-password" required style="width:100%; box-sizing:border-box; padding:11px 40px 11px 14px; border:1.5px solid #cbd5e1; border-radius:8px; font-size:14px; outline:none; transition:border 0.2s;" onfocus="this.style.borderColor='#1e3a8a'" onblur="this.style.borderColor='#cbd5e1'" />
+              <button type="button" onclick="togglePasswordVisibility('adminLoginPassword', this)" style="position:absolute; right:12px; background:none; border:none; cursor:pointer; font-size:17px; padding:0; color:#64748b;" title="Показати/приховати пароль">👁</button>
+            </div>
+          </div>
+
+          <button type="submit" id="btnAdminLoginSubmit" class="btn btn-primary" style="width:100%; padding:12px; font-size:15px; font-weight:600; border-radius:8px; justify-content:center; background:#0f172a; border-color:#0f172a; cursor:pointer; box-shadow:0 4px 12px rgba(15,23,42,0.25);">Увійти як Адміністратор</button>
+        </form>
+
+        <div style="margin-top:24px; padding-top:16px; border-top:1px solid #f1f5f9; text-align:center;">
+          <a href="/" style="font-size:12.5px; color:#64748b; text-decoration:none; font-weight:500; display:inline-flex; align-items:center; gap:5px;">← Перейти до кабінету клієнта (/)</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div id="authSection">
 
     <!-- HERO З ОКРЕМИМ БЛОКОМ ВХОДУ / РЕЄСТРАЦІЇ У ПРАВОМУ ВЕРХНЬОМУ КУТІ -->
@@ -445,6 +485,7 @@
               <a href="javascript:void(0)" onclick="openForgotPasswordModal()" style="font-size:12px; color:var(--primary); text-decoration:none;">Забули пароль?</a>
             </div>
             <button class="btn btn-primary" id="btnLoginSubmit" style="width:100%; padding:10px; font-size:14px;" onclick="doLogin()">Увійти до кабінету</button>
+            <div style="text-align:center; margin-top:12px;"><a href="/admin" style="font-size:11.5px; color:#94a3b8; text-decoration:none;">🔐 Вхід для адміністратора (/admin)</a></div>
           </div>
 
           <!-- Панель реєстрації з перемиканням ролі: Замовник / Постачальник (Рекомендація 4) -->
@@ -1411,9 +1452,77 @@
     if (fSub && sub) fSub.textContent = sub;
   }
 
+
+  function isAdminRoute() {
+    return window.location.pathname.toLowerCase().startsWith("/admin");
+  }
+
+  async function doAdminLogin() {
+    const email = (document.getElementById("adminLoginEmail")?.value || "").trim();
+    const password = document.getElementById("adminLoginPassword")?.value || "";
+    const errBox = document.getElementById("adminLoginInlineError");
+    if (errBox) errBox.style.display = "none";
+
+    if (!email || !password) {
+      if (errBox) {
+        errBox.innerText = "Будь ласка, введіть email та пароль адміністратора.";
+        errBox.style.display = "block";
+      }
+      return;
+    }
+
+    const btn = document.getElementById("btnAdminLoginSubmit");
+    const oldText = btn ? btn.innerText : "";
+    if (btn) {
+      btn.disabled = true;
+      btn.innerText = "Авторизація адміністратора...";
+    }
+
+    try {
+      const res = await apiFetch("/api/admin/auth/login", {
+        method: "POST",
+        body: { email, password }
+      });
+      AUTH_TOKEN = res.token;
+      localStorage.setItem("tender_token", AUTH_TOKEN);
+      CURRENT_USER = res.user;
+      showToast("Вітаємо в панелі адміністратора, " + CURRENT_USER.full_name + "!");
+      await initApp();
+      switchTab("admin");
+    } catch (e) {
+      if (errBox) {
+        errBox.innerText = e.message || "Помилка авторизації адміністратора";
+        errBox.style.display = "block";
+      }
+    } finally {
+      if (btn) {
+        btn.disabled = false;
+        btn.innerText = oldText || "Увійти як Адміністратор";
+      }
+    }
+  }
+
+
   function renderLoggedOutState() {
     const newAuthEl = document.getElementById("newAuthPersonInput");
     if (newAuthEl) newAuthEl.value = "";
+
+    if (isAdminRoute()) {
+      // Відображаємо ізольований службовий портал адміністратора
+      document.getElementById("adminPortalSection").style.display = "block";
+      document.getElementById("authSection").style.display = "none";
+      document.getElementById("appSection").style.display = "none";
+      document.getElementById("userBar").innerHTML = `
+        <a class="btn btn-outline btn-sm" href="/" style="background:#fff; color:#0f172a;">← Перейти до кабінету клієнта (/)</a>
+      `;
+      const foot = document.getElementById("publicLandingFooter");
+      if (foot) foot.style.display = "none";
+      return;
+    }
+
+    // Звичайний клієнтський інтерфейс
+    const portal = document.getElementById("adminPortalSection");
+    if (portal) portal.style.display = "none";
     document.getElementById("authSection").style.display = "block";
     document.getElementById("appSection").style.display = "none";
     document.getElementById("userBar").innerHTML = `

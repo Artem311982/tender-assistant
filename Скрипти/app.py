@@ -503,7 +503,7 @@ class TenderAppHandler(BaseHTTPRequestHandler):
         parsed = urllib.parse.urlparse(self.path)
         path = parsed.path
 
-        if path in ("/", "/index.html"):
+        if path in ("/", "/index.html", "/admin", "/admin/"):
             index_file = os.path.join(STATIC_DIR, "index.html")
             if not os.path.exists(index_file):
                 index_file = os.path.join(PROJECT_ROOT, "public", "index.html")
@@ -910,6 +910,34 @@ class TenderAppHandler(BaseHTTPRequestHandler):
             self.send_json({"ok": True})
             return
 
+        if path == "/api/admin/auth/login":
+            email = (body.get("email") or "").strip().lower()
+            password = body.get("password") or ""
+            conn = get_db()
+            cur = conn.cursor()
+            cur.execute("SELECT * FROM users WHERE LOWER(email) = ? AND password_hash = ?", (email, hash_password(password)))
+            user = cur.fetchone()
+            conn.close()
+            if not user:
+                self.send_json({"error": "Невірний email або пароль адміністратора"}, 401)
+                return
+            if user["role"] != "admin":
+                self.send_json({"error": "Доступ заборонено: ваш обліковий запис не має прав адміністратора. Клієнти входять через головну сторінку."}, 403)
+                return
+            if not user["is_active"]:
+                self.send_json({"error": "Обліковий запис адміністратора вимкнено"}, 403)
+                return
+            token = secrets.token_hex(24)
+            SESSIONS[token] = user["id"]
+            now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            conn = get_db()
+            cur = conn.cursor()
+            cur.execute("INSERT OR REPLACE INTO sessions (token, user_id, created_at) VALUES (?, ?, ?)", (token, user["id"], now_str))
+            conn.commit()
+            conn.close()
+            self.send_json({"token": token, "user": serialize_user(user)})
+            return
+
         if path == "/api/auth/login":
             email = (body.get("email") or "").strip().lower()
             password = body.get("password") or ""
@@ -920,6 +948,9 @@ class TenderAppHandler(BaseHTTPRequestHandler):
             conn.close()
             if not user:
                 self.send_json({"error": "Невірний email або пароль"}, 401)
+                return
+            if user["role"] == "admin":
+                self.send_json({"error": "Це вхід для клієнтів. Для входу в кабінет адміністратора перейдіть за адресою: /admin", "is_admin": True}, 403)
                 return
             if not user["is_active"]:
                 self.send_json({"error": "Обліковий запис вимкнено адміністратором"}, 403)
