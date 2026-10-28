@@ -2,7 +2,7 @@ import os
 import sqlite3
 import re
 
-DEFAULT_SUPABASE_URL = "postgresql://postgres:yDcqYOiP8AarvtXY@db.ixrbpktmwyuvaseetbyb.supabase.co:5432/postgres?sslmode=require"
+DEFAULT_SUPABASE_URL = "postgresql://postgres.ixrbpktmwyuvaseetbyb:yDcqYOiP8AarvtXY@aws-0-eu-west-2.pooler.supabase.com:5432/postgres?sslmode=require"
 DATABASE_URL = os.environ.get("DATABASE_URL") or DEFAULT_SUPABASE_URL
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)
