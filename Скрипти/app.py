@@ -747,10 +747,21 @@ class TenderAppHandler(BaseHTTPRequestHandler):
                     self.send_json({"error": "Скачування Файлу 2 (Додаток з порівнянням цін) не передбачено вашим рівнем доступу."}, 403)
                     return
 
-            if file_num == "1":
-                self.send_file_download(order["file1_path"], order["file1_name"])
-            else:
-                self.send_file_download(order["file2_path"], order["file2_name"])
+            file_path = order["file1_path"] if file_num == "1" else order["file2_path"]
+            download_name = order["file1_name"] if file_num == "1" else order["file2_name"]
+
+            # Автоматична динамічна регенерація .docx на льоту, якщо файл відсутній на поточному сервері
+            if not file_path or not os.path.exists(file_path):
+                try:
+                    input_data = json.loads(order["input_data_json"] or "{}")
+                    benchmarks = json.loads(order["benchmarks_json"] or "[]")
+                    f1_p, f2_p, f1_n, f2_n = doc_generator.generate_order_documents(oid, input_data, benchmarks, ORDERS_RESULT_DIR)
+                    file_path = f1_p if file_num == "1" else f2_p
+                    download_name = f1_n if file_num == "1" else f2_n
+                except Exception as e:
+                    print("Dynamic document generation failed:", e)
+
+            self.send_file_download(file_path, download_name)
             return
 
         if path == "/api/admin/overview":
