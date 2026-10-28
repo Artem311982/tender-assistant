@@ -107,6 +107,8 @@ def hash_password(pw):
 
 
 def init_db():
+    if DATABASE_URL:
+        return
     conn = get_db()
     cur = conn.cursor()
 
@@ -503,6 +505,10 @@ class TenderAppHandler(BaseHTTPRequestHandler):
 
         if path in ("/", "/index.html"):
             index_file = os.path.join(STATIC_DIR, "index.html")
+            if not os.path.exists(index_file):
+                index_file = os.path.join(PROJECT_ROOT, "public", "index.html")
+            if not os.path.exists(index_file):
+                index_file = os.path.join(PROJECT_ROOT, "Скрипти", "static", "index.html")
             if os.path.exists(index_file):
                 with open(index_file, "rb") as f:
                     content = f.read()
