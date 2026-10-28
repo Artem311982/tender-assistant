@@ -18,18 +18,31 @@ if SCRIPT_DIR not in sys.path:
 
 import doc_generator
 import prozorro_service
+from db_adapter import get_db, DB_PATH, IS_VERCEL, DATABASE_URL
 
-INPUT_DIR = os.path.join(PROJECT_ROOT, "Вхідні дані")
-FORMS_UPLOAD_DIR = os.path.join(INPUT_DIR, "Завантажені_форми")
-USER_UPLOADS_DIR = os.path.join(INPUT_DIR, "Заповнені_форми_клієнтів")
-RESULT_DIR = os.path.join(PROJECT_ROOT, "Результат")
-ORDERS_RESULT_DIR = os.path.join(RESULT_DIR, "Заявки")
-MEMORY_DIR = os.path.join(PROJECT_ROOT, "Пам'ять")
-DB_PATH = os.path.join(MEMORY_DIR, "tender_assistant.db")
-STATIC_DIR = os.path.join(SCRIPT_DIR, "static")
+if IS_VERCEL:
+    TMP_ROOT = "/tmp"
+    INPUT_DIR = os.path.join(TMP_ROOT, "input")
+    FORMS_UPLOAD_DIR = os.path.join(INPUT_DIR, "forms")
+    USER_UPLOADS_DIR = os.path.join(INPUT_DIR, "user_uploads")
+    RESULT_DIR = os.path.join(TMP_ROOT, "result")
+    ORDERS_RESULT_DIR = os.path.join(RESULT_DIR, "orders")
+    MEMORY_DIR = os.path.join(TMP_ROOT, "memory")
+    STATIC_DIR = os.path.join(PROJECT_ROOT, "public")
+else:
+    INPUT_DIR = os.path.join(PROJECT_ROOT, "Вхідні дані")
+    FORMS_UPLOAD_DIR = os.path.join(INPUT_DIR, "Завантажені_форми")
+    USER_UPLOADS_DIR = os.path.join(INPUT_DIR, "Заповнені_форми_клієнтів")
+    RESULT_DIR = os.path.join(PROJECT_ROOT, "Результат")
+    ORDERS_RESULT_DIR = os.path.join(RESULT_DIR, "Заявки")
+    MEMORY_DIR = os.path.join(PROJECT_ROOT, "Пам'ять")
+    STATIC_DIR = os.path.join(SCRIPT_DIR, "static")
 
 for d in [INPUT_DIR, FORMS_UPLOAD_DIR, USER_UPLOADS_DIR, RESULT_DIR, ORDERS_RESULT_DIR, MEMORY_DIR, STATIC_DIR]:
-    os.makedirs(d, exist_ok=True)
+    try:
+        os.makedirs(d, exist_ok=True)
+    except Exception:
+        pass
 
 SESSIONS = {}
 
@@ -90,10 +103,7 @@ def hash_password(pw):
     return hashlib.sha256(pw.encode("utf-8")).hexdigest()
 
 
-def get_db():
-    conn = sqlite3.connect(DB_PATH)
-    conn.row_factory = sqlite3.Row
-    return conn
+# get_db imported from db_adapter
 
 
 def init_db():

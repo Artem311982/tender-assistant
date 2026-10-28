@@ -2,6 +2,6 @@
   "version": 2,
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/index.py" },
-    { "source": "/(.*)", "destination": "/Скрипти/static/$1" }
+    { "source": "/(.*)", "destination": "/public/$1" }
   ]
 }
