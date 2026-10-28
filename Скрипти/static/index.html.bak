@@ -1,0 +1,2851 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Тендерний помічник — Порівняння цін Prozorro та Обґрунтування закупівель</title>
+  <style>
+    :root {
+      --bg: #f4f6f9;
+      --card: #ffffff;
+      --ink: #0f172a;
+      --muted: #475569;
+      --border: #cbd5e1;
+      --primary: #1e3a8a;
+      --primary-hover: #172554;
+      --accent: #0284c7;
+      --success: #15803d;
+      --success-bg: #dcfce7;
+      --warn: #b45309;
+      --warn-bg: #fef3c7;
+      --danger: #b91c1c;
+      --danger-bg: #fee2e2;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.5;
+    }
+    header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+      color: #fff;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand h1 {
+      margin: 0;
+      font-size: 19px;
+      font-weight: 700;
+    }
+    .brand small {
+      display: block;
+      font-size: 12px;
+      color: #cbd5e1;
+    }
+    .user-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .container {
+      max-width: 1280px;
+      margin: 22px auto;
+      padding: 0 18px 40px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 18px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .card h2, .card h3 {
+      margin-top: 0;
+      color: var(--ink);
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 16px;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 12px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 9px 15px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 13.5px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      text-decoration: none;
+      transition: 0.15s;
+    }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { background: var(--primary-hover); }
+    .btn-success { background: var(--success); color: #fff; }
+    .btn-success:hover { opacity: 0.92; }
+    .btn-warn { background: var(--warn); color: #fff; }
+    .btn-danger { background: var(--danger); color: #fff; }
+    .btn-outline {
+      background: #fff;
+      color: var(--ink);
+      border-color: var(--border);
+    }
+    .btn-outline:hover { background: #f1f5f9; }
+    .btn-sm { padding: 6px 11px; font-size: 12.5px; }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 10px;
+    }
+    .tab-btn {
+      padding: 9px 16px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--ink);
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .tab-btn.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+    .form-group {
+      margin-bottom: 12px;
+    }
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      font-size: 13px;
+      margin-bottom: 4px;
+      color: #1e293b;
+    }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      padding: 8px 11px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 13.5px;
+      font-family: inherit;
+    }
+    .form-group textarea {
+      min-height: 74px;
+      resize: vertical;
+    }
+    .badge {
+      display: inline-block;
+      padding: 3px 9px;
+      border-radius: 99px;
+      font-size: 11.5px;
+      font-weight: 700;
+    }
+    .badge-success { background: var(--success-bg); color: var(--success); }
+    .badge-warn { background: var(--warn-bg); color: var(--warn); }
+    .badge-danger { background: var(--danger-bg); color: var(--danger); }
+    .badge-info { background: #e0f2fe; color: #0369a1; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    th, td {
+      border: 1px solid var(--border);
+      padding: 8px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background: #f8fafc;
+      font-weight: 700;
+      color: #1e293b;
+    }
+    .mode-switch-box {
+      border: 2px solid var(--primary);
+      background: #eff6ff;
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+    .stat-box {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+    }
+    .stat-box .label { font-size: 12px; color: var(--muted); }
+    .stat-box .val { font-size: 18px; font-weight: 800; color: var(--primary); margin-top: 2px; }
+    .variant-card {
+      border-left: 4px solid var(--primary);
+      background: #f8fafc;
+      padding: 10px 14px;
+      margin-bottom: 8px;
+      border-radius: 0 6px 6px 0;
+      font-size: 13px;
+    }
+    .perm-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 8px;
+      background: #f8fafc;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+    .perm-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .perm-item input {
+      margin-top: 3px;
+      width: 16px;
+      height: 16px;
+    }
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #0f172a;
+      color: #fff;
+      padding: 12px 18px;
+      border-radius: 8px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+      z-index: 9999;
+      display: none;
+      max-width: 440px;
+    }
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.55);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 18px;
+    }
+    .modal {
+      background: #fff;
+      border-radius: 10px;
+      max-width: 980px;
+      width: 100%;
+      max-height: 92vh;
+      overflow-y: auto;
+      padding: 22px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
+
+    html { scroll-behavior: smooth; }
+    .hero { background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 60%, #0284c7 100%); color:#fff; border-radius:14px; padding:56px 28px; margin-bottom:18px; }
+    .hero-inner { max-width: 820px; margin: 0 auto; text-align:center; }
+    .hero-tag { display:inline-block; background:rgba(255,255,255,.15); padding:5px 14px; border-radius:99px; font-size:12.5px; font-weight:600; margin-bottom:16px; }
+    .hero h2 { font-size: 32px; line-height:1.25; margin:0 0 14px; color:#fff; }
+    .hero p { font-size:16px; color:#dbeafe; margin:0 0 26px; }
+    .hero-cta { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+    .btn-light { background:#fff; color:var(--primary); padding:12px 22px; font-size:15px; }
+    .btn-light:hover { background:#eff6ff; }
+    .btn-ghost { background:transparent; color:#fff; border-color:rgba(255,255,255,.6); padding:12px 22px; font-size:15px; }
+    .btn-ghost:hover { background:rgba(255,255,255,.12); }
+    .section { padding:30px 6px; }
+    .section-alt { background:#fff; border:1px solid var(--border); border-radius:12px; padding:30px 24px; margin:6px 0; }
+    .section-title { font-size:24px; margin:0 0 18px; color:var(--ink); }
+    .service-card, .benefit { background:#fff; border:1px solid var(--border); border-radius:10px; padding:18px; }
+    .service-card h4, .benefit h4 { margin:8px 0 6px; font-size:16px; }
+    .service-card p, .benefit p { margin:0; font-size:13.5px; color:var(--muted); }
+    .service-main { border-color:#86efac; background:#f0fdf4; }
+    .service-soon { border-style:dashed; background:#fafafa; }
+    .steps { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:14px; }
+    .step { background:#f8fafc; border:1px solid var(--border); border-radius:10px; padding:16px; }
+    .step h4 { margin:8px 0 4px; }
+    .step p { margin:0; font-size:13.5px; color:var(--muted); }
+    .step-num { width:32px; height:32px; border-radius:50%; background:var(--primary); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; }
+    .chips { display:flex; flex-wrap:wrap; gap:10px; }
+    .chip { background:#eff6ff; color:#1e3a8a; border:1px solid #bfdbfe; padding:8px 14px; border-radius:99px; font-size:13.5px; font-weight:600; }
+    .law-list { margin:0; padding-left:20px; color:#1e293b; font-size:14px; }
+    .law-list li { margin-bottom:6px; }
+    .faq { background:#f8fafc; border:1px solid var(--border); border-radius:8px; padding:12px 16px; margin-bottom:8px; }
+    .faq summary { cursor:pointer; font-weight:700; }
+    .faq p { margin:8px 0 0; font-size:13.5px; color:var(--muted); }
+    .auth-wrap { max-width:640px; margin:0 auto; }
+    .auth-switch { display:flex; gap:8px; margin-bottom:12px; justify-content:center; }
+    .site-footer { background:#0f172a; color:#e2e8f0; border-radius:12px; padding:22px 26px; margin-top:26px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:14px; }
+    .site-footer a { color:#93c5fd; }
+    .nav-links { display:flex; gap:14px; flex-wrap:wrap; }
+    .nav-links a { color:#e2e8f0; text-decoration:none; font-size:13.5px; font-weight:600; }
+    .nav-links a:hover { color:#fff; text-decoration:underline; }
+    @media (max-width:600px){ .hero h2{font-size:24px;} .hero{padding:36px 16px;} }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <img id="headerLogo" src="" alt="Логотип" style="display:none; max-height:46px; max-width:160px; width:auto; border-radius:6px; object-fit:contain; background:#fff; padding:3px;" />
+    <div>
+      <h1 id="headerTitle">Тендерний помічник</h1>
+      <small id="headerSubtitle" style="display:none;"></small>
+    </div>
+  </div>
+  <div class="user-bar" id="userBar"></div>
+</header>
+
+<div class="container">
+  <!-- ===================== СТАРТОВА СТОРІНКА (САЙТ-ВІЗИТІВКА) + АВТОРИЗАЦІЯ ===================== -->
+  <div id="authSection" style="display:none;">
+
+    <!-- HERO -->
+    <section class="hero" id="top">
+      <div class="hero-inner">
+        <span class="hero-tag">Для державних та комунальних замовників</span>
+        <h2>Обґрунтування закупівель та порівняння цін за даними Prozorro — швидко й за стандартом</h2>
+        <p>
+          Вносите предмет закупівлі та очікувану вартість — отримуєте порівняння цін
+          у системі Prozorro (без ПДВ, з прямими посиланнями) і готовий комплект документів
+          за вимогами Постанов КМУ № 710 та № 1178.
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn-light" href="#auth" onclick="showAuthTab('register')">Створити кабінет</a>
+          <a class="btn btn-ghost" href="#auth" onclick="showAuthTab('login')">Увійти</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ПОСЛУГИ -->
+    <section class="section" id="services">
+      <h3 class="section-title">Послуги</h3>
+      <div class="grid-3">
+        <div class="service-card service-main">
+          <span class="badge badge-success">Доступно зараз</span>
+          <h4>Порівняння цін та обґрунтування закупівлі</h4>
+          <p>
+            Живий пошук аналогічних закупівель у Prozorro за кодом ДК 021:2015 або номером оголошення,
+            розрахунок середньоринкової ціни за методикою Наказу Мінекономіки № 275 та підготовка
+            обґрунтування технічних і якісних характеристик, бюджетного призначення й очікуваної вартості.
+          </p>
+        </div>
+        <div class="service-card service-soon">
+          <span class="badge badge-warn">Незабаром</span>
+          <h4>Нові послуги для замовників</h4>
+          <p>Платформа розвивається: нові послуги з'являтимуться в кабінеті після запуску.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ЯК ЦЕ ПРАЦЮЄ -->
+    <section class="section section-alt" id="how">
+      <h3 class="section-title">Як це працює</h3>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><h4>Реєстрація</h4><p>Створюєте кабінет та отримуєте 5 безкоштовних заявок одразу після реєстрації.</p></div>
+        <div class="step"><div class="step-num">2</div><h4>Подача даних</h4><p>Заповнюєте онлайн-форму, підтягуєте дані за номером оголошення з Prozorro або завантажуєте заповнений .docx.</p></div>
+        <div class="step"><div class="step-num">3</div><h4>Аналіз цін</h4><p>Система підбирає закупівлі-аналоги у Prozorro та розраховує ціни без ПДВ.</p></div>
+        <div class="step"><div class="step-num">4</div><h4>Результат</h4><p>Завантажуєте готові файли у кабінеті — одразу або після підтвердження адміністратором.</p></div>
+      </div>
+    </section>
+
+    <!-- ПЕРЕВАГИ -->
+    <section class="section" id="benefits">
+      <h3 class="section-title">Чому це зручно</h3>
+
+      <h4 style="margin:0 0 12px; color:var(--primary); font-size:17px;">🏛 Для державних та комунальних замовників</h4>
+      <div class="grid-3" style="margin-bottom:24px;">
+        <div class="benefit"><h4>Перевірені дані Prozorro</h4><p>Підтверджені закупівлі й договори з прямими посиланнями та цінами без ПДВ, які легко перевірити.</p></div>
+        <div class="benefit"><h4>Готові документи Word (.docx)</h4><p>Основне обґрунтування (п. 1–4 за Постановою КМУ № 710) та окремий додаток до обґрунтування з аналізом цін Prozorro без ПДВ за ДСТУ 4163:2020.</p></div>
+        <div class="benefit"><h4>Власний кабінет організації</h4><p>Історія заявок, збережені реквізити замовника та швидке повторне використання без повторного вводу.</p></div>
+        <div class="benefit"><h4>Гнучкі форми подачі</h4><p>Введення даних онлайн, автозаповнення за номером оголошення UA-... або завантаження заповненого шаблону Word.</p></div>
+        <div class="benefit"><h4>Контроль якості</h4><p>Результат надається автоматично або після фахової перевірки й погодження адміністратором платформи.</p></div>
+        <div class="benefit"><h4>Індивідуальний доступ</h4><p>Кожна установа чи підрозділ працює у власному кабінеті з визначеним обсягом прав і лімітом заявок.</p></div>
+      </div>
+
+      <h4 style="margin:0 0 12px; color:var(--primary); font-size:17px;">🤝 Для постачальників та учасників тендерів</h4>
+      <div class="grid-3">
+        <div class="benefit"><h4>Аналіз цін конкурентів перед торгами</h4><p>Об'єктивне порівняння цін переможців та укладених договорів у системі Prozorro (без ПДВ) за потрібним кодом ДК 021:2015.</p></div>
+        <div class="benefit"><h4>Розрахунок виграшної пропозиції</h4><p>Чітке розуміння мінімальної, середньоринкової та максимальної ціни за одиницю товару чи послуги для підготовки конкурентної пропозиції.</p></div>
+        <div class="benefit"><h4>Обґрунтування аномально низької ціни (АНЦ)</h4><p>Готова порівняльна база закупівель Prozorro з прямими посиланнями для документального підтвердження економічної обґрунтованості вашої ціни.</p></div>
+        <div class="benefit"><h4>Оцінка рентабельності тендеру</h4><p>Швидка перевірка, наскільки очікувана вартість замовника відповідає ринковому рівню ще до витрати часу на підготовку тендерної документації.</p></div>
+        <div class="benefit"><h4>Підготовка комерційних пропозицій</h4><p>Аналітичні довідки з актуальними ринковими цінами Prozorro для аргументованих переговорів із замовниками при укладанні прямих договорів.</p></div>
+        <div class="benefit"><h4>Моніторинг динаміки ринку</h4><p>Зручне відстеження обсягів, умов поставки та цінових орієнтирів провідних замовників у вашій галузі.</p></div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section section-alt" id="faq">
+      <h3 class="section-title">Часті запитання</h3>
+      <details class="faq"><summary>Скільки безкоштовних заявок доступно після реєстрації?</summary>
+        <p>Після автоматичної реєстрації кожному новому замовнику нараховується 5 безкоштовних заявок. За потреби адміністратор може додати додаткові заявки вручну.</p></details>
+      <details class="faq"><summary>Чи потрібно платити, щоб отримати результат?</summary>
+        <p>Видача результату не прив'язана до оплати на платформі: адміністратор обирає, надавати результат автоматично чи після власного підтвердження.</p></details>
+      <details class="faq"><summary>Звідки беруться ціни для порівняння?</summary>
+        <p>Із системи електронних закупівель Prozorro. Кожна закупівля в документах має пряме посилання, а вартість наводиться без ПДВ.</p></details>
+      <details class="faq"><summary>Що саме я отримаю?</summary>
+        <p>Два файли Word за ДСТУ 4163:2020: основне обґрунтування та додаток до обґрунтування з нормативно-правовим регулюванням і порівняльною таблицею цін Prozorro без ПДВ.</p></details>
+      <details class="faq"><summary>Чи можна заповнити дані з Word-файлу?</summary>
+        <p>Так. Можна завантажити бланк форми, заповнити його у Word і повернути у кабінет, або ввести дані онлайн чи підтягнути за номером оголошення.</p></details>
+      <details class="faq"><summary>Чи безпечно зберігаються реквізити моєї організації?</summary>
+        <p>Реквізити доступні лише у вашому кабінеті та адміністратору платформи. Інші замовники їх не бачать.</p></details>
+    </section>
+
+    <!-- ВХІД / РЕЄСТРАЦІЯ -->
+    <section class="section" id="auth">
+      <h3 class="section-title">Кабінет замовника</h3>
+      <div class="auth-wrap">
+        <div class="auth-switch">
+          <button class="tab-btn active" id="authTabLogin" onclick="showAuthTab('login')">Вхід</button>
+          <button class="tab-btn" id="authTabRegister" onclick="showAuthTab('register')">Реєстрація</button>
+        </div>
+
+        <div class="card" id="authPanelLogin">
+          <h3>Вхід до особистого кабінету</h3>
+          <div class="form-group">
+            <label>Електронна пошта</label>
+            <input type="email" id="loginEmail" placeholder="Ваша електронна пошта" autocomplete="username" />
+          </div>
+          <div class="form-group">
+            <label>Пароль</label>
+            <input type="password" id="loginPassword" placeholder="Ваш пароль" autocomplete="current-password" />
+          </div>
+          <button class="btn btn-primary" style="width:100%;" onclick="doLogin()">Увійти</button>
+        </div>
+
+        <div class="card" id="authPanelRegister" style="display:none;">
+          <h3>Реєстрація замовника</h3>
+          <div class="grid-2">
+            <div class="form-group">
+              <label>ПІБ уповноваженої особи *</label>
+              <input type="text" id="regName" placeholder="Прізвище, ім'я, по батькові" autocomplete="name" />
+            </div>
+            <div class="form-group">
+              <label>Електронна пошта *</label>
+              <input type="email" id="regEmail" placeholder="Електронна пошта для входу" autocomplete="email" />
+            </div>
+            <div class="form-group">
+              <label>Найменування замовника *</label>
+              <input type="text" id="regOrg" placeholder="Повне найменування організації" />
+            </div>
+            <div class="form-group">
+              <label>Код ЄДРПОУ *</label>
+              <input type="text" id="regEdrpou" placeholder="8 цифр" inputmode="numeric" />
+            </div>
+            <div class="form-group">
+              <label>ПІБ керівника</label>
+              <input type="text" id="regDirector" placeholder="Для грифу «ЗАТВЕРДЖУЮ»" />
+            </div>
+            <div class="form-group">
+              <label>Пароль *</label>
+              <input type="password" id="regPassword" placeholder="Не менше 6 символів" autocomplete="new-password" />
+            </div>
+          </div>
+          <button class="btn btn-primary" style="width:100%;" onclick="doRegister()">Створити кабінет</button>
+          <p style="font-size:12.5px; color:var(--muted); margin:10px 0 0;">
+            Після автоматичної реєстрації у вашому кабінеті одразу доступні <strong>5 безкоштовних заявок</strong>. Решту реквізитів (адреса, посада керівника, сайт) можна внести пізніше у профілі.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ЗВОРОТНИЙ ЗВ'ЯЗОК З АДМІНІСТРАТОРОМ САЙТУ (НА СТАРТОВІЙ СТОРІНЦІ) -->
+    <section class="section section-alt" id="feedbackPublic">
+      <h3 class="section-title">💬 Зворотний зв'язок з адміністратором сайту</h3>
+      <p style="color:var(--muted); font-size:14px; margin-top:-10px; margin-bottom:16px;">
+        Маєте запитання щодо роботи платформи, індивідуальних умов доступу або потребуєте консультації адміністратора? Надішліть звернення нижче.
+      </p>
+      <div class="grid-3">
+        <div class="form-group">
+          <label>Ваше ПІБ *</label>
+          <input type="text" id="pubFbName" placeholder="Прізвище, ім'я" />
+        </div>
+        <div class="form-group">
+          <label>Ваш Email або телефон для відповіді *</label>
+          <input type="text" id="pubFbEmail" placeholder="Електронна пошта або телефон" />
+        </div>
+        <div class="form-group">
+          <label>Організація (за бажанням)</label>
+          <input type="text" id="pubFbOrg" placeholder="Назва установи чи компанії" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Тема звернення</label>
+        <input type="text" id="pubFbSubject" placeholder="Напр.: Запитання щодо роботи кабінету / підключення організації" />
+      </div>
+      <div class="form-group">
+        <label>Повідомлення адміністратору сайту *</label>
+        <textarea id="pubFbMessage" placeholder="Опишіть ваше запитання або пропозицію..."></textarea>
+      </div>
+      <button class="btn btn-primary" onclick="sendPublicFeedback()">📨 Надіслати повідомлення адміністратору</button>
+    </section>
+
+    <!-- КОНТАКТИ / ПІДВАЛ -->
+    <footer class="site-footer" id="contacts">
+      <div>
+        <strong id="footBrand">Тендерний помічник</strong>
+        <div id="footSubtitle" style="font-size:12.5px; opacity:.8; margin-top:4px;">Порівняння цін Prozorro та обґрунтування закупівель</div>
+      </div>
+      <div id="footContacts" style="font-size:13.5px;"></div>
+    </footer>
+  </div>
+
+  <!-- ===================== РОБОЧА ЗОНА (КАБІНЕТ + АДМІН-ПАНЕЛЬ) ===================== -->
+  <div id="appSection" style="display:none;">
+    <div class="tabs" id="mainTabs"></div>
+
+    <!-- ВКЛАДКА 1: ПОДАТИ ЗАЯВКУ ЗА ФОРМОЮ (КАБІНЕТ КОРИСТУВАЧА) -->
+    <div id="tabNewOrder" class="tab-pane" style="display:none;">
+      <div class="card">
+        <h2>Замовлення послуги: Порівняння цін у системі Prozorro та Обґрунтування</h2>
+        <p style="color:var(--muted); margin-top:-6px;">
+          Оберіть одну з форм, затверджених в адмін-панелі, та введіть інформацію про предмет закупівлі й очікувану вартість.
+        </p>
+
+        <div class="grid-2" style="background:#f8fafc; padding:14px; border-radius:8px; border:1px solid var(--border); margin-bottom:16px;">
+          <div class="form-group" style="margin-bottom:0;">
+            <label>1. Оберіть форму подачі інформації (з адмін-панелі):</label>
+            <select id="selectedFormSelect" onchange="onSelectFormChange()"></select>
+            <div id="selectedFormDesc" style="font-size:12.5px; color:var(--muted); margin-top:5px;"></div>
+          </div>
+
+          <div id="docxExchangeBox" style="display:flex; flex-direction:column; justify-content:center; gap:8px;">
+            <div style="font-weight:600; font-size:13px;">Обмін через файл шаблону Word (.docx):</div>
+            <div style="display:flex; gap:8px; flex-wrap:wrap;">
+              <button class="btn btn-outline btn-sm" onclick="downloadCurrentFormBlank()">
+                ⬇ Скачати бланк форми (.docx)
+              </button>
+              <label class="btn btn-primary btn-sm" style="margin:0; cursor:pointer;">
+                ⬆ Завантажити заповнений .docx
+                <input type="file" id="userDocxUpload" accept=".docx" style="display:none;" onchange="handleUserFilledDocx(event)" />
+              </label>
+            </div>
+            <div id="uploadedDocxBadge" style="font-size:12px; color:var(--success);"></div>
+          </div>
+        </div>
+
+        <!-- Автозаповнення з Prozorro API -->
+        <div id="prozorroAutofillBox" style="background:#eff6ff; border:1px solid #bfdbfe; padding:12px 14px; border-radius:8px; margin-bottom:18px;">
+          <div style="font-weight:700; font-size:13.5px; margin-bottom:6px; color:#1e3a8a;">
+            🔍 Живе автозаповнення через API Prozorro (за ідентифікатором оголошення UA-... або 32-символьним ID):
+          </div>
+          <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+            <input type="text" id="prozorroLookupInput" placeholder="Введіть ID закупівлі в Prozorro (напр. UA-2026-...)" style="max-width:360px; padding:8px 10px; border:1px solid #93c5fd; border-radius:6px;" />
+            <button class="btn btn-primary btn-sm" onclick="autofillFromProzorro()">Підтягнути з Prozorro API</button>
+          </div>
+        </div>
+
+        <!-- Динамічні поля обраної форми -->
+        <div id="dynamicFormFields" class="grid-2"></div>
+
+        <div style="margin-top:16px; display:flex; justify-content:flex-end; gap:12px;">
+          <button class="btn btn-success" id="btnSubmitOrder" style="padding:12px 24px; font-size:15px;" onclick="submitOrderForm()">
+            Надіслати форму та сформувати Порівняння цін і Обґрунтування
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ВКЛАДКА 2: МОЇ ЗАЯВКИ ТА РЕЗУЛЬТАТИ -->
+    <div id="tabMyOrders" class="tab-pane" style="display:none;">
+      <div class="card">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
+          <h2 style="margin:0;">Мої заявки: Порівняння цін Prozorro та згенеровані Обґрунтування</h2>
+          <button class="btn btn-outline btn-sm" onclick="loadOrders()">↻ Оновити список</button>
+        </div>
+        <div id="myOrdersContainer"></div>
+      </div>
+    </div>
+
+    <!-- ВКЛАДКА 3: ПРОФІЛЬ ЗАМОВНИКА -->
+    <div id="tabProfile" class="tab-pane" style="display:none;">
+      <div class="card">
+        <h2>Профіль клієнта (реквізити замовника для автопідстановки у форми та документи ДСТУ 4163:2020)</h2>
+
+        <div id="orgEditStatusNotice" style="margin-bottom:14px;"></div>
+
+        <div class="grid-2">
+          <div class="form-group">
+            <label>ПІБ основної уповноваженої особи</label>
+            <input type="text" id="profFullName" />
+          </div>
+          <div class="form-group">
+            <label>Найменування організації замовника <span id="lblOrgLockBadge"></span></label>
+            <input type="text" id="profOrgName" disabled style="background:#f1f5f9; color:#475569; cursor:not-allowed;" />
+          </div>
+          <div class="form-group">
+            <label>Код за ЄДРПОУ <span id="lblEdrpouLockBadge"></span></label>
+            <input type="text" id="profEdrpou" disabled style="background:#f1f5f9; color:#475569; cursor:not-allowed;" />
+          </div>
+          <div class="form-group">
+            <label>Місцезнаходження (юридична адреса)</label>
+            <input type="text" id="profAddress" />
+          </div>
+          <div class="form-group">
+            <label>Посада керівника (для грифу ЗАТВЕРДЖУЮ)</label>
+            <input type="text" id="profDirectorTitle" />
+          </div>
+          <div class="form-group">
+            <label>Власне ім'я ПРІЗВИЩЕ керівника</label>
+            <input type="text" id="profDirectorName" />
+          </div>
+          <div class="form-group">
+            <label>Телефон</label>
+            <input type="text" id="profPhone" />
+          </div>
+          <div class="form-group">
+            <label>Офіційний веб-сайт замовника</label>
+            <input type="text" id="profWebsite" />
+          </div>
+        </div>
+
+        <!-- ДОДАВАННЯ ТА ВИДАЛЕННЯ ПІБ ІНШИХ УПОВНОВАЖЕНИХ ОСІБ -->
+        <div style="background:#f8fafc; border:1px solid var(--border); border-radius:8px; padding:14px 16px; margin:14px 0 18px;">
+          <h3 style="margin:0 0 6px; font-size:15.5px; color:var(--primary);">
+            👥 Інші уповноважені особи замовника (додавання та видалення ПІБ)
+          </h3>
+          <p style="font-size:12.5px; color:var(--muted); margin:0 0 10px;">
+            Ви можете додати ПІБ інших уповноважених осіб вашої організації. Під час подачі заявки можна буде обрати потрібну уповноважену особу зі списку.
+          </p>
+          <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px;">
+            <input type="text" id="newAuthPersonInput" placeholder="Введіть Власне ім'я ПРІЗВИЩЕ іншої уповноваженої особи" style="max-width:420px;" />
+            <button type="button" class="btn btn-outline btn-sm" onclick="addAuthorizedPerson()">➕ Додати уповноважену особу</button>
+          </div>
+          <div id="authPersonsListContainer"></div>
+        </div>
+
+        <button class="btn btn-primary" onclick="saveProfile()">💾 Зберегти реквізити профілю</button>
+      </div>
+    </div>
+
+    <!-- ВКЛАДКА 3-Б: ЗВОРОТНИЙ ЗВ'ЯЗОК З АДМІНІСТРАТОРОМ САЙТУ (КАБІНЕТ КЛІЄНТА) -->
+    <div id="tabFeedback" class="tab-pane" style="display:none;">
+      <div class="card">
+        <h2>💬 Зворотний зв'язок з адміністратором сайту</h2>
+        <p style="color:var(--muted); font-size:13.5px; margin-top:-6px;">
+          Напишіть адміністратору сайту щодо погодження заявок, надання дозволу на зміну назви або коду ЄДРПОУ замовника, збільшення ліміту заявок чи інших питань.
+        </p>
+        <div class="grid-2">
+          <div class="form-group">
+            <label>Тема звернення</label>
+            <select id="fbTopicSelect" onchange="onFbTopicChange()">
+              <option value="Запит на дозвіл змінити назву або ЄДРПОУ замовника">Запит на дозвіл змінити назву або ЄДРПОУ замовника</option>
+              <option value="Питання щодо заявки / порівняння цін Prozorro">Питання щодо заявки / порівняння цін Prozorro</option>
+              <option value="Запит на додавання заявок до ліміту кабінету">Запит на додавання заявок до ліміту кабінету</option>
+              <option value="Інше питання до адміністратора сайту">Інше питання до адміністратора сайту</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Уточнення теми (за потреби)</label>
+            <input type="text" id="fbCustomSubject" placeholder="Напр.: Заявка #1 або нові реквізити" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Текст повідомлення адміністратору *</label>
+          <textarea id="fbMessageText" placeholder="Введіть текст вашого звернення до адміністратора сайту..."></textarea>
+        </div>
+        <button class="btn btn-primary" onclick="sendCabinetFeedback()">📨 Надіслати звернення адміністратору</button>
+      </div>
+
+      <div class="card">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:12px;">
+          <h3 style="margin:0;">Історія моїх звернень та відповіді адміністратора</h3>
+          <button class="btn btn-outline btn-sm" onclick="loadFeedbackMessages()">↻ Оновити</button>
+        </div>
+        <div id="myFeedbackListContainer"></div>
+      </div>
+    </div>
+
+    <!-- ВКЛАДКА 4: АДМІН-ПАНЕЛЬ (ТІЛЬКИ ДЛЯ АРТЕМА) -->
+    <div id="tabAdmin" class="tab-pane" style="display:none;">
+      <!-- Інформаційний блок щодо індивідуального режиму видачі результатів -->
+      <div class="mode-switch-box">
+        <div>
+          <div style="font-size:16px; font-weight:800; color:var(--primary);">
+            Індивідуальний режим надання результату кожному клієнту окремо (незалежно від оплати):
+          </div>
+          <div style="font-size:13.5px; color:#334155; margin-top:4px;" id="adminModeStatusText">
+            Ви визначаєте режим надання результату (<strong>🔒 Після модерації</strong> або <strong>⚡ Автоматично</strong>) персонально для кожного клієнта у таблиці <strong>«🏢 Клієнти»</strong> нижче.
+          </div>
+        </div>
+      </div>
+
+      <!-- Брендинг шапки сайту (Логотип і Напис) та Контакти сайту-візитівки -->
+      <div class="card">
+        <h2>Брендинг шапки сайту (Логотип і Напис) та Контакти сайту-візитівки</h2>
+        <p style="font-size:13px; color:var(--muted); margin-top:-6px;">
+          Самостійно встановіть власний логотип, назву та підпис у шапці сайту, а також контакти для підвалу стартової сторінки.
+        </p>
+        <div class="grid-2" style="margin-bottom:12px;">
+          <div class="form-group" style="margin-bottom:0;">
+            <label>Назва платформи (головний напис у шапці сайту)</label>
+            <input type="text" id="set_platform_name" placeholder="Тендерний помічник" />
+          </div>
+          <div class="form-group" style="margin-bottom:0;">
+            <label>Підзаголовок (додатковий напис під назвою у шапці)</label>
+            <input type="text" id="set_platform_subtitle" placeholder="Необов'язковий додатковий підпис у шапці сайту" />
+          </div>
+        </div>
+
+        <div class="grid-3" style="align-items:end; margin-bottom:14px;">
+          <div class="form-group" style="margin-bottom:0;">
+            <label>Логотип у шапці сайту (PNG, JPG, SVG, WebP)</label>
+            <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+              <img id="adminLogoPreview" src="" alt="Прев'ю логотипу" style="display:none; max-height:44px; max-width:140px; border:1px solid var(--border); border-radius:6px; padding:3px; background:#f8fafc; object-fit:contain;" />
+              <label class="btn btn-outline btn-sm" style="margin:0; cursor:pointer;">
+                🖼 Обрати файл логотипу
+                <input type="file" id="set_logo_file" accept="image/*" style="display:none;" onchange="onAdminLogoFileSelect(event)" />
+              </label>
+              <button type="button" class="btn btn-danger btn-sm" id="btnRemoveLogo" style="display:none;" onclick="clearAdminLogo()">✕ Прибрати логотип</button>
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom:0;">
+            <label>Контактний email (у підвалі)</label>
+            <input type="email" id="set_contact_email" placeholder="Вкажіть email за потреби" />
+          </div>
+          <div class="form-group" style="margin-bottom:0;">
+            <label>Контактний телефон (у підвалі)</label>
+            <input type="text" id="set_contact_phone" placeholder="Вкажіть телефон за потреби" />
+          </div>
+        </div>
+        <button class="btn btn-primary" onclick="saveSiteContacts()">💾 Зберегти логотип, напис та контакти</button>
+      </div>
+
+      <!-- РОЗДІЛ 1 (ПЕРШИЙ): АДМІНІСТРАТОРИ САЙТУ -->
+      <div class="card" style="border-left:4px solid var(--accent);">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:14px;">
+          <div>
+            <h2 style="margin:0;">🛡 Адміністратори сайту</h2>
+            <small style="color:var(--muted);">Облікові записи адміністраторів, які керують платформою, формами, користувачами та погодженням результатів.</small>
+          </div>
+          <button class="btn btn-outline" onclick="openUserModal(null, 'admin')">
+            ➕ Додати Адміністратора сайту
+          </button>
+        </div>
+        <div id="adminUsersTableWrap"></div>
+      </div>
+
+      <!-- РОЗДІЛ 2 (ДРУГИЙ): КЛІЄНТИ -->
+      <div class="card" style="border-left:4px solid var(--primary);">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:14px;">
+          <div>
+            <h2 style="margin:0;">🏢 Клієнти</h2>
+            <small style="color:var(--muted);">Кабінети клієнтів (зокрема НУК ім. адм. Макарова та замовники/постачальники, які зареєструвалися на сайті з 5 безкоштовними заявками) з можливістю вручну додавати заявки (+5, +1 або довільну кількість) та визначати ступінь доступу до функціоналу.</small>
+          </div>
+          <button class="btn btn-primary" onclick="openUserModal(null, 'client')">
+            ➕ Додати Клієнта
+          </button>
+        </div>
+        <div id="adminClientsTableWrap"></div>
+      </div>
+
+      <!-- Усі заявки клієнтів в адмін-панелі -->
+      <div class="card">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
+          <h2 style="margin:0;">Заявки клієнтів, Живий підбір цін Prozorro (в межах всієї України) та Погодження видачі</h2>
+          <button class="btn btn-outline btn-sm" onclick="loadAdminData()">↻ Оновити дані</button>
+        </div>
+        <div id="adminOrdersTableWrap"></div>
+      </div>
+
+      <!-- Зворотний зв'язок з клієнтами та відвідувачами в адмін-панелі -->
+      <div class="card" style="border-left:4px solid var(--success);">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
+          <div>
+            <h2 style="margin:0;">💬 Зворотний зв'язок з адміністратором <span id="adminFbCountBadge"></span></h2>
+            <small style="color:var(--muted);">Звернення від зареєстрованих клієнтів та відвідувачів сайту з можливістю надати відповідь або відкрити клієнту доступ до зміни назви/ЄДРПОУ.</small>
+          </div>
+          <button class="btn btn-outline btn-sm" onclick="loadAdminData()">↻ Оновити звернення</button>
+        </div>
+        <div id="adminFeedbackTableWrap"></div>
+      </div>
+
+      <!-- Завантаження та управління формами в адмін-панелі -->
+      <div class="card">
+        <h2>Управління формами подачі даних (імпорт .docx)</h2>
+        <div class="grid-2">
+          <div style="background:#f8fafc; padding:15px; border:1px solid var(--border); border-radius:8px;">
+            <h3 style="margin-top:0; font-size:16px;">Завантажити нову форму з файлу Word (.docx)</h3>
+            <p style="font-size:13px; color:var(--muted);">
+              Завантажте файл .docx із таблицею полів. Система автоматично розпізнає поля та зробить форму доступною в особистих кабінетах клієнтів.
+            </p>
+            <div class="form-group">
+              <label>Назва форми для кабінету користувача</label>
+              <input type="text" id="adminUploadFormTitle" placeholder="Напр.: Форма заявки на аналіз цін Prozorro" />
+            </div>
+            <div class="form-group">
+              <label>Короткий опис форми</label>
+              <input type="text" id="adminUploadFormDesc" placeholder="Опис призначення форми для клієнта" />
+            </div>
+            <div class="form-group">
+              <label>Файл шаблону .docx</label>
+              <input type="file" id="adminFormDocxInput" accept=".docx" />
+            </div>
+            <button class="btn btn-primary" onclick="uploadNewAdminFormDocx()">Завантажити .docx та створити форму</button>
+          </div>
+
+          <div>
+            <h3 style="margin-top:0; font-size:16px;">Активні форми в системі</h3>
+            <div id="adminFormsList"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== МОДАЛЬНЕ ВІКНО ДОДАВАННЯ / РЕДАГУВАННЯ КОРИСТУВАЧА ТА ПРАВ ДОСТУПУ ===================== -->
+<div class="modal-backdrop" id="userModal">
+  <div class="modal">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+      <h3 style="margin:0;" id="userModalTitle">Налаштування користувача та ступеня доступу</h3>
+      <button class="btn btn-outline btn-sm" onclick="closeUserModal()">✕ Закрити</button>
+    </div>
+
+    <input type="hidden" id="um_id" value="" />
+    <div class="grid-3">
+      <div class="form-group">
+        <label>ПІБ уповноваженої особи / користувача *</label>
+        <input type="text" id="um_full_name" placeholder="Власне ім'я ПРІЗВИЩЕ" />
+      </div>
+      <div class="form-group">
+        <label>Email (логін для входу) *</label>
+        <input type="email" id="um_email" placeholder="Електронна пошта для входу" />
+      </div>
+      <div class="form-group">
+        <label id="um_password_label">Пароль *</label>
+        <input type="text" id="um_password" placeholder="Введіть пароль" />
+      </div>
+      <div class="form-group">
+        <label>Найменування організації (Замовника)</label>
+        <input type="text" id="um_org_name" placeholder="Повне найменування організації" />
+      </div>
+      <div class="form-group">
+        <label>Код ЄДРПОУ</label>
+        <input type="text" id="um_edrpou" placeholder="8 цифр" />
+      </div>
+      <div class="form-group">
+        <label>Телефон</label>
+        <input type="text" id="um_phone" placeholder="+380..." />
+      </div>
+      <div class="form-group">
+        <label>Посада керівника (для грифу ЗАТВЕРДЖУЮ)</label>
+        <input type="text" id="um_director_title" placeholder="Посада керівника" />
+      </div>
+      <div class="form-group">
+        <label>Власне ім'я ПРІЗВИЩЕ керівника</label>
+        <input type="text" id="um_director_name" placeholder="Ім'я ПРІЗВИЩЕ" />
+      </div>
+      <div class="form-group">
+        <label>Офіційний веб-сайт</label>
+        <input type="text" id="um_website" placeholder="https://..." />
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Місцезнаходження (юридична адреса замовника)</label>
+      <input type="text" id="um_address" placeholder="Поштовий індекс, область, місто, вулиця, будинок" />
+    </div>
+
+    <div class="grid-3" style="background:#eff6ff; padding:12px; border-radius:8px; border:1px solid #bfdbfe; margin-bottom:14px;">
+      <div class="form-group" style="margin-bottom:0;">
+        <label>Розділ в адмін-панелі</label>
+        <select id="um_account_type">
+          <option value="client">🏢 Клієнт (Розділ «Клієнти»)</option>
+          <option value="admin">🛡 Адміністратор сайту (Розділ «Адміністратори сайту»)</option>
+        </select>
+      </div>
+      <div class="form-group" style="margin-bottom:0;">
+        <label>Індивідуальний режим надання результату клієнту</label>
+        <select id="um_delivery_override">
+          <option value="manual">🔒 Після модерації (після моєї згоди)</option>
+          <option value="auto">⚡ Автоматично одразу</option>
+        </select>
+      </div>
+      <div class="form-group" style="margin-bottom:0;">
+        <label>Ліміт доступних заявок та Статус</label>
+        <div style="display:flex; gap:8px; align-items:center;">
+          <input type="number" id="um_quota" value="5" style="width:90px;" />
+          <label style="display:flex; align-items:center; gap:5px; font-weight:600; margin:0; cursor:pointer;">
+            <input type="checkbox" id="um_is_active" checked style="width:16px; height:16px;" /> Активний
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Блок ступеня доступу до функціоналу -->
+    <div style="margin-bottom:14px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:8px;">
+        <label style="font-weight:700; font-size:14px; color:var(--primary);">
+          Ступінь доступу користувача до функціоналу кабінету:
+        </label>
+        <div style="display:flex; gap:6px; flex-wrap:wrap;">
+          <button type="button" class="btn btn-outline btn-sm" onclick="applyPermPreset('full')">Пресет: Повний доступ</button>
+          <button type="button" class="btn btn-outline btn-sm" onclick="applyPermPreset('basic')">Пресет: Базовий (без автопошуку і Додатка 2)</button>
+          <button type="button" class="btn btn-outline btn-sm" onclick="applyPermPreset('readonly')">Пресет: Тільки перегляд (без скачування .docx)</button>
+        </div>
+      </div>
+
+      <div class="perm-grid">
+        <label class="perm-item">
+          <input type="checkbox" id="perm_can_create_orders" checked />
+          <span><strong>Подача нових заявок</strong><br/><small style="color:var(--muted);">Доступ до заповнення форм та замовлення послуги</small></span>
+        </label>
+        <label class="perm-item">
+          <input type="checkbox" id="perm_can_prozorro_autofill" checked />
+          <span><strong>Автозаповнення через API Prozorro</strong><br/><small style="color:var(--muted);">Підтягування даних тендеру за номером UA-...</small></span>
+        </label>
+        <label class="perm-item">
+          <input type="checkbox" id="perm_can_docx_upload" checked />
+          <span><strong>Робота з файлами форм Word (.docx)</strong><br/><small style="color:var(--muted);">Скачування бланків та завантаження заповнених .docx</small></span>
+        </label>
+        <label class="perm-item">
+          <input type="checkbox" id="perm_can_view_price_table" checked />
+          <span><strong>Таблиця порівняння цін Prozorro</strong><br/><small style="color:var(--muted);">Перегляд порівняльної таблиці 3–4 тендерів у кабінеті</small></span>
+        </label>
+        <label class="perm-item">
+          <input type="checkbox" id="perm_can_download_main_doc" checked />
+          <span><strong>Скачування Файлу 1 (Основне Обґрунтування)</strong><br/><small style="color:var(--muted);">Завантаження основного документа за Постановою № 710</small></span>
+        </label>
+        <label class="perm-item">
+          <input type="checkbox" id="perm_can_download_annex_doc" checked />
+          <span><strong>Скачування Файлу 2 (Додаток з аналізом цін)</strong><br/><small style="color:var(--muted);">Завантаження довідково-аналітичних матеріалів (.docx)</small></span>
+        </label>
+        <label class="perm-item">
+          <input type="checkbox" id="perm_can_view_legal_variants" />
+          <span><strong>Експертний 3-варіантний висновок</strong><br/><small style="color:var(--muted);">Відображення аналізу ризиків ДАСУ / Практики / КАС ВС</small></span>
+        </label>
+        <label class="perm-item">
+          <input type="checkbox" id="perm_can_edit_org_details" />
+          <span><strong>Зміна назви та ЄДРПОУ замовника</strong><br/><small style="color:var(--muted);">Дозвіл клієнту самостійно редагувати назву організації та ЄДРПОУ у профілі</small></span>
+        </label>
+      </div>
+    </div>
+
+    <div style="display:flex; justify-content:flex-end; gap:10px;">
+      <button class="btn btn-outline" onclick="closeUserModal()">Скасувати</button>
+      <button class="btn btn-primary" onclick="saveUserFromModal()">💾 Зберегти користувача та права доступу</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== МОДАЛЬНЕ ВІКНО РЕДАГУВАННЯ ЗАЯВКИ ТА ЖИВОГО ПОШУКУ PROZORRO API ===================== -->
+<div class="modal-backdrop" id="editOrderModal">
+  <div class="modal">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+      <h3 style="margin:0;" id="editOrderModalTitle">Редагування заявки та Живий підбір цін Prozorro (Варіант 3)</h3>
+      <button class="btn btn-outline btn-sm" onclick="closeEditOrderModal()">✕ Закрити</button>
+    </div>
+    <div id="editOrderModalBody"></div>
+  </div>
+</div>
+
+<div class="toast" id="toastBox"></div>
+<script>
+  let AUTH_TOKEN = localStorage.getItem("tender_token") || "";
+  let CURRENT_USER = null;
+  let PUBLIC_FORMS = [];
+  let PUBLIC_SETTINGS = {};
+  let MY_ORDERS = [];
+  let ADMIN_OVERVIEW = null;
+  let CURRENT_UPLOADED_DOCX_NAME = "";
+
+  function showToast(msg) {
+    const el = document.getElementById("toastBox");
+    el.textContent = msg;
+    el.style.display = "block";
+    clearTimeout(window._toastTimer);
+    window._toastTimer = setTimeout(() => { el.style.display = "none"; }, 4200);
+  }
+
+  async function apiFetch(url, options = {}) {
+    const headers = options.headers || {};
+    if (AUTH_TOKEN) {
+      headers["Authorization"] = "Bearer " + AUTH_TOKEN;
+    }
+    if (options.body && typeof options.body === "object") {
+      headers["Content-Type"] = "application/json";
+      options.body = JSON.stringify(options.body);
+    }
+    options.headers = headers;
+    const res = await fetch(url, options);
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      throw new Error(data.error || "Помилка запиту до сервера");
+    }
+    return data;
+  }
+
+  async function initApp() {
+    try {
+      const pub = await apiFetch("/api/public/info");
+      PUBLIC_FORMS = pub.forms || [];
+      PUBLIC_SETTINGS = pub.settings || {};
+      applyBrandingSettings(PUBLIC_SETTINGS);
+    } catch (e) {
+      console.error(e);
+    }
+
+    if (AUTH_TOKEN) {
+      try {
+        const me = await apiFetch("/api/me");
+        CURRENT_USER = me.user;
+        renderLoggedInState();
+        return;
+      } catch (e) {
+        AUTH_TOKEN = "";
+        localStorage.removeItem("tender_token");
+      }
+    }
+    renderLoggedOutState();
+  }
+
+  function applyBrandingSettings(s) {
+    const st = s || {};
+    const title = st.platform_name || "Тендерний помічник";
+    const sub = st.platform_subtitle || "";
+    const logoUrl = st.logo_data_url || "";
+
+    const hTitle = document.getElementById("headerTitle");
+    const hSub = document.getElementById("headerSubtitle");
+    const hLogo = document.getElementById("headerLogo");
+    if (hTitle) hTitle.textContent = title;
+    if (hSub) {
+      hSub.textContent = sub;
+      hSub.style.display = sub ? "block" : "none";
+    }
+    if (hLogo) {
+      if (logoUrl) {
+        hLogo.src = logoUrl;
+        hLogo.style.display = "block";
+      } else {
+        hLogo.removeAttribute("src");
+        hLogo.style.display = "none";
+      }
+    }
+    document.title = title;
+    const fBrand = document.getElementById("footBrand");
+    if (fBrand) fBrand.textContent = title;
+    const fSub = document.getElementById("footSubtitle");
+    if (fSub && sub) fSub.textContent = sub;
+  }
+
+  function renderLoggedOutState() {
+    document.getElementById("authSection").style.display = "block";
+    document.getElementById("appSection").style.display = "none";
+    document.getElementById("userBar").innerHTML = `
+      <nav class="nav-links">
+        <a href="#services">Послуги</a><a href="#how">Як це працює</a><a href="#benefits">Переваги</a><a href="#faq">Питання</a><a href="#feedbackPublic">Зворотний зв'язок</a><a href="#contacts">Контакти</a>
+      </nav>
+      <a class="btn btn-light btn-sm" href="#auth" onclick="showAuthTab('login')">Вхід</a>`;
+    renderPublicFooter();
+  }
+
+  function renderLoggedInState() {
+    document.getElementById("authSection").style.display = "none";
+    document.getElementById("appSection").style.display = "block";
+
+    const perms = CURRENT_USER.permissions || {};
+    const isAdmin = CURRENT_USER.role === "admin";
+
+    const roleLabel = isAdmin
+      ? `<span class="badge badge-info">АДМІНІСТРАТОР (АРТЕМ)</span>`
+      : `<span class="badge badge-success">КАБІНЕТ КЛІЄНТА: ${escapeHtml(CURRENT_USER.org_name || CURRENT_USER.full_name)} (Доступно заявок: ${CURRENT_USER.quota})</span>`;
+
+    document.getElementById("userBar").innerHTML = `
+      ${roleLabel}
+      <span style="font-size:13.5px; font-weight:600;">${escapeHtml(CURRENT_USER.full_name)}</span>
+      <button class="btn btn-outline btn-sm" onclick="doLogout()">Вийти</button>
+    `;
+
+    document.getElementById("prozorroAutofillBox").style.display = (isAdmin || perms.can_prozorro_autofill !== false) ? "block" : "none";
+    document.getElementById("docxExchangeBox").style.display = (isAdmin || perms.can_docx_upload !== false) ? "flex" : "none";
+
+    const tabsEl = document.getElementById("mainTabs");
+    let tabsHtml = "";
+    if (isAdmin) {
+      tabsHtml += `<button class="tab-btn" id="btnTab_tabAdmin" onclick="switchTab('tabAdmin')">⚙ Адмін-панель (Клієнти, Форми, Модерація)</button>`;
+    }
+    if (isAdmin || perms.can_create_orders !== false) {
+      tabsHtml += `<button class="tab-btn" id="btnTab_tabNewOrder" onclick="switchTab('tabNewOrder')">➕ Подати заявку за формою</button>`;
+    }
+    tabsHtml += `
+      <button class="tab-btn" id="btnTab_tabMyOrders" onclick="switchTab('tabMyOrders')">📂 Мої заявки та Результати (.docx)</button>
+      <button class="tab-btn" id="btnTab_tabProfile" onclick="switchTab('tabProfile')">🏢 Профіль замовника</button>
+      <button class="tab-btn" id="btnTab_tabFeedback" onclick="switchTab('tabFeedback')">💬 Зворотний зв'язок з адміністратором</button>
+    `;
+    tabsEl.innerHTML = tabsHtml;
+
+    populateFormsDropdown();
+    populateProfileFields();
+
+    if (isAdmin) {
+      switchTab("tabAdmin");
+    } else if (perms.can_create_orders !== false) {
+      switchTab("tabNewOrder");
+    } else {
+      switchTab("tabMyOrders");
+    }
+  }
+
+  function switchTab(tabId) {
+    document.querySelectorAll(".tab-pane").forEach(el => el.style.display = "none");
+    document.querySelectorAll(".tab-btn").forEach(el => el.classList.remove("active"));
+    const target = document.getElementById(tabId);
+    if (target) target.style.display = "block";
+    const btn = document.getElementById("btnTab_" + tabId);
+    if (btn) btn.classList.add("active");
+
+    if (tabId === "tabMyOrders") loadOrders();
+    if (tabId === "tabProfile") populateProfileFields();
+    if (tabId === "tabFeedback") loadFeedbackMessages();
+    if (tabId === "tabAdmin") loadAdminData();
+  }
+
+  function showAuthTab(which) {
+    const isLogin = which !== "register";
+    document.getElementById("authPanelLogin").style.display = isLogin ? "block" : "none";
+    document.getElementById("authPanelRegister").style.display = isLogin ? "none" : "block";
+    document.getElementById("authTabLogin").classList.toggle("active", isLogin);
+    document.getElementById("authTabRegister").classList.toggle("active", !isLogin);
+  }
+
+  function renderPublicFooter() {
+    const s = PUBLIC_SETTINGS || {};
+    const parts = [];
+    if (s.contact_email) parts.push(`Email: <a href="mailto:${escapeHtml(s.contact_email)}">${escapeHtml(s.contact_email)}</a>`);
+    if (s.contact_phone) parts.push(`Телефон: ${escapeHtml(s.contact_phone)}`);
+    document.getElementById("footContacts").innerHTML = parts.length
+      ? parts.join("<br/>")
+      : `Для зв'язку зареєструйте кабінет — адміністратор відповість у системі.`;
+    applyBrandingSettings(s);
+  }
+
+  async function doLogin() {
+    try {
+      const email = document.getElementById("loginEmail").value;
+      const password = document.getElementById("loginPassword").value;
+      const res = await apiFetch("/api/auth/login", { method: "POST", body: { email, password } });
+      AUTH_TOKEN = res.token;
+      localStorage.setItem("tender_token", AUTH_TOKEN);
+      CURRENT_USER = res.user;
+      showToast("Вітаємо, " + CURRENT_USER.full_name + "!");
+      await initApp();
+    } catch (e) {
+      showToast(e.message);
+    }
+  }
+
+  async function doRegister() {
+    try {
+      const body = {
+        full_name: document.getElementById("regName").value,
+        email: document.getElementById("regEmail").value,
+        org_name: document.getElementById("regOrg").value,
+        edrpou: document.getElementById("regEdrpou").value,
+        director_name: document.getElementById("regDirector").value,
+        password: document.getElementById("regPassword").value
+      };
+      const res = await apiFetch("/api/auth/register", { method: "POST", body });
+      AUTH_TOKEN = res.token;
+      localStorage.setItem("tender_token", AUTH_TOKEN);
+      CURRENT_USER = res.user;
+      showToast("Особистий кабінет створено! Вам нараховано 5 безкоштовних заявок.");
+      await initApp();
+    } catch (e) {
+      showToast(e.message);
+    }
+  }
+
+  function clearAllRequestAndCabinetFields() {
+    MY_ORDERS = [];
+    ADMIN_OVERVIEW = null;
+    CURRENT_UPLOADED_DOCX_NAME = "";
+    window._lastLiveSearchItems = [];
+
+    const idsToClear = [
+      "prozorroLookupInput",
+      "userDocxUpload",
+      "fbCustomSubject",
+      "fbMessageText",
+      "newAuthPersonInput",
+      "pubFbName",
+      "pubFbEmail",
+      "pubFbOrg",
+      "pubFbSubject",
+      "pubFbMessage",
+      "loginEmail",
+      "loginPassword",
+      "regName",
+      "regEmail",
+      "regOrg",
+      "regEdrpou",
+      "regDirector",
+      "regPassword",
+      "profFullName",
+      "profOrgName",
+      "profEdrpou",
+      "profAddress",
+      "profDirectorTitle",
+      "profDirectorName",
+      "profPhone",
+      "profWebsite",
+      "adminUploadFormTitle",
+      "adminUploadFormDesc",
+      "adminFormDocxInput"
+    ];
+    idsToClear.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = "";
+    });
+
+    const badgeEl = document.getElementById("uploadedDocxBadge");
+    if (badgeEl) badgeEl.textContent = "";
+
+    const dynFields = document.getElementById("dynamicFormFields");
+    if (dynFields) {
+      dynFields.querySelectorAll("input, textarea, select").forEach(inp => { inp.value = ""; });
+      dynFields.innerHTML = "";
+    }
+
+    [
+      "myOrdersContainer",
+      "myFeedbackListContainer",
+      "authPersonsListContainer",
+      "adminUsersTableWrap",
+      "adminClientsTableWrap",
+      "adminOrdersTableWrap",
+      "adminFeedbackTableWrap",
+      "editOrderModalBody"
+    ].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.innerHTML = "";
+    });
+
+    const uModal = document.getElementById("userModal");
+    if (uModal) uModal.style.display = "none";
+    const eModal = document.getElementById("editOrderModal");
+    if (eModal) eModal.style.display = "none";
+  }
+
+  function doLogout() {
+    AUTH_TOKEN = "";
+    CURRENT_USER = null;
+    localStorage.removeItem("tender_token");
+    clearAllRequestAndCabinetFields();
+    renderLoggedOutState();
+    showToast("Ви вийшли з особистого кабінету. Усі поля запитів очищено.");
+  }
+
+  function populateFormsDropdown() {
+    const sel = document.getElementById("selectedFormSelect");
+    if (!sel) return;
+    sel.innerHTML = PUBLIC_FORMS.map(f => `<option value="${f.id}">${escapeHtml(f.title)}</option>`).join("");
+    onSelectFormChange();
+  }
+
+  function getSelectedFormObj() {
+    const sel = document.getElementById("selectedFormSelect");
+    const fid = sel ? parseInt(sel.value, 10) : 0;
+    return PUBLIC_FORMS.find(f => f.id === fid) || PUBLIC_FORMS[0];
+  }
+
+  function onSelectFormChange() {
+    const form = getSelectedFormObj();
+    if (!form) return;
+    document.getElementById("selectedFormDesc").textContent = form.description || "";
+    const container = document.getElementById("dynamicFormFields");
+
+    const defaults = {
+      buyer_name: CURRENT_USER?.org_name || "",
+      edrpou: CURRENT_USER?.edrpou || "",
+      buyer_address: CURRENT_USER?.address || "",
+      director_title: CURRENT_USER?.director_title || "",
+      director_name: CURRENT_USER?.director_name || "",
+      authorized_person: CURRENT_USER?.full_name || "",
+      phone: CURRENT_USER?.phone || "",
+      website: CURRENT_USER?.website || "",
+      delivery_term: "до 31 грудня 2026 року"
+    };
+
+    const allAuthPersons = [];
+    if (CURRENT_USER?.full_name) allAuthPersons.push(CURRENT_USER.full_name);
+    (CURRENT_USER?.authorized_persons || []).forEach(p => {
+      if (p && !allAuthPersons.includes(p)) allAuthPersons.push(p);
+    });
+
+    const canEditOrg = CURRENT_USER?.role === "admin" || Boolean(CURRENT_USER?.permissions?.can_edit_org_details);
+
+    const visibleFields = (form.fields || []).filter(f =>
+      f.key !== "email" &&
+      !String(f.label || "").toLowerCase().includes("email") &&
+      !String(f.label || "").toLowerCase().includes("електронна пошта")
+    );
+
+    container.innerHTML = visibleFields.map(f => {
+      const val = defaults[f.key] || "";
+      const reqStar = f.required ? " *" : "";
+      if (f.type === "textarea") {
+        return `
+          <div class="form-group" style="grid-column: 1 / -1;">
+            <label>${escapeHtml(f.label)}${reqStar}</label>
+            <textarea data-field-key="${escapeHtml(f.key)}">${escapeHtml(val)}</textarea>
+          </div>
+        `;
+      }
+      if (f.key === "authorized_person" && allAuthPersons.length > 1) {
+        return `
+          <div class="form-group">
+            <label>${escapeHtml(f.label)}${reqStar}</label>
+            <div style="display:flex; gap:6px;">
+              <input type="text" data-field-key="authorized_person" id="orderAuthPersonField" value="${escapeHtml(val)}" style="flex:1;" />
+              <select style="max-width:210px;" onchange="if(this.value) document.getElementById('orderAuthPersonField').value = this.value;">
+                <option value="">— Обрати зі списку ПІБ —</option>
+                ${allAuthPersons.map(p => `<option value="${escapeHtml(p)}">${escapeHtml(p)}</option>`).join("")}
+              </select>
+            </div>
+          </div>
+        `;
+      }
+      const isOrgLockedField = !canEditOrg && (f.key === "buyer_name" || f.key === "edrpou") && Boolean(val);
+      return `
+        <div class="form-group">
+          <label>${escapeHtml(f.label)}${reqStar} ${isOrgLockedField ? '<span class="badge badge-warn" style="font-size:10.5px;">🔒 Закріплено за профілем</span>' : ''}</label>
+          <input type="${f.type === 'number' ? 'number' : 'text'}" step="any" data-field-key="${escapeHtml(f.key)}" value="${escapeHtml(val)}" ${isOrgLockedField ? 'readonly style="background:#f1f5f9; color:#475569; cursor:not-allowed;"' : ''} />
+        </div>
+      `;
+    }).join("");
+  }
+
+  function downloadCurrentFormBlank() {
+    const form = getSelectedFormObj();
+    if (!form) return;
+    window.location.href = `/api/forms/download/${form.id}?token=${encodeURIComponent(AUTH_TOKEN)}`;
+  }
+
+  async function handleUserFilledDocx(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = async () => {
+      const base64 = reader.result.split(",")[1];
+      try {
+        const res = await apiFetch("/api/forms/parse-filled-docx", {
+          method: "POST",
+          body: { filename: file.name, content_base64: base64 }
+        });
+        CURRENT_UPLOADED_DOCX_NAME = res.saved_name;
+        const mapped = res.parsed?.mapped || {};
+        let count = 0;
+        document.querySelectorAll("#dynamicFormFields [data-field-key]").forEach(inp => {
+          if (inp.readOnly) return;
+          const k = inp.getAttribute("data-field-key");
+          if (mapped[k]) {
+            inp.value = mapped[k];
+            count++;
+          }
+        });
+        document.getElementById("uploadedDocxBadge").textContent = `✓ Файл «${file.name}» завантажено та розпізнано (${count} полів підставлено)`;
+        showToast("Дані з таблиці Word (.docx) підставлено у форму!");
+      } catch (e) {
+        showToast(e.message);
+      }
+    };
+    reader.readAsDataURL(file);
+  }
+
+  async function autofillFromProzorro() {
+    const lookupEl = document.getElementById("prozorroLookupInput");
+    const formTidEl = document.querySelector('#dynamicFormFields [data-field-key="tender_id"]');
+    const tid = (lookupEl?.value || formTidEl?.value || "").trim();
+    if (!tid) {
+      showToast("Введіть ідентифікатор закупівлі UA-...");
+      return;
+    }
+    showToast("Виконується запит до API Prozorro...");
+    try {
+      const res = await apiFetch(`/api/prozorro/lookup?tender_id=${encodeURIComponent(tid)}`);
+      if (!res.found) {
+        showToast(res.message || "Тендер не знайдено");
+        return;
+      }
+      const d = res.data || {};
+      if (lookupEl && d.tender_id) {
+        lookupEl.value = d.tender_id;
+      }
+      document.querySelectorAll("#dynamicFormFields [data-field-key]").forEach(inp => {
+        if (inp.readOnly && inp.value.trim() !== "") return;
+        const k = inp.getAttribute("data-field-key");
+        if (d[k] !== undefined && d[k] !== "") {
+          inp.value = d[k];
+        }
+      });
+      showToast(`Дані закупівлі ${d.tender_id || tid} успішно отримано з Prozorro!`);
+    } catch (e) {
+      showToast(e.message);
+    }
+  }
+
+  async function submitOrderForm() {
+    const form = getSelectedFormObj();
+    if (!form) return;
+    const input_data = {};
+    document.querySelectorAll("#dynamicFormFields [data-field-key]").forEach(inp => {
+      input_data[inp.getAttribute("data-field-key")] = inp.value.trim();
+    });
+    const lookupVal = (document.getElementById("prozorroLookupInput")?.value || "").trim();
+    if (!input_data.tender_id && lookupVal) {
+      input_data.tender_id = lookupVal;
+    }
+
+    if (!input_data.subject_name || !input_data.expected_value) {
+      showToast("Будь ласка, заповніть предмет закупівлі та очікувану вартість!");
+      return;
+    }
+
+    try {
+      showToast("Пошук закупівель у системі Prozorro та формування документів...");
+      const res = await apiFetch("/api/orders/create", {
+        method: "POST",
+        body: {
+          form_id: form.id,
+          input_data,
+          uploaded_docx_name: CURRENT_UPLOADED_DOCX_NAME
+        }
+      });
+      if (CURRENT_USER && CURRENT_USER.role !== "admin") {
+        CURRENT_USER.quota = Math.max(0, (CURRENT_USER.quota || 0) - 1);
+      }
+      // Очищаємо поля запиту після відправки
+      const lookupEl = document.getElementById("prozorroLookupInput");
+      if (lookupEl) lookupEl.value = "";
+      const upEl = document.getElementById("userDocxUpload");
+      if (upEl) upEl.value = "";
+      const badgeEl = document.getElementById("uploadedDocxBadge");
+      if (badgeEl) badgeEl.textContent = "";
+      CURRENT_UPLOADED_DOCX_NAME = "";
+      onSelectFormChange();
+
+      if (res.is_released) {
+        showToast("Заявку оброблено автоматично! Обидва файли .docx готові до завантаження.");
+      } else {
+        showToast("Заявку прийнято! Документи сформовано та передано на погодження адміністратору.");
+      }
+      switchTab("tabMyOrders");
+    } catch (e) {
+      showToast(e.message);
+    }
+  }
+
+  async function loadOrders() {
+    try {
+      const res = await apiFetch("/api/orders");
+      MY_ORDERS = res.orders || [];
+      renderMyOrders();
+    } catch (e) {
+      showToast(e.message);
+    }
+  }
+
+  function renderMyOrders() {
+    const wrap = document.getElementById("myOrdersContainer");
+    if (!MY_ORDERS.length) {
+      wrap.innerHTML = `<p style="color:var(--muted);">У цьому кабінеті ще немає поданих заявок.</p>`;
+      return;
+    }
+
+    const perms = CURRENT_USER.permissions || {};
+    const isAdmin = CURRENT_USER.role === "admin";
+
+    wrap.innerHTML = MY_ORDERS.map(o => {
+      const inp = o.input_data || {};
+      const stats = o.stats || {};
+      const consult = o.consultation || {};
+      const releasedBadge = o.is_released
+        ? `<span class="badge badge-success">✓ РЕЗУЛЬТАТ НАДАНО (ДОСТУП ВІДКРИТО)</span>`
+        : `<span class="badge badge-warn">⏳ ОЧІКУЄ ПОГОДЖЕННЯ АДМІНІСТРАТОРА</span>`;
+
+      if (!o.is_released && !isAdmin) {
+        return `
+          <div class="card" style="border-left: 5px solid var(--warn);">
+            <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;">
+              <div>
+                <strong>Заявка #${o.id}</strong> від ${escapeHtml(o.created_at)} — <span>${escapeHtml(o.form_title)}</span>
+              </div>
+              ${releasedBadge}
+            </div>
+            <p style="margin:10px 0 4px;">
+              <strong>Замовник:</strong> ${escapeHtml(inp.buyer_name || "")} (ЄДРПОУ: ${escapeHtml(inp.edrpou || "")})<br/>
+              <strong>Предмет закупівлі:</strong> ${escapeHtml(inp.subject_name || "")} (${escapeHtml(inp.cpv_code || "")})<br/>
+              <strong>Очікувана вартість (без ПДВ):</strong> ${Number(inp.expected_value || 0).toLocaleString('uk-UA')} грн
+            </p>
+            <div style="background:#fef3c7; color:#92400e; padding:10px 14px; border-radius:6px; font-size:13px; margin-top:8px;">
+              Порівняння цін у системі Prozorro та проєкти 2 файлів обґрунтування сформовані системою і очікують згоди адміністратора.
+            </div>
+          </div>
+        `;
+      }
+
+      const canMainDoc = isAdmin || perms.can_download_main_doc !== false;
+      const canAnnexDoc = isAdmin || perms.can_download_annex_doc !== false;
+      const canPriceTable = isAdmin || perms.can_view_price_table !== false;
+      const canLegal = isAdmin || Boolean(perms.can_view_legal_variants);
+
+      const benchRows = (o.benchmarks || []).map((b, i) => `
+        <tr>
+          <td>${i + 1}</td>
+          <td>${escapeHtml(b.buyer || "")}</td>
+          <td>${escapeHtml(b.supplier || "")}</td>
+          <td>
+            <strong>${escapeHtml(b.tender_id || "")}</strong><br/>
+            <a href="${escapeHtml(b.url || ('https://prozorro.gov.ua/uk/tender/' + b.tender_id))}" target="_blank" style="color:#000; text-decoration:underline;">
+              ${escapeHtml(b.url || ('https://prozorro.gov.ua/uk/tender/' + b.tender_id))}
+            </a>
+          </td>
+          <td>${escapeHtml(String(b.volume || ""))} ${escapeHtml(stats.unit_name || "")}</td>
+          <td>
+            <strong>${Number(b.amount_no_vat || 0).toLocaleString('uk-UA')} грн без ПДВ</strong><br/>
+            (${Number(b.unit_price_no_vat || 0).toLocaleString('uk-UA')} грн/${escapeHtml(stats.unit_name || "од.")})
+          </td>
+        </tr>
+      `).join("");
+
+      return `
+        <div class="card" style="border-left: 5px solid var(--success);">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:12px;">
+            <div>
+              <strong style="font-size:16px;">Заявка #${o.id}: ${escapeHtml(inp.subject_name || "")}</strong>
+              <div style="font-size:12.5px; color:var(--muted);">
+                Замовник: ${escapeHtml(inp.buyer_name || "")} (ЄДРПОУ ${escapeHtml(inp.edrpou || "")}) | Тендер: ${escapeHtml(inp.tender_id || "—")} | Створено: ${escapeHtml(o.created_at)}
+              </div>
+            </div>
+            ${releasedBadge}
+          </div>
+
+          <div class="grid-3" style="margin-bottom:14px;">
+            <div class="stat-box">
+              <div class="label">Очікувана вартість (без ПДВ)</div>
+              <div class="val">${Number(stats.expected_value_no_vat || 0).toLocaleString('uk-UA')} грн</div>
+              <div style="font-size:12px; color:var(--muted);">Обсяг: ${stats.quantity || 0} ${escapeHtml(stats.unit_name || "")}</div>
+            </div>
+            <div class="stat-box">
+              <div class="label">Ціна замовника за 1 ${escapeHtml(stats.unit_name || "од.")} (без ПДВ)</div>
+              <div class="val">${Number(stats.unit_price_no_vat || 0).toLocaleString('uk-UA')} грн</div>
+              <div style="font-size:12px; color:var(--muted);">Відхилення від ринку: ${stats.deviation_pct > 0 ? '+' : ''}${stats.deviation_pct || 0}%</div>
+            </div>
+            <div class="stat-box">
+              <div class="label">Середньоринкова ціна Prozorro (без ПДВ)</div>
+              <div class="val">${Number(stats.avg_market_price_no_vat || 0).toLocaleString('uk-UA')} грн</div>
+              <div style="font-size:12px; color:var(--muted);">Діапазон: ${Number(stats.min_market_price_no_vat || 0).toLocaleString('uk-UA')} – ${Number(stats.max_market_price_no_vat || 0).toLocaleString('uk-UA')} грн</div>
+            </div>
+          </div>
+
+          <div style="background:#f0fdf4; border:1px solid #bbf7d0; padding:12px 16px; border-radius:8px; margin-bottom:14px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;">
+            <div>
+              <strong style="color:#166534;">Готові документи за ДСТУ 4163:2020 (Zero-Color Policy, Times New Roman):</strong>
+              <div style="font-size:12.5px; color:#15803d;">1 файл Обґрунтування (п. 1–4) та 1 файл Додатка до обґрунтування (п. 1, 2, 2.1, 2.2 без ПДВ)</div>
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              ${canMainDoc ? `
+                <a class="btn btn-primary btn-sm" href="/api/orders/download/${o.id}/1?token=${encodeURIComponent(AUTH_TOKEN)}">
+                  📄 Скачати: ${escapeHtml(o.file1_name || "Обґрунтування (.docx)")}
+                </a>` : `<span class="badge badge-warn">Файл 1 обмежено рівнем доступу</span>`
+              }
+              ${canAnnexDoc ? `
+                <a class="btn btn-success btn-sm" href="/api/orders/download/${o.id}/2?token=${encodeURIComponent(AUTH_TOKEN)}">
+                  📊 Скачати: ${escapeHtml(o.file2_name || "Додаток до обґрунтування (.docx)")}
+                </a>` : `<span class="badge badge-warn">Файл 2 обмежено рівнем доступу</span>`
+              }
+            </div>
+          </div>
+
+          <h4 style="margin:10px 0 6px;">1. Загальні відомості про замовника та закупівлю (згідно з формою Обґрунтування):</h4>
+          <div style="overflow-x:auto; margin-bottom:14px;">
+            <table>
+              <tbody>
+                <tr>
+                  <th style="width:38%;">Найменування замовника:</th>
+                  <td>${escapeHtml(inp.buyer_name || "")}</td>
+                </tr>
+                <tr>
+                  <th>Ідентифікаційний код замовника в ЄДР:</th>
+                  <td>${escapeHtml(inp.edrpou || "")}</td>
+                </tr>
+                <tr>
+                  <th>Вид та назва предмета закупівлі:</th>
+                  <td>Товари — ${escapeHtml(inp.subject_name || "")}</td>
+                </tr>
+                <tr>
+                  <th>Код за Єдиним закупівельним словником:</th>
+                  <td>ДК 021:2015: ${escapeHtml(inp.cpv_code || "")}</td>
+                </tr>
+                <tr>
+                  <th>Кількість товарів:</th>
+                  <td>${Number(stats.quantity || inp.quantity || 1).toLocaleString('uk-UA')} ${escapeHtml(stats.unit_name || inp.unit_name || "")}</td>
+                </tr>
+                <tr>
+                  <th>Очікувана вартість предмета закупівлі:</th>
+                  <td><strong>${Number(stats.expected_value_no_vat || inp.expected_value || 0).toLocaleString('uk-UA')} грн без ПДВ</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          ${canPriceTable && (o.benchmarks || []).length ? `
+            <h4 style="margin:10px 0 6px;">2.1. Аналіз закупівель та укладених договорів у системі Prozorro за 2026 рік (без ПДВ):</h4>
+            <div style="overflow-x:auto; margin-bottom:14px;">
+              <table>
+                <thead>
+                  <tr>
+                    <th>№</th>
+                    <th>Замовник</th>
+                    <th>Постачальник / Учасник</th>
+                    <th>Ідентифікатор та пряме посилання на Prozorro</th>
+                    <th>Обсяг</th>
+                    <th>Сума / Ціна за одиницю (без ПДВ)</th>
+                  </tr>
+                </thead>
+                <tbody>${benchRows}</tbody>
+              </table>
+            </div>
+          ` : ""}
+
+          ${canLegal && consult.variant_1_dasu ? `
+            <h4 style="margin:10px 0 6px;">Багатоваріантний експертний висновок (ДАСУ / Практика / КАС ВС):</h4>
+            <div class="variant-card"><strong>Варіант 1 (За буквою закону / Позиція ДАСУ):</strong> ${escapeHtml(consult.variant_1_dasu || "")}</div>
+            <div class="variant-card"><strong>Варіант 2 (Практичне / оптимізоване рішення замовника):</strong> ${escapeHtml(consult.variant_2_practical || "")}</div>
+            <div class="variant-card"><strong>Варіант 3 (Судова практика Верховного Суду та АМКУ):</strong> ${escapeHtml(consult.variant_3_judicial || "")}</div>
+          ` : ""}
+          ${o.admin_comment ? `<div style="margin-top:8px; font-size:13px; color:#1e3a8a;"><strong>Коментар адміністратора:</strong> ${escapeHtml(o.admin_comment)}</div>` : ""}
+        </div>
+      `;
+    }).join("");
+  }
+
+  function populateProfileFields() {
+    if (!CURRENT_USER) return;
+    document.getElementById("profFullName").value = CURRENT_USER.full_name || "";
+    document.getElementById("profOrgName").value = CURRENT_USER.org_name || "";
+    document.getElementById("profEdrpou").value = CURRENT_USER.edrpou || "";
+    document.getElementById("profAddress").value = CURRENT_USER.address || "";
+    document.getElementById("profDirectorTitle").value = CURRENT_USER.director_title || "";
+    document.getElementById("profDirectorName").value = CURRENT_USER.director_name || "";
+    document.getElementById("profPhone").value = CURRENT_USER.phone || "";
+    document.getElementById("profWebsite").value = CURRENT_USER.website || "";
+
+    const isAdmin = CURRENT_USER.role === "admin";
+    const canEditOrg = isAdmin || Boolean(CURRENT_USER.permissions?.can_edit_org_details);
+    const orgInp = document.getElementById("profOrgName");
+    const edrInp = document.getElementById("profEdrpou");
+    const noticeEl = document.getElementById("orgEditStatusNotice");
+    const lblOrgBadge = document.getElementById("lblOrgLockBadge");
+    const lblEdrBadge = document.getElementById("lblEdrpouLockBadge");
+
+    if (canEditOrg) {
+      orgInp.disabled = false;
+      edrInp.disabled = false;
+      orgInp.style.background = "#fff";
+      orgInp.style.color = "var(--ink)";
+      orgInp.style.cursor = "text";
+      edrInp.style.background = "#fff";
+      edrInp.style.color = "var(--ink)";
+      edrInp.style.cursor = "text";
+      if (lblOrgBadge) lblOrgBadge.innerHTML = `<span class="badge badge-success">🔓 Редагування дозволено</span>`;
+      if (lblEdrBadge) lblEdrBadge.innerHTML = `<span class="badge badge-success">🔓 Редагування дозволено</span>`;
+      if (noticeEl) {
+        noticeEl.innerHTML = `
+          <div style="background:#f0fdf4; border:1px solid #bbf7d0; color:#166534; padding:10px 14px; border-radius:8px; font-size:13px;">
+            🔓 <strong>Доступ відкрито адміністратором:</strong> Ви можете змінювати найменування організації замовника та код ЄДРПОУ.
+          </div>
+        `;
+      }
+    } else {
+      orgInp.disabled = true;
+      edrInp.disabled = true;
+      orgInp.style.background = "#f1f5f9";
+      orgInp.style.color = "#475569";
+      orgInp.style.cursor = "not-allowed";
+      edrInp.style.background = "#f1f5f9";
+      edrInp.style.color = "#475569";
+      edrInp.style.cursor = "not-allowed";
+      if (lblOrgBadge) lblOrgBadge.innerHTML = `<span class="badge badge-warn">🔒 Закрито</span>`;
+      if (lblEdrBadge) lblEdrBadge.innerHTML = `<span class="badge badge-warn">🔒 Закрито</span>`;
+      if (noticeEl) {
+        noticeEl.innerHTML = `
+          <div style="background:#fef3c7; border:1px solid #fde68a; color:#92400e; padding:10px 14px; border-radius:8px; font-size:13px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+            <span>🔒 <strong>Назва та код ЄДРПОУ замовника захищені від редагування.</strong> За потреби зміни зверніться до адміністратора сайту.</span>
+            <button type="button" class="btn btn-outline btn-sm" onclick="openFeedbackForOrgChange()">💬 Запитати дозвіл у адміністратора</button>
+          </div>
+        `;
+      }
+    }
+
+    renderAuthorizedPersonsList();
+  }
+
+  function renderAuthorizedPersonsList() {
+    const box = document.getElementById("authPersonsListContainer");
+    if (!box || !CURRENT_USER) return;
+    const list = CURRENT_USER.authorized_persons || [];
+    if (!list.length) {
+      box.innerHTML = `<div style="font-size:12.5px; color:var(--muted);">Додаткових уповноважених осіб поки не додано (використовується основне ПІБ: <strong>${escapeHtml(CURRENT_USER.full_name)}</strong>).</div>`;
+      return;
+    }
+    box.innerHTML = `
+      <div style="display:flex; flex-wrap:wrap; gap:8px;">
+        ${list.map((person, idx) => `
+          <div style="display:inline-flex; align-items:center; gap:8px; background:#fff; border:1px solid var(--border); padding:6px 12px; border-radius:99px; font-size:13px;">
+            <span>👤 <strong>${escapeHtml(person)}</strong></span>
+            <button type="button" class="btn btn-danger btn-sm" style="padding:2px 7px; font-size:11px; border-radius:99px;" onclick="removeAuthorizedPerson(${idx})" title="Видалити ПІБ уповноваженої особи">✕ Видалити</button>
+          </div>
+        `).join("")}
+      </div>
+    `;
+  }
+
+  async function addAuthorizedPerson() {
+    const inp = document.getElementById("newAuthPersonInput");
+    const name = (inp?.value || "").trim();
+    if (!name) {
+      showToast("Введіть ПІБ уповноваженої особи");
+      return;
+    }
+    try {
+      const res = await apiFetch("/api/profile/authorized-persons", {
+        method: "POST",
+        body: { action: "add", name }
+      });
+      CURRENT_USER = res.user;
+      inp.value = "";
+      renderAuthorizedPersonsList();
+      onSelectFormChange();
+      showToast(`Уповноважену особу «${name}» додано до профілю!`);
+    } catch (e) {
+      showToast(e.message);
+    }
+  }
+
+  async function removeAuthorizedPerson(idx) {
+    try {
+      const res = await apiFetch("/api/profile/authorized-persons", {
+        method: "POST",
+        body: { action: "delete", index: idx }
+      });
+      CURRENT_USER = res.user;
+      renderAuthorizedPersonsList();
+      onSelectFormChange();
+      showToast("ПІБ уповноваженої особи видалено з профілю.");
+    } catch (e) {
+      showToast(e.message);
+    }
+  }
+
+  function openFeedbackForOrgChange() {
+    switchTab("tabFeedback");
+    const sel = document.getElementById("fbTopicSelect");
+    if (sel) sel.value = "Запит на дозвіл змінити назву або ЄДРПОУ замовника";
+    const msg = document.getElementById("fbMessageText");
+    if (msg && !msg.value) {
+      msg.value = "Прошу надати доступ до редагування найменування організації та коду ЄДРПОУ у профілі замовника.";
+    }
+  }
+
+  function onFbTopicChange() {}
+
+  async function sendPublicFeedback() {
+    const sender_name = document.getElementById("pubFbName").value.trim();
+    const sender_email = document.getElementById("pubFbEmail").value.trim();
+    const sender_org = document.getElementById("pubFbOrg").value.trim();
+    const subject = document.getElementById("pubFbSubject").value.trim() || "Звернення зі стартової сторінки";
+    const message = document.getElementById("pubFbMessage").value.trim();
+    if (!sender_name || !sender_email || !message) {
+      showToast("Будь ласка, заповніть ПІБ, контактний Email/телефон та текст повідомлення!");
+      return;
+    }
+    try {
+      await apiFetch("/api/feedback/send", {
+        method: "POST",
+        body: { sender_name, sender_email, sender_org, subject, message }
+      });
+      document.getElementById("pubFbSubject").value = "";
+      document.getElementById("pubFbMessage").value = "";
+      showToast("Дякуємо! Ваше повідомлення успішно надіслано адміністратору сайту.");
+    } catch (e) {
+      showToast(e.message);
+    }
+  }
+
+  async function sendCabinetFeedback() {
+    const topic = document.getElementById("fbTopicSelect")?.value || "Звернення клієнта";
+    const extra = (document.getElementById("fbCustomSubject")?.value || "").trim();
+    const subject = extra ? `${topic} (${extra})` : topic;
+    const message = (document.getElementById("fbMessageText")?.value || "").trim();
+    if (!message) {
+      showToast("Введіть текст повідомлення для адміністратора!");
+      return;
+    }
+    try {
+      await apiFetch("/api/feedback/send", {
+        method: "POST",
+        body: { subject, message }
+      });
+      document.getElementById("fbMessageText").value = "";
+      if (document.getElementById("fbCustomSubject")) document.getElementById("fbCustomSubject").value = "";
+      showToast("Повідомлення надіслано адміністратору сайту!");
+      await loadFeedbackMessages();
+    } catch (e) {
+      showToast(e.message);
+    }
+  }
+
+  async function loadFeedbackMessages() {
+    const box = document.getElementById("myFeedbackListContainer");
+    if (!box) return;
+    try {
+      const res = await apiFetch("/api/feedback");
+      const items = res.messages || [];
+      if (!items.length) {
+        box.innerHTML = `<p style="color:var(--muted); margin:0;">Ви ще не надсилали звернень до адміністратора сайту.</p>`;
+        return;
+      }
+      box.innerHTML = items.map(m => {
+        const badge = m.admin_reply
+          ? `<span class="badge badge-success">✓ НАДАНО ВІДПОВІДЬ АДМІНІСТРАТОРА</span>`
+          : `<span class="badge badge-warn">⏳ ОЧІКУЄ ВІДПОВІДІ АДМІНІСТРАТОРА</span>`;
+        return `
+          <div style="border:1px solid var(--border); border-left:4px solid ${m.admin_reply ? 'var(--success)' : 'var(--primary)'}; border-radius:8px; padding:12px 14px; margin-bottom:10px; background:#fff;">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:6px;">
+              <strong>#${m.id}. ${escapeHtml(m.subject || "Звернення")}</strong>
+              <div style="display:flex; align-items:center; gap:8px;">
+                <small style="color:var(--muted);">${escapeHtml(m.created_at || "")}</small>
+                ${badge}
+              </div>
+            </div>
+            <div style="font-size:13.5px; color:var(--ink); white-space:pre-wrap;">${escapeHtml(m.message || "")}</div>
+            ${m.admin_reply ? `
+              <div style="margin-top:10px; background:#f0fdf4; border:1px solid #bbf7d0; padding:10px 12px; border-radius:6px; font-size:13.5px;">
+                <strong style="color:#166534;">Відповідь адміністратора сайту (${escapeHtml(m.replied_at || "")}):</strong><br/>
+                <span style="white-space:pre-wrap;">${escapeHtml(m.admin_reply)}</span>
+              </div>
+            ` : ""}
+          </div>
+        `;
+      }).join("");
+    } catch (e) {
+      box.innerHTML = `<div style="color:var(--danger);">${escapeHtml(e.message)}</div>`;
+    }
+  }
+
+  async function saveProfile() {
+    try {
+      const wasOrgEditable = CURRENT_USER?.role !== "admin" && Boolean(CURRENT_USER?.permissions?.can_edit_org_details);
+      const payload = {
+        full_name: document.getElementById("profFullName").value,
+        address: document.getElementById("profAddress").value,
+        director_title: document.getElementById("profDirectorTitle").value,
+        director_name: document.getElementById("profDirectorName").value,
+        phone: document.getElementById("profPhone").value,
+        website: document.getElementById("profWebsite").value
+      };
+      if (CURRENT_USER?.role === "admin" || CURRENT_USER?.permissions?.can_edit_org_details) {
+        payload.org_name = document.getElementById("profOrgName").value;
+        payload.edrpou = document.getElementById("profEdrpou").value;
+      }
+      const res = await apiFetch("/api/profile/update", {
+        method: "POST",
+        body: payload
+      });
+      CURRENT_USER = res.user;
+      populateProfileFields();
+      onSelectFormChange();
+      if (CURRENT_USER.role !== "admin") {
+        document.getElementById("userBar").innerHTML = `
+          <span class="badge badge-success">КАБІНЕТ КЛІЄНТА: ${escapeHtml(CURRENT_USER.org_name || CURRENT_USER.full_name)} (Доступно заявок: ${CURRENT_USER.quota})</span>
+          <span style="font-size:13.5px; font-weight:600;">${escapeHtml(CURRENT_USER.full_name)}</span>
+          <button class="btn btn-outline btn-sm" onclick="doLogout()">Вийти</button>
+        `;
+      }
+      showToast(wasOrgEditable
+        ? "Реквізити збережено! Поля назви та ЄДРПОУ знову стали неактивними для редагування."
+        : "Реквізити профілю збережено!"
+      );
+    } catch (e) {
+      showToast(e.message);
+    }
+  }
+
+  // ==================== АДМІН-ПАНЕЛЬ ЛОГІКА ====================
+  async function loadAdminData() {
+    try {
+      const [ov, ordRes] = await Promise.all([
+        apiFetch("/api/admin/overview"),
+        apiFetch("/api/orders")
+      ]);
+      ADMIN_OVERVIEW = ov;
+      MY_ORDERS = ordRes.orders || [];
+      renderAdminPanel();
+    } catch (e) {
+      showToast(e.message);
+    }
+  }
+
+  function formatPermSummary(perms) {
+    if (!perms) return "Повний доступ";
+    const map = [
+      ["can_create_orders", "Подача заявок"],
+      ["can_prozorro_autofill", "API Prozorro"],
+      ["can_docx_upload", "Форми .docx"],
+      ["can_view_price_table", "Таблиця цін"],
+      ["can_download_main_doc", "Файл 1"],
+      ["can_download_annex_doc", "Файл 2"],
+      ["can_view_legal_variants", "Правовий аналіз"],
+      ["can_edit_org_details", "Зміна назви/ЄДРПОУ"]
+    ];
+    const enabled = map.filter(([k]) => {
+      if (k === "can_view_legal_variants" || k === "can_edit_org_details") return Boolean(perms[k]);
+      return perms[k] !== false;
+    }).map(([, label]) => label);
+    if (enabled.length === map.length) return `<span class="badge badge-success">Повний доступ (8/8)</span>`;
+    return `<span class="badge badge-info">Доступно (${enabled.length}/8):</span> <small>${enabled.join(", ") || "Немає прав"}</small>`;
+  }
+
+  function renderAdminPanel() {
+    if (!ADMIN_OVERVIEW) return;
+    const mode = ADMIN_OVERVIEW.settings?.delivery_mode || "manual";
+    const _st = ADMIN_OVERVIEW.settings || {};
+    PUBLIC_SETTINGS = _st;
+    applyBrandingSettings(_st);
+    document.getElementById("set_platform_name").value = _st.platform_name || "";
+    document.getElementById("set_platform_subtitle").value = _st.platform_subtitle || "";
+    document.getElementById("set_contact_email").value = _st.contact_email || "";
+    document.getElementById("set_contact_phone").value = _st.contact_phone || "";
+    window._pendingLogoDataUrl = _st.logo_data_url || "";
+    updateAdminLogoPreview(window._pendingLogoDataUrl);
+
+    const statusText = document.getElementById("adminModeStatusText");
+    if (statusText) {
+      statusText.innerHTML = `Для кожного клієнта окремо у таблиці <strong>«🏢 Клієнти»</strong> ви обираєте режим: <span class="badge badge-warn">🔒 Після модерації</span> (результат відкривається лише після вашої згоди) або <span class="badge badge-success">⚡ Автоматично</span> (результат надається одразу після подачі форми).`;
+    }
+
+    const allAccounts = ADMIN_OVERVIEW.users || [];
+    const adminAccounts = allAccounts.filter(u => u.role === "admin" || u.account_type === "admin");
+    const clientAccounts = allAccounts.filter(u => u.role !== "admin" && u.account_type !== "admin");
+
+    function renderAccountsTable(list, isClientsTable) {
+      if (!list.length) {
+        return `<p style="color:var(--muted); margin:4px 0;">${isClientsTable ? "У розділі «Клієнти» поки немає записів. Натисніть «➕ Додати Клієнта»." : "У розділі «Адміністратори сайту» поки немає записів."}</p>`;
+      }
+      return `
+        <div style="overflow-x:auto;">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>${isClientsTable ? "Клієнт (Організація / ЄДРПОУ / Керівник)" : "Адміністратор сайту / Логін (Email)"}</th>
+                <th>${isClientsTable ? "Уповноважені особи / Логін (Email)" : "Організація / Контакти"}</th>
+                <th>Ступінь доступу до функціоналу</th>
+                <th>${isClientsTable ? "Індивідуальний режим видачі результату та Ліміт заявок" : "Режим / Ліміт заявок"}</th>
+                <th>Управління</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${list.map(u => {
+                const isAutoMode = u.delivery_override === "auto";
+                const canOrgEdit = Boolean(u.permissions?.can_edit_org_details);
+                const extraAuth = (u.authorized_persons || []).length
+                  ? `<br/><small style="color:var(--primary);">Інші уповноважені (${u.authorized_persons.length}): ${escapeHtml(u.authorized_persons.join(", "))}</small>`
+                  : "";
+                const col1 = isClientsTable
+                  ? `<strong>${escapeHtml(u.org_name || u.full_name)}</strong><br/>
+                     <small>ЄДРПОУ: <strong>${escapeHtml(u.edrpou || "—")}</strong></small>
+                     ${u.director_name ? `<br/><small>Керівник: ${escapeHtml(u.director_name)}</small>` : ""}`
+                  : `<strong>${escapeHtml(u.full_name)}</strong><br/>
+                     <code>${escapeHtml(u.email)}</code><br/>
+                     <span class="badge badge-info">Адміністратор сайту</span>
+                     ${!u.is_active ? `<span class="badge badge-danger">Заблоковано</span>` : ""}`;
+                const col2 = isClientsTable
+                  ? `<strong>${escapeHtml(u.full_name)}</strong>${extraAuth}<br/>
+                     <code>${escapeHtml(u.email)}</code><br/>
+                     <span class="badge badge-success">Клієнт</span>
+                     ${!u.is_active ? `<span class="badge badge-danger">Заблоковано</span>` : ""}`
+                  : `<strong>${escapeHtml(u.org_name || "—")}</strong><br/>
+                     <small>Тел.: ${escapeHtml(u.phone || "—")}</small>`;
+                return `
+                  <tr>
+                    <td><strong>#${u.id}</strong></td>
+                    <td>${col1}</td>
+                    <td>${col2}</td>
+                    <td>
+                      ${formatPermSummary(u.permissions)}
+                      ${isClientsTable ? `
+                        <div style="margin-top:6px;">
+                          <button type="button" class="btn ${canOrgEdit ? 'btn-success' : 'btn-outline'} btn-sm" style="padding:3px 8px; font-size:11.5px;" onclick="toggleClientOrgEdit(${u.id}, ${!canOrgEdit})">
+                            ${canOrgEdit ? '🔓 Зміна назви/ЄДРПОУ: ДОЗВОЛЕНО (вимкнути)' : '🔒 Надати доступ змінювати назву/ЄДРПОУ'}
+                          </button>
+                        </div>
+                      ` : ""}
+                    </td>
+                    <td>
+                      ${isClientsTable ? `
+                        <div style="display:flex; gap:5px; flex-wrap:wrap; margin-bottom:6px;">
+                          <button type="button" class="btn ${!isAutoMode ? 'btn-primary' : 'btn-outline'} btn-sm" style="padding:4px 8px; font-size:11.5px;" onclick="setClientDeliveryMode(${u.id}, 'manual')">
+                            🔒 Після модерації
+                          </button>
+                          <button type="button" class="btn ${isAutoMode ? 'btn-success' : 'btn-outline'} btn-sm" style="padding:4px 8px; font-size:11.5px;" onclick="setClientDeliveryMode(${u.id}, 'auto')">
+                            ⚡ Автоматично
+                          </button>
+                        </div>
+                      ` : `<strong>⚡ Автоматично</strong><br/>`}
+                      <div style="display:flex; align-items:center; gap:4px; margin-top:4px; flex-wrap:wrap;">
+                        <small style="font-weight:700;">Заявок:</small>
+                        <input type="number" id="inlineQuota_${u.id}" value="${u.quota}" style="width:62px; padding:3px 6px; font-size:12.5px;" />
+                        <button class="btn btn-outline btn-sm" style="padding:3px 7px; font-size:11.5px;" title="Зберегти вказану кількість заявок" onclick="setInlineUserQuota(${u.id})">💾</button>
+                        <button class="btn btn-success btn-sm" style="padding:3px 7px; font-size:11.5px;" title="Додати +5 заявок" onclick="adjustUserQuota(${u.id}, 5)">+5</button>
+                        <button class="btn btn-outline btn-sm" style="padding:3px 7px; font-size:11.5px;" title="Додати +1 заявку" onclick="adjustUserQuota(${u.id}, 1)">+1</button>
+                      </div>
+                    </td>
+                    <td>
+                      <div style="display:flex; gap:6px; flex-wrap:wrap;">
+                        <button class="btn btn-primary btn-sm" onclick="openUserModal(${u.id})">⚙ Доступ / Редагувати</button>
+                        ${u.id !== CURRENT_USER.id ? `<button class="btn btn-danger btn-sm" onclick="deleteUserAccount(${u.id}, '${escapeHtml(u.full_name)}')">🗑 Видалити</button>` : ""}
+                      </div>
+                    </td>
+                  </tr>
+                `;
+              }).join("")}
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    document.getElementById("adminUsersTableWrap").innerHTML = renderAccountsTable(adminAccounts, false);
+    document.getElementById("adminClientsTableWrap").innerHTML = renderAccountsTable(clientAccounts, true);
+
+    // Зворотний зв'язок в адмін-панелі
+    const fbList = ADMIN_OVERVIEW.feedback || [];
+    const newFbCount = fbList.filter(m => m.status === "new" || !m.admin_reply).length;
+    const fbBadgeEl = document.getElementById("adminFbCountBadge");
+    if (fbBadgeEl) {
+      fbBadgeEl.innerHTML = newFbCount > 0
+        ? `<span class="badge badge-warn">Нових звернень: ${newFbCount}</span>`
+        : `<span class="badge badge-success">Усі звернення опрацьовано (${fbList.length})</span>`;
+    }
+    const fbWrap = document.getElementById("adminFeedbackTableWrap");
+    if (fbWrap) {
+      if (!fbList.length) {
+        fbWrap.innerHTML = `<p style="color:var(--muted); margin:4px 0;">Повідомлень у зворотному зв'язку поки немає.</p>`;
+      } else {
+        fbWrap.innerHTML = `
+          <div style="overflow-x:auto;">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID / Дата</th>
+                  <th>Відправник (Клієнт / Організація)</th>
+                  <th>Тема та Повідомлення</th>
+                  <th>Відповідь адміністратора та Швидкі дії</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${fbList.map(m => {
+                  const clientObj = m.user_id ? allAccounts.find(x => x.id === m.user_id) : null;
+                  const canOrg = clientObj ? Boolean(clientObj.permissions?.can_edit_org_details) : false;
+                  return `
+                    <tr>
+                      <td>
+                        <strong>#${m.id}</strong><br/>
+                        <small>${escapeHtml(m.created_at || "")}</small><br/>
+                        ${m.admin_reply
+                          ? `<span class="badge badge-success">✓ Відповідь надано</span>`
+                          : `<span class="badge badge-warn">⏳ Нове звернення</span>`
+                        }
+                      </td>
+                      <td>
+                        <strong>${escapeHtml(m.sender_name || "")}</strong><br/>
+                        <code>${escapeHtml(m.sender_email || "")}</code><br/>
+                        ${m.sender_org ? `<small>Орг.: <strong>${escapeHtml(m.sender_org)}</strong></small><br/>` : ""}
+                        ${m.sender_edrpou ? `<small>ЄДРПОУ: ${escapeHtml(m.sender_edrpou)}</small><br/>` : ""}
+                        ${m.user_id ? `<span class="badge badge-info">Клієнт #${m.user_id}</span>` : `<span class="badge badge-warn">Відвідувач сайту</span>`}
+                      </td>
+                      <td>
+                        <strong>${escapeHtml(m.subject || "")}</strong>
+                        <div style="margin-top:4px; white-space:pre-wrap; font-size:13px;">${escapeHtml(m.message || "")}</div>
+                      </td>
+                      <td>
+                        <div style="display:flex; flex-direction:column; gap:6px;">
+                          <textarea id="adminFbReply_${m.id}" placeholder="Введіть відповідь клієнту..." style="min-height:54px; font-size:12.5px;">${escapeHtml(m.admin_reply || "")}</textarea>
+                          <div style="display:flex; gap:6px; flex-wrap:wrap;">
+                            <button type="button" class="btn btn-primary btn-sm" onclick="replyAdminFeedback(${m.id})">📨 Надіслати відповідь</button>
+                            ${clientObj ? `
+                              <button type="button" class="btn ${canOrg ? 'btn-success' : 'btn-outline'} btn-sm" onclick="toggleClientOrgEdit(${clientObj.id}, ${!canOrg})">
+                                ${canOrg ? '🔓 Назва/ЄДРПОУ відкрито' : '🔓 Дозволити зміну назви/ЄДРПОУ'}
+                              </button>
+                            ` : ""}
+                            <button type="button" class="btn btn-danger btn-sm" onclick="deleteAdminFeedback(${m.id})">🗑</button>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  `;
+                }).join("")}
+              </tbody>
+            </table>
+          </div>
+        `;
+      }
+    }
+
+    // Таблиця всіх заявок
+    const ordWrap = document.getElementById("adminOrdersTableWrap");
+    if (!MY_ORDERS.length) {
+      ordWrap.innerHTML = `<p style="color:var(--muted);">Заявок поки немає.</p>`;
+    } else {
+      ordWrap.innerHTML = `
+        <div style="overflow-x:auto;">
+          <table>
+            <thead>
+              <tr>
+                <th>ID / Дата</th>
+                <th>Клієнт / Замовник</th>
+                <th>Предмет закупівлі та Очікувана вартість (без ПДВ)</th>
+                <th>Документи ДСТУ 4163:2020</th>
+                <th>Статус доступу клієнта</th>
+                <th>Дії адміністратора (Артема)</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${MY_ORDERS.map(o => {
+                const inp = o.input_data || {};
+                const stats = o.stats || {};
+                return `
+                  <tr>
+                    <td><strong>#${o.id}</strong><br/><small>${escapeHtml(o.created_at)}</small></td>
+                    <td>
+                      <strong>${escapeHtml(inp.buyer_name || o.user_org || "")}</strong><br/>
+                      ЄДРПОУ: ${escapeHtml(inp.edrpou || "")}<br/>
+                      <small>${escapeHtml(o.user_name || "")} (${escapeHtml(o.user_email || "")})</small>
+                    </td>
+                    <td>
+                      <strong>${escapeHtml(inp.subject_name || "")}</strong><br/>
+                      ДК: ${escapeHtml(inp.cpv_code || "")}<br/>
+                      Тендер: <code>${escapeHtml(inp.tender_id || "—")}</code><br/>
+                      ОВ: <strong>${Number(stats.expected_value_no_vat || inp.expected_value || 0).toLocaleString('uk-UA')} грн без ПДВ</strong>
+                    </td>
+                    <td>
+                      <div style="display:flex; flex-direction:column; gap:5px;">
+                        <a class="btn btn-outline btn-sm" href="/api/orders/download/${o.id}/1?token=${encodeURIComponent(AUTH_TOKEN)}">📄 ${escapeHtml(o.file1_name || "Файл 1: Обґрунтування")}</a>
+                        <a class="btn btn-outline btn-sm" href="/api/orders/download/${o.id}/2?token=${encodeURIComponent(AUTH_TOKEN)}">📊 ${escapeHtml(o.file2_name || "Файл 2: Додаток до обґрунтування")}</a>
+                      </div>
+                    </td>
+                    <td>
+                      ${o.is_released
+                        ? `<span class="badge badge-success">✓ НАДАНО ЗГОДУ (Клієнт бачить результат)</span>`
+                        : `<span class="badge badge-warn">🔒 ОЧІКУЄ ВАШОЇ ЗГОДИ (Закрито для клієнта)</span>`
+                      }
+                    </td>
+                    <td>
+                      <div style="display:flex; flex-direction:column; gap:6px;">
+                        ${o.is_released
+                          ? `<button class="btn btn-warn btn-sm" onclick="toggleOrderRelease(${o.id}, false)">🔒 Закрити доступ клієнту</button>`
+                          : `<button class="btn btn-success btn-sm" onclick="toggleOrderRelease(${o.id}, true)">✅ Надати згоду (Відкрити результат)</button>`
+                        }
+                        <button class="btn btn-outline btn-sm" onclick="openEditOrderModal(${o.id})">🔍 Підбір Prozorro API / Редагувати</button>
+                      </div>
+                    </td>
+                  </tr>
+                `;
+              }).join("")}
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    // Список форм в адмін-панелі
+    const formsWrap = document.getElementById("adminFormsList");
+    formsWrap.innerHTML = (ADMIN_OVERVIEW.forms || []).map(f => `
+      <div style="border:1px solid var(--border); border-radius:8px; padding:10px 12px; margin-bottom:8px; background:#fff;">
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+          <strong>#${f.id}. ${escapeHtml(f.title)}</strong>
+          <a class="btn btn-outline btn-sm" href="/api/forms/download/${f.id}?token=${encodeURIComponent(AUTH_TOKEN)}">⬇ Шаблон .docx</a>
+        </div>
+        <div style="font-size:12px; color:var(--muted); margin-top:4px;">${escapeHtml(f.description || "")}</div>
+        <div style="font-size:12px; margin-top:6px;">
+          <strong>Поля форми (${(f.fields || []).length}):</strong> ${(f.fields || []).map(fl => escapeHtml(fl.label)).join(" • ")}
+        </div>
+      </div>
+    `).join("");
+  }
+
+  // ==================== УПРАВЛІННЯ КОРИСТУВАЧАМИ ТА ДОСТУПОМ ====================
+  function applyPermPreset(preset) {
+    const allKeys = [
+      "can_create_orders",
+      "can_prozorro_autofill",
+      "can_docx_upload",
+      "can_view_price_table",
+      "can_download_main_doc",
+      "can_download_annex_doc",
+      "can_view_legal_variants",
+      "can_edit_org_details"
+    ];
+    if (preset === "full") {
+      allKeys.forEach(k => document.getElementById("perm_" + k).checked = true);
+    } else if (preset === "basic") {
+      document.getElementById("perm_can_create_orders").checked = true;
+      document.getElementById("perm_can_prozorro_autofill").checked = false;
+      document.getElementById("perm_can_docx_upload").checked = true;
+      document.getElementById("perm_can_view_price_table").checked = true;
+      document.getElementById("perm_can_download_main_doc").checked = true;
+      document.getElementById("perm_can_download_annex_doc").checked = false;
+      document.getElementById("perm_can_view_legal_variants").checked = false;
+      document.getElementById("perm_can_edit_org_details").checked = false;
+    } else if (preset === "readonly") {
+      document.getElementById("perm_can_create_orders").checked = false;
+      document.getElementById("perm_can_prozorro_autofill").checked = false;
+      document.getElementById("perm_can_docx_upload").checked = false;
+      document.getElementById("perm_can_view_price_table").checked = true;
+      document.getElementById("perm_can_download_main_doc").checked = false;
+      document.getElementById("perm_can_download_annex_doc").checked = false;
+      document.getElementById("perm_can_view_legal_variants").checked = false;
+      document.getElementById("perm_can_edit_org_details").checked = false;
+    }
+  }
+
+  function openUserModal(userId, defaultType = "client") {
+    const u = userId ? (ADMIN_OVERVIEW.users || []).find(x => x.id === userId) : null;
+    document.getElementById("um_id").value = u ? u.id : "";
+    const accType = u ? (u.role === "admin" || u.account_type === "admin" ? "admin" : "client") : defaultType;
+    document.getElementById("userModalTitle").textContent = u
+      ? `Редагування #${u.id}: ${u.full_name} (${accType === 'admin' ? 'Адміністратор сайту' : 'Клієнт'})`
+      : (defaultType === "admin" ? "Додавання нового Адміністратора сайту" : "Додавання нового Клієнта");
+
+    document.getElementById("um_full_name").value = u ? u.full_name : "";
+    document.getElementById("um_email").value = u ? u.email : "";
+    document.getElementById("um_password").value = "";
+    document.getElementById("um_password_label").textContent = u ? "Новий пароль (залиште порожнім, щоб не змінювати)" : "Пароль для входу *";
+    document.getElementById("um_org_name").value = u ? (u.org_name || "") : "";
+    document.getElementById("um_edrpou").value = u ? (u.edrpou || "") : "";
+    document.getElementById("um_phone").value = u ? (u.phone || "") : "";
+    document.getElementById("um_director_title").value = u ? (u.director_title || "") : "";
+    document.getElementById("um_director_name").value = u ? (u.director_name || "") : "";
+    document.getElementById("um_website").value = u ? (u.website || "") : "";
+    document.getElementById("um_address").value = u ? (u.address || "") : "";
+    document.getElementById("um_account_type").value = accType;
+    document.getElementById("um_delivery_override").value = u ? (u.delivery_override === "auto" ? "auto" : "manual") : (defaultType === "admin" ? "auto" : "manual");
+    document.getElementById("um_quota").value = u ? u.quota : (defaultType === "admin" ? 999 : 5);
+    document.getElementById("um_is_active").checked = u ? Boolean(u.is_active) : true;
+
+    const perms = u?.permissions || {};
+    const allKeys = [
+      "can_create_orders",
+      "can_prozorro_autofill",
+      "can_docx_upload",
+      "can_view_price_table",
+      "can_download_main_doc",
+      "can_download_annex_doc",
+      "can_view_legal_variants",
+      "can_edit_org_details"
+    ];
+    allKeys.forEach(k => {
+      if (k === "can_view_legal_variants" || k === "can_edit_org_details") {
+        document.getElementById("perm_" + k).checked = u ? Boolean(perms[k]) : (defaultType === "admin");
+      } else {
+        document.getElementById("perm_" + k).checked = perms[k] !== false;
+      }
+    });
+
+    document.getElementById("userModal").style.display = "flex";
+  }
+
+  function closeUserModal() {
+    document.getElementById("userModal").style.display = "none";
+  }
+
+  async function saveUserFromModal() {
+    const uid = document.getElementById("um_id").value;
+    const permissions = {
+      can_create_orders: document.getElementById("perm_can_create_orders").checked,
+      can_prozorro_autofill: document.getElementById("perm_can_prozorro_autofill").checked,
+      can_docx_upload: document.getElementById("perm_can_docx_upload").checked,
+      can_view_price_table: document.getElementById("perm_can_view_price_table").checked,
+      can_download_main_doc: document.getElementById("perm_can_download_main_doc").checked,
+      can_download_annex_doc: document.getElementById("perm_can_download_annex_doc").checked,
+      can_view_legal_variants: document.getElementById("perm_can_view_legal_variants").checked,
+      can_edit_org_details: document.getElementById("perm_can_edit_org_details").checked
+    };
+
+    const selectedAccType = document.getElementById("um_account_type").value;
+    const payload = {
+      full_name: document.getElementById("um_full_name").value.trim(),
+      email: document.getElementById("um_email").value.trim(),
+      org_name: document.getElementById("um_org_name").value.trim(),
+      edrpou: document.getElementById("um_edrpou").value.trim(),
+      phone: document.getElementById("um_phone").value.trim(),
+      director_title: document.getElementById("um_director_title").value.trim(),
+      director_name: document.getElementById("um_director_name").value.trim(),
+      website: document.getElementById("um_website").value.trim(),
+      address: document.getElementById("um_address").value.trim(),
+      role: selectedAccType === "admin" ? "admin" : "user",
+      account_type: selectedAccType,
+      delivery_override: document.getElementById("um_delivery_override").value,
+      quota: parseInt(document.getElementById("um_quota").value || "5", 10),
+      is_active: document.getElementById("um_is_active").checked,
+      permissions
+    };
+
+    try {
+      if (uid) {
+        payload.user_id = parseInt(uid, 10);
+        payload.new_password = document.getElementById("um_password").value.trim();
+        await apiFetch("/api/admin/users/update", { method: "POST", body: payload });
+        showToast("Дані користувача та ступінь доступу оновлено!");
+      } else {
+        payload.password = document.getElementById("um_password").value.trim();
+        await apiFetch("/api/admin/users/create", { method: "POST", body: payload });
+        showToast("Нового користувача успішно додано!");
+      }
+      closeUserModal();
+      await loadAdminData();
+    } catch (e) {
+      showToast(e.message);
+    }
+  }
+
+  async function toggleClientOrgEdit(userId, allow) {
+    try {
+      await apiFetch("/api/admin/users/toggle-org-edit", {
+        method: "POST",
+        body: { user_id: userId, allow }
+      });
+      showToast(allow
+        ? `Клієнту #${userId} надано разовий доступ змінити назву та ЄДРПОУ замовника!`
+        : `Доступ клієнта #${userId} до зміни назви та ЄДРПОУ замовника закрито.`
+      );
+      await loadAdminData();
+    } catch (e) {
+      showToast(e.message);
+    }
+  }
+
+  async function setClientDeliveryMode(userId, mode) {
+    try {
+      await apiFetch("/api/admin/users/set-delivery-mode", {
+        method: "POST",
+        body: { user_id: userId, delivery_override: mode }
+      });
+      showToast(mode === "auto"
+        ? `Для клієнта #${userId} встановлено індивідуальний режим: ⚡ Автоматично одразу!`
+        : `Для клієнта #${userId} встановлено індивідуальний режим: 🔒 Після модерації (за вашою згодою)!`
+      );
+      await loadAdminData();
+    } catch (e) {
+      showToast(e.message);
+    }
+  }
+
+  async function replyAdminFeedback(msgId) {
+    const el = document.getElementById("adminFbReply_" + msgId);
+    const admin_reply = (el?.value || "").trim();
+    if (!admin_reply) {
+      showToast("Введіть текст відповіді клієнту!");
+      return;
+    }
+    try {
+      await apiFetch("/api/admin/feedback/reply", {
+        method: "POST",
+        body: { message_id: msgId, admin_reply }
+      });
+      showToast(`Відповідь на звернення #${msgId} надіслано клієнту!`);
+      await loadAdminData();
+    } catch (e) {
+      showToast(e.message);
+    }
+  }
+
+  async function deleteAdminFeedback(msgId) {
+    if (!confirm(`Видалити звернення #${msgId}?`)) return;
+    try {
+      await apiFetch("/api/admin/feedback/delete", {
+        method: "POST",
+        body: { message_id: msgId }
+      });
+      showToast(`Звернення #${msgId} видалено.`);
+      await loadAdminData();
+    } catch (e) {
+      showToast(e.message);
+    }
+  }
+
+  async function quickSwitchAccountType(userId, newType) {
+    try {
+      await apiFetch("/api/admin/users/update", {
+        method: "POST",
+        body: { user_id: userId, account_type: newType, role: "user" }
+      });
+      showToast(newType === "client" ? "Запис перенесено у розділ «Клієнти»!" : "Запис перенесено у розділ «Користувачі»!");
+      await loadAdminData();
+    } catch (e) {
+      showToast(e.message);
+    }
+  }
+
+  async function deleteUserAccount(userId, userName) {
+    if (!confirm(`Ви дійсно бажаєте видалити користувача «${userName}» (#${userId}) та його кабінет?`)) {
+      return;
+    }
+    try {
+      await apiFetch("/api/admin/users/delete", {
+        method: "POST",
+        body: { user_id: userId, delete_orders: true }
+      });
+      showToast(`Користувача «${userName}» видалено з системи.`);
+      await loadAdminData();
+    } catch (e) {
+      showToast(e.message);
+    }
+  }
+
+  function updateAdminLogoPreview(dataUrl) {
+    const img = document.getElementById("adminLogoPreview");
+    const btnRem = document.getElementById("btnRemoveLogo");
+    if (!img || !btnRem) return;
+    if (dataUrl) {
+      img.src = dataUrl;
+      img.style.display = "block";
+      btnRem.style.display = "inline-flex";
+    } else {
+      img.removeAttribute("src");
+      img.style.display = "none";
+      btnRem.style.display = "none";
+    }
+  }
+
+  function onAdminLogoFileSelect(ev) {
+    const file = ev.target.files?.[0];
+    if (!file) return;
+    if (file.size > 2 * 1024 * 1024) {
+      showToast("Оберіть зображення розміром до 2 МБ");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      window._pendingLogoDataUrl = reader.result;
+      updateAdminLogoPreview(window._pendingLogoDataUrl);
+      showToast("Логотип вибрано. Натисніть «Зберегти логотип, напис та контакти».");
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function clearAdminLogo() {
+    window._pendingLogoDataUrl = "";
+    const inp = document.getElementById("set_logo_file");
+    if (inp) inp.value = "";
+    updateAdminLogoPreview("");
+  }
+
+  async function adjustUserQuota(userId, delta) {
+    try {
+      const res = await apiFetch("/api/admin/users/adjust-quota", {
+        method: "POST",
+        body: { user_id: userId, delta }
+      });
+      showToast(`Ліміт заявок користувача #${userId} оновлено: ${res.quota}`);
+      await loadAdminData();
+    } catch (e) {
+      showToast(e.message);
+    }
+  }
+
+  async function setInlineUserQuota(userId) {
+    const el = document.getElementById("inlineQuota_" + userId);
+    if (!el) return;
+    const val = parseInt(el.value || "0", 10);
+    try {
+      const res = await apiFetch("/api/admin/users/adjust-quota", {
+        method: "POST",
+        body: { user_id: userId, new_quota: val }
+      });
+      showToast(`Встановлено ліміт заявок для #${userId}: ${res.quota}`);
+      await loadAdminData();
+    } catch (e) {
+      showToast(e.message);
+    }
+  }
+
+  async function saveSiteContacts() {
+    try {
+      const payload = {
+        platform_name: document.getElementById("set_platform_name").value.trim() || "Тендерний помічник",
+        platform_subtitle: document.getElementById("set_platform_subtitle").value.trim(),
+        logo_data_url: window._pendingLogoDataUrl || "",
+        contact_email: document.getElementById("set_contact_email").value.trim(),
+        contact_phone: document.getElementById("set_contact_phone").value.trim()
+      };
+      await apiFetch("/api/admin/settings", { method: "POST", body: payload });
+      applyBrandingSettings(payload);
+      showToast("Логотип, напис у шапці та контакти збережено!");
+      await loadAdminData();
+    } catch (e) { showToast(e.message); }
+  }
+
+  async function setGlobalDeliveryMode(mode) {
+    try {
+      await apiFetch("/api/admin/settings", { method: "POST", body: { delivery_mode: mode } });
+      showToast(mode === "auto"
+        ? "Встановлено режим: Автоматична видача результату одразу після подачі заявки!"
+        : "Встановлено режим: Видача результату тільки після вашої згоди в адмін-панелі!"
+      );
+      await loadAdminData();
+    } catch (e) {
+      showToast(e.message);
+    }
+  }
+
+  async function toggleOrderRelease(orderId, releaseState) {
+    try {
+      await apiFetch("/api/admin/orders/toggle-release", {
+        method: "POST",
+        body: { order_id: orderId, is_released: releaseState }
+      });
+      showToast(releaseState
+        ? `Заявку #${orderId} погоджено! Клієнту відкрито доступ до результатів у кабінеті.`
+        : `Доступ клієнта до результатів заявки #${orderId} призупинено.`
+      );
+      await loadAdminData();
+    } catch (e) {
+      showToast(e.message);
+    }
+  }
+
+  async function uploadNewAdminFormDocx() {
+    const fileInput = document.getElementById("adminFormDocxInput");
+    const file = fileInput.files[0];
+    if (!file) {
+      showToast("Оберіть файл .docx для імпорту форми");
+      return;
+    }
+    const title = document.getElementById("adminUploadFormTitle").value.trim();
+    const description = document.getElementById("adminUploadFormDesc").value.trim();
+    const reader = new FileReader();
+    reader.onload = async () => {
+      const base64 = reader.result.split(",")[1];
+      try {
+        const res = await apiFetch("/api/admin/forms/upload-docx", {
+          method: "POST",
+          body: { filename: file.name, content_base64: base64, title, description }
+        });
+        showToast(`Форму «${res.title}» створено (${res.fields.length} полів)!`);
+        fileInput.value = "";
+        document.getElementById("adminUploadFormTitle").value = "";
+        document.getElementById("adminUploadFormDesc").value = "";
+        const pub = await apiFetch("/api/public/info");
+        PUBLIC_FORMS = pub.forms || [];
+        populateFormsDropdown();
+        await loadAdminData();
+      } catch (e) {
+        showToast(e.message);
+      }
+    };
+    reader.readAsDataURL(file);
+  }
+
+  // ==================== МОДЕРАЦІЯ ЗАЯВКИ ТА ЖИВИЙ ПОШУК PROZORRO (ВАРІАНТ 3) ====================
+  function renderModBenchmarkRow(b) {
+    return `
+      <div style="border:1px solid var(--border); padding:10px; border-radius:6px; margin-bottom:8px; background:#f8fafc;" class="mod-bench-row">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <strong style="font-size:12.5px; color:var(--primary);">Закупівля-аналог Prozorro</strong>
+          <button type="button" class="btn btn-danger btn-sm" style="padding:2px 8px; font-size:11px;" onclick="this.closest('.mod-bench-row').remove()">✕ Прибрати</button>
+        </div>
+        <div class="grid-3">
+          <div class="form-group" style="margin-bottom:6px;">
+            <label>ID закупівлі Prozorro (UA-...)</label>
+            <input type="text" class="mb-tid" value="${escapeHtml(b.tender_id || "")}" />
+          </div>
+          <div class="form-group" style="margin-bottom:6px;">
+            <label>Замовник-аналог</label>
+            <input type="text" class="mb-buyer" value="${escapeHtml(b.buyer || "")}" />
+          </div>
+          <div class="form-group" style="margin-bottom:6px;">
+            <label>Постачальник</label>
+            <input type="text" class="mb-supp" value="${escapeHtml(b.supplier || "")}" />
+          </div>
+          <div class="form-group" style="margin-bottom:0;">
+            <label>Обсяг</label>
+            <input type="text" class="mb-vol" value="${escapeHtml(String(b.volume || ""))}" />
+          </div>
+          <div class="form-group" style="margin-bottom:0;">
+            <label>Сума договору/закупівлі (без ПДВ)</label>
+            <input type="number" step="any" class="mb-amt" value="${escapeHtml(String(b.amount_no_vat || 0))}" />
+          </div>
+          <div class="form-group" style="margin-bottom:0;">
+            <label>Ціна за одиницю (без ПДВ)</label>
+            <input type="number" step="any" class="mb-unit" value="${escapeHtml(String(b.unit_price_no_vat || 0))}" />
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function openEditOrderModal(orderId) {
+    const ord = MY_ORDERS.find(o => o.id === orderId);
+    if (!ord) return;
+    const inp = ord.input_data || {};
+    const bench = ord.benchmarks || [];
+
+    document.getElementById("editOrderModalTitle").textContent = `Модерація заявки #${ord.id} та Живий пошук Prozorro (${inp.buyer_name || ""})`;
+    const bodyEl = document.getElementById("editOrderModalBody");
+
+    bodyEl.innerHTML = `
+      <div class="grid-2">
+        <div class="form-group">
+          <label>Найменування замовника</label>
+          <input type="text" id="mod_buyer_name" value="${escapeHtml(inp.buyer_name || "")}" />
+        </div>
+        <div class="form-group">
+          <label>Код ЄДРПОУ</label>
+          <input type="text" id="mod_edrpou" value="${escapeHtml(inp.edrpou || "")}" />
+        </div>
+        <div class="form-group">
+          <label>Предмет закупівлі</label>
+          <input type="text" id="mod_subject_name" value="${escapeHtml(inp.subject_name || "")}" />
+        </div>
+        <div class="form-group">
+          <label>Код ДК 021:2015</label>
+          <input type="text" id="mod_cpv_code" value="${escapeHtml(inp.cpv_code || "")}" />
+        </div>
+        <div class="form-group">
+          <label>Ідентифікатор закупівлі в Prozorro (UA-...)</label>
+          <input type="text" id="mod_tender_id" value="${escapeHtml(inp.tender_id || "")}" />
+        </div>
+        <div class="form-group">
+          <label>Очікувана вартість без ПДВ, грн</label>
+          <input type="number" step="any" id="mod_expected_value" value="${escapeHtml(String(inp.expected_value || ""))}" />
+        </div>
+        <div class="form-group">
+          <label>Кількість (обсяг)</label>
+          <input type="number" step="any" id="mod_quantity" value="${escapeHtml(String(inp.quantity || ""))}" />
+        </div>
+        <div class="form-group">
+          <label>Одиниця виміру</label>
+          <input type="text" id="mod_unit_name" value="${escapeHtml(inp.unit_name || "")}" />
+        </div>
+      </div>
+
+      <!-- Живий пошук в Prozorro API (Варіант 3) -->
+      <div style="background:#eff6ff; border:1px solid #93c5fd; border-radius:8px; padding:12px 14px; margin:12px 0;">
+        <div style="font-weight:700; color:#1e3a8a; margin-bottom:6px;">
+          🔍 Пошук закупівель у системі Prozorro через API (за кодом ДК 021:2015, назвою або UA-...):
+        </div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:8px;">
+          <input type="text" id="liveSearchQuery" placeholder="Ключове слово або UA-..." value="${escapeHtml(inp.subject_name || "")}" style="flex:1; min-width:200px; padding:7px 10px; border:1px solid #93c5fd; border-radius:6px;" />
+          <input type="text" id="liveSearchCpv" placeholder="Код ДК (напр. 09320000-8)" value="${escapeHtml(inp.cpv_code || "")}" style="width:220px; padding:7px 10px; border:1px solid #93c5fd; border-radius:6px;" />
+          <button type="button" class="btn btn-primary btn-sm" onclick="runAdminLiveProzorroSearch()">Знайти в Prozorro API</button>
+          <button type="button" class="btn btn-outline btn-sm" onclick="addEmptyBenchmarkRow()">+ Додати порожній рядок</button>
+        </div>
+        <div id="liveSearchResultsBox" style="max-height:210px; overflow-y:auto;"></div>
+      </div>
+
+      <h4 style="margin:12px 0 6px;">Відібрані закупівлі Prozorro для таблиці порівняння цін (п. 2.1 Додатка до обґрунтування, без ПДВ):</h4>
+      <div id="modBenchmarksList">
+        ${bench.map(b => renderModBenchmarkRow(b)).join("")}
+      </div>
+
+      <div class="form-group" style="margin-top:10px;">
+        <label>Коментар адміністратора до заявки клієнта</label>
+        <input type="text" id="mod_admin_comment" value="${escapeHtml(ord.admin_comment || "")}" />
+      </div>
+
+      <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:14px;">
+        <button class="btn btn-outline" onclick="saveRegenerateOrder(${ord.id}, false)">Зберегти та перегенерувати (без відкриття клієнту)</button>
+        <button class="btn btn-success" onclick="saveRegenerateOrder(${ord.id}, true)">✅ Перегенерувати 2 файли .docx та Надати згоду клієнту</button>
+      </div>
+    `;
+
+    document.getElementById("editOrderModal").style.display = "flex";
+  }
+
+  async function runAdminLiveProzorroSearch() {
+    const q = document.getElementById("liveSearchQuery").value.trim();
+    const cpv = document.getElementById("liveSearchCpv").value.trim();
+    const box = document.getElementById("liveSearchResultsBox");
+    box.innerHTML = `<div style="font-size:12.5px; color:var(--muted);">Виконується живий запит до API Prozorro...</div>`;
+    try {
+      const res = await apiFetch(`/api/prozorro/search?query=${encodeURIComponent(q)}&cpv=${encodeURIComponent(cpv)}`);
+      const items = res.results || [];
+      window._lastLiveSearchItems = items;
+      if (!items.length) {
+        box.innerHTML = `<div style="font-size:12.5px; color:var(--warn);">За цим запитом тендерів не знайдено. Спробуйте інший код ДК або ключове слово.</div>`;
+        return;
+      }
+      box.innerHTML = `
+        <table>
+          <thead>
+            <tr>
+              <th>Тендер Prozorro</th>
+              <th>Замовник / Предмет</th>
+              <th>Обсяг</th>
+              <th>Сума / Ціна од. (без ПДВ)</th>
+              <th>Дія</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${items.map((it, idx) => `
+              <tr>
+                <td>
+                  <strong>${escapeHtml(it.tender_id)}</strong><br/>
+                  <span class="badge badge-info">${escapeHtml(it.source || "Prozorro API")}</span>
+                </td>
+                <td>
+                  <strong>${escapeHtml(it.buyer || "")}</strong><br/>
+                  <small>${escapeHtml(it.subject || "")}</small>
+                </td>
+                <td>${escapeHtml(String(it.volume || "1"))} ${escapeHtml(it.unit_name || "")}</td>
+                <td>
+                  <strong>${Number(it.amount_no_vat || 0).toLocaleString('uk-UA')} грн</strong><br/>
+                  <small>${Number(it.unit_price_no_vat || 0).toLocaleString('uk-UA')} грн/од.</small>
+                </td>
+                <td>
+                  <button type="button" class="btn btn-success btn-sm" onclick="addLiveTenderToOrder(${idx})">+ Додати</button>
+                </td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      `;
+    } catch (e) {
+      box.innerHTML = `<div style="color:var(--danger); font-size:12.5px;">${escapeHtml(e.message)}</div>`;
+    }
+  }
+
+  function addLiveTenderToOrder(idx) {
+    const it = (window._lastLiveSearchItems || [])[idx];
+    if (!it) return;
+    const list = document.getElementById("modBenchmarksList");
+    list.insertAdjacentHTML("beforeend", renderModBenchmarkRow(it));
+    showToast(`Тендер ${it.tender_id} додано до порівняльної таблиці!`);
+  }
+
+  function addEmptyBenchmarkRow() {
+    const list = document.getElementById("modBenchmarksList");
+    list.insertAdjacentHTML("beforeend", renderModBenchmarkRow({
+      tender_id: "UA-2026-",
+      buyer: "",
+      supplier: "",
+      volume: "1",
+      amount_no_vat: 0,
+      unit_price_no_vat: 0
+    }));
+  }
+
+  function closeEditOrderModal() {
+    document.getElementById("editOrderModal").style.display = "none";
+  }
+
+  async function saveRegenerateOrder(orderId, releaseNow) {
+    const ord = MY_ORDERS.find(o => o.id === orderId);
+    if (!ord) return;
+    const input_data = Object.assign({}, ord.input_data || {}, {
+      buyer_name: document.getElementById("mod_buyer_name").value.trim(),
+      edrpou: document.getElementById("mod_edrpou").value.trim(),
+      subject_name: document.getElementById("mod_subject_name").value.trim(),
+      cpv_code: document.getElementById("mod_cpv_code").value.trim(),
+      tender_id: document.getElementById("mod_tender_id").value.trim(),
+      expected_value: document.getElementById("mod_expected_value").value.trim(),
+      quantity: document.getElementById("mod_quantity").value.trim(),
+      unit_name: document.getElementById("mod_unit_name").value.trim()
+    });
+
+    const benchmarks = [];
+    document.querySelectorAll("#modBenchmarksList .mod-bench-row").forEach(row => {
+      const tid = row.querySelector(".mb-tid").value.trim();
+      if (!tid) return;
+      benchmarks.push({
+        tender_id: tid,
+        url: `https://prozorro.gov.ua/uk/tender/${tid}`,
+        buyer: row.querySelector(".mb-buyer").value.trim(),
+        supplier: row.querySelector(".mb-supp").value.trim(),
+        volume: row.querySelector(".mb-vol").value.trim(),
+        amount_no_vat: parseFloat(row.querySelector(".mb-amt").value || "0"),
+        unit_price_no_vat: parseFloat(row.querySelector(".mb-unit").value || "0")
+      });
+    });
+
+    const admin_comment = document.getElementById("mod_admin_comment").value.trim();
+
+    try {
+      await apiFetch("/api/admin/orders/regenerate", {
+        method: "POST",
+        body: {
+          order_id: orderId,
+          input_data,
+          benchmarks,
+          admin_comment,
+          is_released: releaseNow
+        }
+      });
+      closeEditOrderModal();
+      showToast("Обидва документи Word (.docx) за ДСТУ 4163:2020 успішно перегенеровано!");
+      await loadAdminData();
+    } catch (e) {
+      showToast(e.message);
+    }
+  }
+
+  function escapeHtml(str) {
+    return String(str ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      const a = document.activeElement;
+      if (document.getElementById("authPanelLogin")?.offsetParent && a && (a.id === "loginEmail" || a.id === "loginPassword")) {
+        doLogin();
+      } else if (a && a.id === "prozorroLookupInput") {
+        e.preventDefault();
+        autofillFromProzorro();
+      } else if (a && (a.id === "liveSearchQuery" || a.id === "liveSearchCpv")) {
+        e.preventDefault();
+        runAdminLiveProzorroSearch();
+      }
+    }
+  });
+
+  initApp();
+</script>
+</body>
+</html>
