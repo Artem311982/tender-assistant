@@ -1,1 +1,1 @@
-web: python Скрипти/app.py
+web: python main.py
