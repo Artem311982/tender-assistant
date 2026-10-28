@@ -22,7 +22,6 @@ if DATABASE_URL:
         import psycopg2
         from psycopg2.extras import RealDictCursor
     except ImportError:
-        # Fallback if psycopg2 is not installed
         psycopg2 = None
 
     class PgCursorWrapper:
@@ -31,12 +30,26 @@ if DATABASE_URL:
             self._lastrowid = None
 
         def execute(self, query, params=None):
-            # Convert SQLite '?' placeholders to PostgreSQL '%s'
             q = query.replace("?", "%s")
             clean_q = q.strip().upper()
 
-            # Handle cur.lastrowid emulation via RETURNING id for INSERT statements
-            if clean_q.startswith("INSERT INTO ") and "RETURNING" not in clean_q:
+            # Handle SQLite "INSERT OR REPLACE" / "INSERT OR IGNORE" translations for PostgreSQL
+            if "INSERT OR REPLACE INTO SESSIONS" in clean_q:
+                q = "INSERT INTO sessions (token, user_id, created_at) VALUES (%s, %s, %s) ON CONFLICT (token) DO UPDATE SET user_id = EXCLUDED.user_id, created_at = EXCLUDED.created_at"
+            elif "INSERT OR REPLACE INTO SETTINGS" in clean_q:
+                q = "INSERT INTO settings (key, value) VALUES (%s, %s) ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value"
+            elif "INSERT OR IGNORE INTO SETTINGS" in clean_q:
+                q = "INSERT INTO settings (key, value) VALUES (%s, %s) ON CONFLICT (key) DO NOTHING"
+            elif clean_q.startswith("INSERT OR IGNORE INTO "):
+                q = re.sub(r"INSERT\s+OR\s+IGNORE\s+INTO", "INSERT INTO", q, flags=re.IGNORECASE) + " ON CONFLICT DO NOTHING"
+            elif clean_q.startswith("INSERT OR REPLACE INTO "):
+                q = re.sub(r"INSERT\s+OR\s+REPLACE\s+INTO", "INSERT INTO", q, flags=re.IGNORECASE)
+
+            clean_q = q.strip().upper()
+
+            # Handle cur.lastrowid emulation via RETURNING id for INSERT statements with auto-id tables
+            has_id_table = any(f"INTO {t}" in clean_q for t in ["USERS", "ORDERS", "FORMS", "FEEDBACK_MESSAGES", "PASSWORD_RESETS"])
+            if has_id_table and "RETURNING" not in clean_q and "DO NOTHING" not in clean_q:
                 q = q.rstrip(" ;") + " RETURNING id;"
                 if params is None:
                     self._cur.execute(q)
@@ -92,7 +105,11 @@ if DATABASE_URL:
             return self._conn.close()
 
     def get_db():
-        conn = psycopg2.connect(DATABASE_URL, sslmode="require")
+        dsn = DATABASE_URL.strip()
+        if "sslmode=" not in dsn:
+            conn = psycopg2.connect(dsn, sslmode="require")
+        else:
+            conn = psycopg2.connect(dsn)
         return PgConnectionWrapper(conn)
 
 else:
