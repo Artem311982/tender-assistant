@@ -1692,7 +1692,9 @@ class TenderAppHandler(BaseHTTPRequestHandler):
 
 def run_server(port=8080):
     init_db()
-    server = ThreadingHTTPServer(("127.0.0.1", port), TenderAppHandler)
+    port = int(os.environ.get("PORT", port))
+    host = "0.0.0.0"
+    server = ThreadingHTTPServer((host, port), TenderAppHandler)
     print(f"============================================================")
     print(f" ТЕНДЕРНИЙ ПОМІЧНИК — СЕРВЕР ЗАПУЩЕНО")
     print(f" URL: http://127.0.0.1:{port}")
