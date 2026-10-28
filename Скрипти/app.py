@@ -808,6 +808,14 @@ class TenderAppHandler(BaseHTTPRequestHandler):
         self.send_json({"error": "Маршрут не знайдено"}, 404)
 
     def do_POST(self):
+        try:
+            self._handle_POST()
+        except Exception as e:
+            import traceback
+            traceback.print_exc()
+            self.send_json({"error": f"Помилка сервера: {str(e)}"}, 500)
+
+    def _handle_POST(self):
         parsed = urllib.parse.urlparse(self.path)
         path = parsed.path
         body = self.read_json_body()
