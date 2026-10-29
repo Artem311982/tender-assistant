@@ -359,6 +359,23 @@
       animation: fieldPulseHighlight 1.2s ease-out forwards;
     }
   </style>
+  <style>
+    /* Prevent Flash of Unauthenticated Content (landing page) when user is already logged in */
+    html.hide-public-landing #authSection {
+      display: none !important;
+    }
+  </style>
+  <script>
+    (function() {
+      try {
+        var isAdm = window.location.pathname.startsWith('/admin');
+        var token = localStorage.getItem("tender_token");
+        if (token || isAdm) {
+          document.documentElement.classList.add("hide-public-landing");
+        }
+      } catch(e) {}
+    })();
+  </script>
 </head>
 <body>
 
@@ -784,7 +801,7 @@
           <h2 style="margin:0;">Мої заявки: Порівняння цін Prozorro та згенеровані Обґрунтування</h2>
           <div style="display:flex; gap:8px; align-items:center;">
             <button class="btn btn-primary" onclick="switchTab('tabNewOrder')">➕ Подати заявку</button>
-            <button class="btn btn-outline btn-sm" onclick="loadOrders()">Оновити список</button>
+            <button class="btn btn-outline btn-sm" onclick="loadOrders()">↻ Оновити список</button>
           </div>
         </div>
 
@@ -943,7 +960,7 @@
       <div class="card">
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:12px;">
           <h3 style="margin:0;">Історія моїх звернень та відповіді адміністратора</h3>
-          <button class="btn btn-outline btn-sm" onclick="loadFeedbackMessages()">Оновити</button>
+          <button class="btn btn-outline btn-sm" onclick="loadFeedbackMessages()">↻ Оновити</button>
         </div>
         <div id="myFeedbackListContainer"></div>
       </div>
@@ -1050,7 +1067,7 @@
             <small style="color:var(--muted);">Управління заявками клієнтів, модерація та перегляд порівняння цін</small>
           </div>
           <div style="display:flex; align-items:center; gap:8px;" onclick="event.stopPropagation()">
-            <button class="btn btn-outline btn-sm" onclick="loadAdminData()">Оновити дані</button>
+            <button class="btn btn-outline btn-sm" onclick="loadAdminData()">↻ Оновити дані</button>
             <button type="button" class="btn btn-outline btn-sm" id="btnToggle_orders" onclick="toggleAdminCard('adminCardBody_orders', 'btnToggle_orders')">Розгорнути</button>
           </div>
         </div>
@@ -1078,7 +1095,7 @@
             <small style="color:var(--muted);">Звернення від зареєстрованих клієнтів та відвідувачів сайту з можливістю надати відповідь або відкрити клієнту доступ до зміни назви/ЄДРПОУ.</small>
           </div>
           <div style="display:flex; align-items:center; gap:8px;" onclick="event.stopPropagation()">
-            <button class="btn btn-outline btn-sm" onclick="loadAdminData()">Оновити звернення</button>
+            <button class="btn btn-outline btn-sm" onclick="loadAdminData()">↻ Оновити звернення</button>
             <button type="button" class="btn btn-outline btn-sm" id="btnToggle_feedback" onclick="toggleAdminCard('adminCardBody_feedback', 'btnToggle_feedback')">Розгорнути</button>
           </div>
         </div>
@@ -1520,6 +1537,7 @@
 
     if (isAdminRoute()) {
       // Відображаємо ізольований службовий портал адміністратора
+      document.documentElement.classList.add("hide-public-landing");
       document.getElementById("adminPortalSection").style.display = "block";
       document.getElementById("authSection").style.display = "none";
       document.getElementById("appSection").style.display = "none";
@@ -1532,6 +1550,7 @@
     }
 
     // Звичайний клієнтський інтерфейс
+    document.documentElement.classList.remove("hide-public-landing");
     const portal = document.getElementById("adminPortalSection");
     if (portal) portal.style.display = "none";
     document.getElementById("authSection").style.display = "block";
@@ -1545,6 +1564,7 @@
   }
 
   function renderLoggedInState() {
+    document.documentElement.classList.add("hide-public-landing");
     const portal = document.getElementById("adminPortalSection");
     if (portal) portal.style.display = "none";
     document.getElementById("authSection").style.display = "none";
@@ -1571,11 +1591,11 @@
     if (isAdmin) {
       tabsHtml += `<button class="tab-btn" id="btnTab_tabAdmin" onclick="switchTab('tabAdmin')">Адмін-панель (Клієнти, Форми, Модерація)</button>`;
     }
+    tabsHtml += `<button class="tab-btn" id="btnTab_tabMyOrders" onclick="switchTab('tabMyOrders')">Мої заявки та Результати (.docx)</button>`;
     if (isAdmin || perms.can_create_orders !== false) {
       tabsHtml += `<button class="tab-btn" id="btnTab_tabNewOrder" onclick="switchTab('tabNewOrder')">➕ Подати заявку за формою</button>`;
     }
     tabsHtml += `
-      <button class="tab-btn" id="btnTab_tabMyOrders" onclick="switchTab('tabMyOrders')">Мої заявки та Результати (.docx)</button>
       <button class="tab-btn" id="btnTab_tabProfile" onclick="switchTab('tabProfile')">Профіль замовника</button>
     `;
     if (!isAdmin) {
@@ -1587,10 +1607,26 @@
     populateProfileFields();
     checkFeedbackRepliesCount();
 
-    if (isAdmin) {
+    // Відновлюємо активну вкладку, на якій клієнт перебував перед оновленням сторінки
+    let savedTab = null;
+    try {
+      savedTab = sessionStorage.getItem("tender_active_tab_" + CURRENT_USER.role);
+    } catch (e) {}
+
+    if (savedTab && !document.getElementById(savedTab)) {
+      savedTab = null;
+    }
+    if (savedTab === "tabAdmin" && !isAdmin) {
+      savedTab = null;
+    }
+    if (savedTab === "tabNewOrder" && !isAdmin && perms.can_create_orders === false) {
+      savedTab = null;
+    }
+
+    if (savedTab) {
+      switchTab(savedTab);
+    } else if (isAdmin) {
       switchTab("tabAdmin");
-    } else if (perms.can_create_orders !== false) {
-      switchTab("tabNewOrder");
     } else {
       switchTab("tabMyOrders");
     }
@@ -1607,6 +1643,13 @@
     if (target) target.style.display = "block";
     const btn = document.getElementById("btnTab_" + tabId);
     if (btn) btn.classList.add("active");
+
+    // Зберігаємо поточну активну вкладку для збереження стану після F5
+    try {
+      if (CURRENT_USER) {
+        sessionStorage.setItem("tender_active_tab_" + CURRENT_USER.role, tabId);
+      }
+    } catch (e) {}
 
     if (tabId === "tabMyOrders") loadOrders();
     if (tabId === "tabProfile") populateProfileFields();
@@ -2644,6 +2687,10 @@
   }
 
   function doLogout() {
+    try {
+      sessionStorage.removeItem("tender_active_tab_user");
+      sessionStorage.removeItem("tender_active_tab_admin");
+    } catch (e) {}
     const newAuthEl = document.getElementById("newAuthPersonInput");
     if (newAuthEl) newAuthEl.value = "";
     AUTH_TOKEN = "";
