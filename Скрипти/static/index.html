@@ -739,29 +739,15 @@
       <div class="card" id="newOrderCardBlock">
         <h2>Замовлення послуги: Порівняння цін у системі Prozorro та Обґрунтування</h2>
         <p style="color:var(--muted); margin-top:-6px;">
-          Оберіть одну з форм, затверджених в адмін-панелі, та введіть інформацію про предмет закупівлі й очікувану вартість.
+          Введіть інформацію про предмет закупівлі й очікувану вартість для проведення порівняння цін у системі Prozorro та формування документів.
         </p>
 
-        <div class="grid-2" style="background:#f8fafc; padding:14px; border-radius:8px; border:1px solid var(--border); margin-bottom:16px;">
-          <div class="form-group" style="margin-bottom:0;">
-            <label>1. Оберіть форму подачі інформації (з адмін-панелі):</label>
-            <select id="selectedFormSelect" onchange="onSelectFormChange()"></select>
-            <div id="selectedFormDesc" style="font-size:12.5px; color:var(--muted); margin-top:5px;"></div>
-          </div>
-
-          <div id="docxExchangeBox" style="display:flex; flex-direction:column; justify-content:center; gap:8px;">
-            <div style="font-weight:600; font-size:13px;">Обмін через файл шаблону Word (.docx):</div>
-            <div style="display:flex; gap:8px; flex-wrap:wrap;">
-              <button class="btn btn-outline btn-sm" onclick="downloadCurrentFormBlank()">
-                Скачати бланк форми (.docx)
-              </button>
-              <label class="btn btn-primary btn-sm" style="margin:0; cursor:pointer;">
-                Завантажити заповнений .docx
-                <input type="file" id="userDocxUpload" accept=".docx" style="display:none;" onchange="handleUserFilledDocx(event)" />
-              </label>
-            </div>
-            <div id="uploadedDocxBadge" style="font-size:12px; color:var(--success);"></div>
-          </div>
+        <!-- Прихований блок форми для збереження сумісності скриптів -->
+        <div style="display:none;" id="formSelectionHiddenBlock">
+          <select id="selectedFormSelect" onchange="onSelectFormChange()"></select>
+          <div id="selectedFormDesc"></div>
+          <div id="docxExchangeBox"></div>
+          <div id="uploadedDocxBadge"></div>
         </div>
 
         <!-- Автозаповнення з Prozorro API -->
@@ -2871,23 +2857,71 @@
     return clean;
   }
 
-  function renderProzorroUnitSelectOptionsHtml(selectedVal) {
-    const normVal = normalizeProzorroUnitValue(selectedVal);
-    let found = false;
-    const groupsHtml = PROZORRO_UNITS_GROUPS.map(grp => {
-      const opts = grp.items.map(it => {
-        const isSel = normVal && it.value === normVal;
-        if (isSel) found = true;
-        return `<option value="${escapeHtml(it.value)}" ${isSel ? "selected" : ""}>${escapeHtml(it.label)}</option>`;
-      }).join("");
-      return `<optgroup label="${escapeHtml(grp.group)}">${opts}</optgroup>`;
+  function getAllProzorroUnitsList() {
+    const all = [];
+    PROZORRO_UNITS_GROUPS.forEach(g => {
+      g.items.forEach(it => {
+        all.push({ value: it.value, label: it.label, group: g.group });
+      });
+    });
+    return all;
+  }
+
+  function renderProzorroUnitDatalistOptionsHtml() {
+    return getAllProzorroUnitsList().map(it => `<option value="${escapeHtml(it.value)}">${escapeHtml(it.label)}</option>`).join("");
+  }
+
+  function onProzorroUnitInput(inp) {
+    const q = (inp.value || "").trim().toLowerCase();
+    const box = document.getElementById("orderUnitSuggestionsBox");
+    if (!box) return;
+    if (!q) {
+      box.style.display = "none";
+      return;
+    }
+    const all = getAllProzorroUnitsList();
+    const matched = all.filter(it =>
+      it.value.toLowerCase().includes(q) ||
+      it.label.toLowerCase().includes(q)
+    );
+
+    if (!matched.length) {
+      box.style.display = "none";
+      return;
+    }
+
+    box.innerHTML = matched.slice(0, 10).map(it => {
+      return `
+        <div style="padding:8px 12px; cursor:pointer; font-size:13px; border-bottom:1px solid #f1f5f9; display:flex; justify-content:space-between; align-items:center;" onmousedown="selectProzorroUnitSuggestion('${escapeHtml(it.value)}')">
+          <span style="font-weight:600; color:var(--ink);">${escapeHtml(it.value)}</span>
+          <span style="color:var(--muted); font-size:11.5px;">${escapeHtml(it.label)}</span>
+        </div>
+      `;
     }).join("");
+    box.style.display = "block";
+  }
 
-    const customOpt = (normVal && !found)
-      ? `<optgroup label="Власна одиниця з тендеру"><option value="${escapeHtml(normVal)}" selected>${escapeHtml(normVal)}</option></optgroup>`
-      : "";
+  function onProzorroUnitFocus(inp) {
+    if (inp.value.trim()) {
+      onProzorroUnitInput(inp);
+    }
+  }
 
-    return `<option value="">— Оберіть одиницю виміру Prozorro —</option>${customOpt}${groupsHtml}`;
+  function onProzorroUnitBlur() {
+    setTimeout(() => {
+      const box = document.getElementById("orderUnitSuggestionsBox");
+      if (box) box.style.display = "none";
+    }, 200);
+  }
+
+  function selectProzorroUnitSuggestion(val) {
+    const inp = document.getElementById("orderUnitNameField");
+    if (inp) {
+      inp.value = val;
+      inp.dispatchEvent(new Event("input"));
+    }
+    const box = document.getElementById("orderUnitSuggestionsBox");
+    if (box) box.style.display = "none";
   }
 
   function setProzorroUnitFieldValue(el, rawVal) {
@@ -2966,11 +3000,13 @@
       }
       if (f.key === "unit_name") {
         return `
-          <div class="form-group">
+          <div class="form-group" style="position:relative;">
             <label>${escapeHtml(f.label)}${reqStar}</label>
-            <select data-field-key="unit_name" id="orderUnitNameField">
-              ${renderProzorroUnitSelectOptionsHtml(val)}
-            </select>
+            <input type="text" data-field-key="unit_name" id="orderUnitNameField" list="prozorroUnitsDatalist" value="${escapeHtml(val)}" placeholder="Почніть вводити (напр. шт, кг, м, Гкал, послуга)..." autocomplete="off" oninput="onProzorroUnitInput(this)" onfocus="onProzorroUnitFocus(this)" onblur="onProzorroUnitBlur()" />
+            <datalist id="prozorroUnitsDatalist">
+              ${renderProzorroUnitDatalistOptionsHtml()}
+            </datalist>
+            <div id="orderUnitSuggestionsBox" style="display:none; position:absolute; top:100%; left:0; right:0; z-index:99; background:#fff; border:1px solid var(--border); border-radius:6px; box-shadow:0 6px 18px rgba(0,0,0,0.12); max-height:220px; overflow-y:auto; margin-top:2px;"></div>
           </div>
         `;
       }
