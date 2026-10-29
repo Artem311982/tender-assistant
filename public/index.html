@@ -733,9 +733,10 @@
   <div id="appSection" style="display:none;">
     <div class="tabs" id="mainTabs"></div>
 
-    <!-- ВКЛАДКА 1: ПОДАТИ ЗАЯВКУ ЗА ФОРМОЮ (КАБІНЕТ КОРИСТУВАЧА) -->
-    <div id="tabNewOrder" class="tab-pane" style="display:none;">
-      <div class="card">
+    <!-- ВКЛАДКА 1: МОЇ ЗАЯВКИ ТА РЕЗУЛЬТАТИ (ПОДАЧА ЗАЯВКИ + ТАБЛИЦЯ РЕЗУЛЬТАТІВ) -->
+    <div id="tabMyOrders" class="tab-pane" style="display:none;">
+      <!-- БЛОК 1 (ПЕРШИЙ): ПОЛЯ ДЛЯ ПОДАЧІ ЗАЯВКИ (БЕЗ ЗМІН ПО КІЛЬКОСТІ ТА ЗМІСТУ) -->
+      <div class="card" id="newOrderCardBlock">
         <h2>Замовлення послуги: Порівняння цін у системі Prozorro та Обґрунтування</h2>
         <p style="color:var(--muted); margin-top:-6px;">
           Оберіть одну з форм, затверджених в адмін-панелі, та введіть інформацію про предмет закупівлі й очікувану вартість.
@@ -792,15 +793,12 @@
         </div>
         <div id="orderBenchmarksPreviewContainer" style="display:none; margin-top:18px;"></div>
       </div>
-    </div>
 
-    <!-- ВКЛАДКА 2: МОЇ ЗАЯВКИ ТА РЕЗУЛЬТАТИ -->
-    <div id="tabMyOrders" class="tab-pane" style="display:none;">
-      <div class="card">
+      <!-- БЛОК 2 (ДРУГИЙ): ПОДАНІ ЗАЯВКИ ТА РЕЗУЛЬТАТИ -->
+      <div class="card" id="submittedOrdersCard">
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
-          <h2 style="margin:0;">Мої заявки: Порівняння цін Prozorro та згенеровані Обґрунтування</h2>
+          <h2 style="margin:0;">Подані заявки та результати</h2>
           <div style="display:flex; gap:8px; align-items:center;">
-            <button class="btn btn-primary" onclick="switchTab('tabNewOrder')">➕ Подати заявку</button>
             <button class="btn btn-outline btn-sm" onclick="loadOrders()">↻ Оновити список</button>
           </div>
         </div>
@@ -1583,6 +1581,10 @@
       <button class="btn btn-outline btn-sm" onclick="doLogout()">Вийти</button>
     `;
 
+    const newOrderBlockEl = document.getElementById("newOrderCardBlock");
+    if (newOrderBlockEl) {
+      newOrderBlockEl.style.display = (isAdmin || perms.can_create_orders !== false) ? "block" : "none";
+    }
     document.getElementById("prozorroAutofillBox").style.display = (isAdmin || perms.can_prozorro_autofill !== false) ? "block" : "none";
     document.getElementById("docxExchangeBox").style.display = (isAdmin || perms.can_docx_upload !== false) ? "flex" : "none";
 
@@ -1591,11 +1593,8 @@
     if (isAdmin) {
       tabsHtml += `<button class="tab-btn" id="btnTab_tabAdmin" onclick="switchTab('tabAdmin')">Адмін-панель (Клієнти, Форми, Модерація)</button>`;
     }
-    tabsHtml += `<button class="tab-btn" id="btnTab_tabMyOrders" onclick="switchTab('tabMyOrders')">Мої заявки та Результати (.docx)</button>`;
-    if (isAdmin || perms.can_create_orders !== false) {
-      tabsHtml += `<button class="tab-btn" id="btnTab_tabNewOrder" onclick="switchTab('tabNewOrder')">➕ Подати заявку за формою</button>`;
-    }
     tabsHtml += `
+      <button class="tab-btn" id="btnTab_tabMyOrders" onclick="switchTab('tabMyOrders')">Мої заявки та результати</button>
       <button class="tab-btn" id="btnTab_tabProfile" onclick="switchTab('tabProfile')">Профіль замовника</button>
     `;
     if (!isAdmin) {
@@ -1633,6 +1632,9 @@
   }
 
   function switchTab(tabId) {
+    if (tabId === "tabNewOrder") {
+      tabId = "tabMyOrders";
+    }
     if (tabId === "tabFeedback" && CURRENT_USER && CURRENT_USER.role === "admin") {
       switchTab("tabAdmin");
       return;
@@ -3320,11 +3322,10 @@
     const wrap = document.getElementById("myOrdersContainer");
     if (!MY_ORDERS.length) {
       wrap.innerHTML = `
-      <div style="background:#f8fafc; border:1px dashed var(--border); border-radius:8px; padding:24px; text-align:center; color:var(--muted); font-size:14px;">
-        <p style="margin-bottom:12px;">У цьому кабінеті ще немає поданих заявок.</p>
-        <button class="btn btn-primary" onclick="switchTab('tabNewOrder')">➕ Подати першу заявку</button>
-      </div>
-    `;
+        <div style="background:#f8fafc; border:1px dashed var(--border); border-radius:8px; padding:20px; text-align:center; color:var(--muted); font-size:13.5px;">
+          У цьому кабінеті ще немає поданих заявок. Заповніть форму вище, щоб сформувати перше порівняння цін та обґрунтування.
+        </div>
+      `;
       return;
     }
 
@@ -3375,211 +3376,117 @@
       return;
     }
 
-    let html = `
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; gap:8px; flex-wrap:wrap;">
-        <span style="font-size:13.5px; color:var(--muted);">
-          Показано: <strong>${filteredOrders.length}</strong> з <strong>${MY_ORDERS.length}</strong>
-        </span>
-        <div style="display:flex; gap:8px;">
-          <button class="btn btn-outline btn-sm" onclick="expandAllOrders(true)">Розгорнути всі</button>
-          <button class="btn btn-outline btn-sm" onclick="expandAllOrders(false)">Згорнути всі</button>
-        </div>
-      </div>
-    `;
+    const canMainDoc = isAdmin || perms.can_download_main_doc !== false;
+    const canAnnexDoc = isAdmin || perms.can_download_annex_doc !== false;
 
-    html += filteredOrders.map((o, idx) => {
+    const rowsHtml = filteredOrders.map((o, idx) => {
       const seqNum = orderSeqMap.get(o.id) || (idx + 1);
       const inp = o.input_data || {};
       const stats = o.stats || {};
-      const consult = o.consultation || {};
       const subjName = inp.subject_name || "Без назви";
-      const releasedBadge = o.is_released
-        ? `<span class="badge badge-success" style="font-size:11px;">Результат надано</span>`
-        : `<span class="badge badge-warn" style="font-size:11px;">Очікує погодження</span>`;
+      const unitName = stats.unit_name || inp.unit_name || "од.";
+      const isAvailable = Boolean(o.is_released) || isAdmin;
 
-      // Згорнутий стан: тільки номер заявки (вирівняний за кількістю) та предмет закупівлі
-      const headerHtml = `
-        <div style="display:flex; justify-content:space-between; align-items:center; cursor:pointer; user-select:none; gap:10px;" onclick="toggleOrderCollapse(${o.id})">
-          <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
-            <strong style="font-size:15.5px; color:var(--text);">Заявка № ${seqNum}: ${escapeHtml(subjName)}</strong>
-            ${releasedBadge}
+      const statusBadge = o.is_released
+        ? `<span class="badge badge-success" style="font-size:11.5px;">Результат надано</span>`
+        : `<span class="badge badge-warn" style="font-size:11.5px;">Очікує погодження</span>`;
+
+      const devVal = Number(stats.deviation_pct || 0);
+      const devSign = devVal > 0 ? "+" : "";
+      const devColor = devVal > 10 ? "#b91c1c" : (devVal < -10 ? "#b45309" : "var(--muted)");
+
+      const purchasePriceCell = isAvailable
+        ? `
+          <div style="font-size:11.5px; color:var(--muted); margin-bottom:2px;">
+            Ціна закупівлі за 1 ${escapeHtml(unitName)} (без ПДВ)
           </div>
-          <button type="button" class="btn btn-outline btn-sm" id="btnToggleOrder_${o.id}" style="pointer-events:none;">
-            Розгорнути
-          </button>
-        </div>
-      `;
-
-      let bodyHtml = "";
-      if (!o.is_released && !isAdmin) {
-        bodyHtml = `
-          <div id="orderDetails_${o.id}" style="display:none; margin-top:12px; border-top:1px solid var(--border); padding-top:12px;">
-            <div style="font-size:13px; color:var(--muted); margin-bottom:8px;">
-              Форма: <strong>${escapeHtml(o.form_title)}</strong> | Створено: ${escapeHtml(o.created_at)}
-            </div>
-            <p style="margin:6px 0;">
-              <strong>Замовник:</strong> ${escapeHtml(inp.buyer_name || "")} (ЄДРПОУ: ${escapeHtml(inp.edrpou || "")})<br/>
-              <strong>Код CPV:</strong> ${escapeHtml(inp.cpv_code || "")}<br/>
-              <strong>Очікувана вартість:</strong> ${Number(inp.expected_value || 0).toLocaleString('uk-UA')} грн без ПДВ
-              ${stats.is_expected_value_highest ? `<span style="margin-left:8px; display:inline-block; background:#fef2f2; border:1px solid #f87171; color:#991b1b; padding:2px 8px; border-radius:4px; font-size:11.5px; font-weight:600;">Очікувана вартість є найвищою</span>` : ''}
-            </p>
-            <div style="background:#fef3c7; color:#92400e; padding:10px 14px; border-radius:6px; font-size:13px; margin-top:10px;">
-              Порівняння цін у системі Prozorro та проєкти 2 файлів обґрунтування сформовані системою і очікують погодження адміністратора.
-            </div>
+          <div style="font-weight:700; font-size:14px; color:var(--ink);">
+            ${Number(stats.unit_price_no_vat || 0).toLocaleString('uk-UA')} грн
           </div>
-        `;
-      } else {
-        const canMainDoc = isAdmin || perms.can_download_main_doc !== false;
-        const canAnnexDoc = isAdmin || perms.can_download_annex_doc !== false;
-        const canPriceTable = isAdmin || perms.can_view_price_table !== false;
-        const canLegal = isAdmin || Boolean(perms.can_view_legal_variants);
-
-        const benchRows = (o.benchmarks || []).map((b, i) => `
-          <tr>
-            <td>${i + 1}</td>
-            <td>${escapeHtml(b.buyer || "")}</td>
-            <td>${escapeHtml(b.supplier || "")}</td>
-            <td>
-              <strong>${escapeHtml(b.tender_id || "")}</strong><br/>
-              <a href="${escapeHtml(b.url || ('https://prozorro.gov.ua/uk/tender/' + b.tender_id))}" target="_blank" style="color:#000; text-decoration:underline;">
-                ${escapeHtml(b.url || ('https://prozorro.gov.ua/uk/tender/' + b.tender_id))}
-              </a>
-            </td>
-            <td>${escapeHtml(String(b.volume || ""))} ${escapeHtml(stats.unit_name || "")}</td>
-            <td>
-              <strong>${Number(b.amount_no_vat || 0).toLocaleString('uk-UA')} грн без ПДВ</strong><br/>
-              (${Number(b.unit_price_no_vat || 0).toLocaleString('uk-UA')} грн/${escapeHtml(stats.unit_name || "од.")})
-            </td>
-          </tr>
-        `).join("");
-
-        bodyHtml = `
-          <div id="orderDetails_${o.id}" style="display:none; margin-top:12px; border-top:1px solid var(--border); padding-top:12px;">
-            <div style="font-size:12.5px; color:var(--muted); margin-bottom:12px;">
-              Замовник: ${escapeHtml(inp.buyer_name || "")} (ЄДРПОУ ${escapeHtml(inp.edrpou || "")}) | Тендер: ${escapeHtml(inp.tender_id || "—")} | Створено: ${escapeHtml(o.created_at)}
-            </div>
-
-            <div class="grid-3" style="margin-bottom:14px;">
-              <div class="stat-box">
-                <div class="label">Очікувана вартість (без ПДВ)</div>
-                <div class="val">${Number(stats.expected_value_no_vat || 0).toLocaleString('uk-UA')} грн</div>
-                <div style="font-size:12px; color:var(--muted);">Обсяг: ${stats.quantity || 0} ${escapeHtml(stats.unit_name || "")}</div>
-                ${stats.is_expected_value_highest ? `<div style="margin-top:6px; color:#991b1b; background:#fef2f2; border:1px solid #f87171; border-radius:6px; padding:4px 8px; font-size:11.5px; font-weight:600; line-height:1.35;">Очікувана вартість є найвищою серед порівнюваних закупівель Prozorro</div>` : ''}
-              </div>
-              <div class="stat-box">
-                <div class="label">Ціна замовника за 1 ${escapeHtml(stats.unit_name || "од.")} (без ПДВ)</div>
-                <div class="val">${Number(stats.unit_price_no_vat || 0).toLocaleString('uk-UA')} грн</div>
-                <div style="font-size:12px; color:var(--muted);">Відхилення від ринку: ${stats.deviation_pct > 0 ? '+' : ''}${stats.deviation_pct || 0}%</div>
-              </div>
-              <div class="stat-box">
-                <div class="label">Середньоринкова ціна Prozorro (без ПДВ)</div>
-                <div class="val">${Number(stats.avg_market_price_no_vat || 0).toLocaleString('uk-UA')} грн</div>
-                <div style="margin-top:6px;">
-                  <button type="button" class="btn btn-outline btn-sm" id="btnCopyStat_${o.id}" style="font-size:11px; padding:2px 8px;" onclick="copyPriceToClipboard('${Number(stats.avg_market_price_no_vat || 0).toFixed(2)}', '${escapeHtml(stats.unit_name || 'од.')}', 'btnCopyStat_${o.id}')" title="Скопіювати значення">
-                    Скопіювати ціну
-                  </button>
-                </div>
-                <div style="font-size:12px; color:var(--muted);">Діапазон: ${Number(stats.min_market_price_no_vat || 0).toLocaleString('uk-UA')} – ${Number(stats.max_market_price_no_vat || 0).toLocaleString('uk-UA')} грн</div>
-              </div>
-            </div>
-
-            <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:14px; padding:10px 14px; background:#f8fafc; border:1px solid var(--border); border-radius:8px;">
-              ${canMainDoc ? `
-                <a class="btn btn-primary btn-sm" href="/api/orders/download/${o.id}/1?token=${encodeURIComponent(AUTH_TOKEN)}">
-                  Скачати: ${escapeHtml(o.file1_name || "Обґрунтування (.docx)")}
-                </a>` : `<span class="badge badge-warn">Файл 1 обмежено рівнем доступу</span>`
-              }
-              ${canAnnexDoc ? `
-                <a class="btn btn-success btn-sm" href="/api/orders/download/${o.id}/2?token=${encodeURIComponent(AUTH_TOKEN)}">
-                  Скачати: ${escapeHtml(o.file2_name || "Додаток до обґрунтування (.docx)")}
-                </a>` : `<span class="badge badge-warn">Файл 2 обмежено рівнем доступу</span>`
-              }
-            </div>
-
-            <h4 style="margin:10px 0 6px;">1. Загальні відомості про замовника та закупівлю (згідно з формою Обґрунтування):</h4>
-            <div style="overflow-x:auto; margin-bottom:14px;">
-              <table>
-                <tbody>
-                  <tr>
-                    <th style="width:38%;">Найменування замовника:</th>
-                    <td>${escapeHtml(inp.buyer_name || "")}</td>
-                  </tr>
-                  <tr>
-                    <th>Ідентифікаційний код замовника в ЄДР:</th>
-                    <td>${escapeHtml(inp.edrpou || "")}</td>
-                  </tr>
-                  <tr>
-                    <th>Вид та назва предмета закупівлі:</th>
-                    <td>Товари — ${escapeHtml(inp.subject_name || "")}</td>
-                  </tr>
-                  <tr>
-                    <th>Код за Єдиним закупівельним словником:</th>
-                    <td>ДК 021:2015: ${escapeHtml(inp.cpv_code || "")}</td>
-                  </tr>
-                  <tr>
-                    <th>Кількість товарів:</th>
-                    <td>${Number(stats.quantity || inp.quantity || 1).toLocaleString('uk-UA')} ${escapeHtml(stats.unit_name || inp.unit_name || "")}</td>
-                  </tr>
-                  <tr>
-                    <th>Очікувана вартість предмета закупівлі:</th>
-                    <td>
-                      <strong>${Number(stats.expected_value_no_vat || inp.expected_value || 0).toLocaleString('uk-UA')} грн без ПДВ</strong>
-                      ${stats.is_expected_value_highest ? `<span style="margin-left:10px; display:inline-block; background:#fef2f2; border:1px solid #f87171; color:#991b1b; padding:2px 8px; border-radius:4px; font-size:11.5px; font-weight:600;">Очікувана вартість є найвищою серед порівнюваних закупівель Prozorro</span>` : ''}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            ${canPriceTable && (o.benchmarks || []).length ? `
-              <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin:14px 0 8px;">
-                <h4 style="margin:0;">2.1. Аналіз закупівель та укладених договорів у системі Prozorro за 2026 рік (без ПДВ):</h4>
-                <div style="display:flex; gap:6px; flex-wrap:wrap;">
-                  <button type="button" class="btn btn-outline btn-sm" id="btnCopyPrice_${o.id}" onclick="copyPriceToClipboard('${Number(stats.avg_market_price_no_vat || 0).toFixed(2)}', '${escapeHtml(stats.unit_name || 'од.')}', 'btnCopyPrice_${o.id}')" title="Скопіювати середньозважену ціну">
-                    Скопіювати ціну
-                  </button>
-                  <button type="button" class="btn btn-outline btn-sm" onclick="printOrderTable(${o.id})" title="Друкувати зведену таблицю">
-                    Друк зведеної таблиці
-                  </button>
-                </div>
-              </div>
-              <div style="overflow-x:auto; margin-bottom:14px;">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>№</th>
-                      <th>Замовник</th>
-                      <th>Постачальник / Учасник</th>
-                      <th>Ідентифікатор та пряме посилання на Prozorro</th>
-                      <th>Обсяг</th>
-                      <th>Сума / Ціна за одиницю (без ПДВ)</th>
-                    </tr>
-                  </thead>
-                  <tbody>${benchRows}</tbody>
-                </table>
-              </div>
-            ` : ""}
-
-            ${canLegal && consult.variant_1_dasu ? `
-              <h4 style="margin:10px 0 6px;">Багатоваріантний експертний висновок (ДАСУ / Практика / КАС ВС):</h4>
-              <div class="variant-card"><strong>Варіант 1 (За буквою закону / Позиція ДАСУ):</strong> ${escapeHtml(consult.variant_1_dasu || "")}</div>
-              <div class="variant-card"><strong>Варіант 2 (Практичне / оптимізоване рішення замовника):</strong> ${escapeHtml(consult.variant_2_practical || "")}</div>
-              <div class="variant-card"><strong>Варіант 3 (Судова практика Верховного Суду та АМКУ):</strong> ${escapeHtml(consult.variant_3_judicial || "")}</div>
-            ` : ""}
-            ${o.admin_comment ? `<div style="margin-top:8px; font-size:13px; color:#1e3a8a;"><strong>Коментар адміністратора:</strong> ${escapeHtml(o.admin_comment)}</div>` : ""}
+          <div style="font-size:11.5px; color:${devColor}; margin-top:2px;">
+            Відхилення від ринку: <strong>${devSign}${devVal}%</strong>
+          </div>
+        `
+        : `
+          <div style="font-size:11.5px; color:var(--muted); margin-bottom:2px;">
+            Ціна закупівлі за 1 ${escapeHtml(unitName)} (без ПДВ)
+          </div>
+          <div style="font-weight:700; font-size:14px; color:var(--ink);">
+            ${Number(stats.unit_price_no_vat || 0).toLocaleString('uk-UA')} грн
+          </div>
+          <div style="font-size:11.5px; color:var(--muted); margin-top:2px;">
+            Відхилення: після погодження
           </div>
         `;
-      }
+
+      const marketPriceCell = isAvailable
+        ? `
+          <div style="font-size:11.5px; color:var(--muted); margin-bottom:2px;">
+            Середньоринкова ціна Prozorro (без ПДВ)
+          </div>
+          <div style="font-weight:700; font-size:14px; color:#000000;">
+            ${Number(stats.avg_market_price_no_vat || 0).toLocaleString('uk-UA')} грн
+          </div>
+          <div style="font-size:11.5px; color:var(--muted); margin-top:2px;">
+            Діапазон: ${Number(stats.min_market_price_no_vat || 0).toLocaleString('uk-UA')} – ${Number(stats.max_market_price_no_vat || 0).toLocaleString('uk-UA')} грн
+          </div>
+        `
+        : `<span style="font-size:12px; color:var(--muted);">Розрахунок на перевірці</span>`;
+
+      const docsCell = isAvailable
+        ? `
+          <div style="display:flex; flex-direction:column; gap:5px; align-items:flex-start;">
+            ${canMainDoc ? `
+              <a class="btn btn-primary btn-sm" style="padding:4px 10px; font-size:11.5px; width:100%; justify-content:center; box-sizing:border-box;" href="/api/orders/download/${o.id}/1?token=${encodeURIComponent(AUTH_TOKEN)}" title="${escapeHtml(o.file1_name || 'Обґрунтування (.docx)')}">
+                Обґрунтування (.docx)
+              </a>` : `<span class="badge badge-warn" style="font-size:10.5px;">Файл 1 обмежено</span>`
+            }
+            ${canAnnexDoc ? `
+              <a class="btn btn-success btn-sm" style="padding:4px 10px; font-size:11.5px; width:100%; justify-content:center; box-sizing:border-box;" href="/api/orders/download/${o.id}/2?token=${encodeURIComponent(AUTH_TOKEN)}" title="${escapeHtml(o.file2_name || 'Додаток до обґрунтування (.docx)')}">
+                Додаток (.docx)
+              </a>` : `<span class="badge badge-warn" style="font-size:10.5px;">Файл 2 обмежено</span>`
+            }
+          </div>
+        `
+        : `<span style="font-size:12px; color:var(--muted);">Очікує погодження</span>`;
 
       return `
-        <div class="card" style="border-left: 5px solid ${o.is_released ? 'var(--success)' : 'var(--warn)'}; margin-bottom:10px; padding:14px 18px;">
-          ${headerHtml}
-          ${bodyHtml}
-        </div>
+        <tr>
+          <td style="font-weight:700; white-space:nowrap; width:70px; text-align:center;">№ ${seqNum}</td>
+          <td style="min-width:180px;">
+            <div style="font-weight:600; color:var(--ink); font-size:13.5px;">${escapeHtml(subjName)}</div>
+            ${o.admin_comment ? `<div style="margin-top:4px; font-size:11.5px; color:#1e3a8a;">Коментар: ${escapeHtml(o.admin_comment)}</div>` : ""}
+          </td>
+          <td style="white-space:nowrap; width:140px;">${statusBadge}</td>
+          <td style="min-width:210px;">${purchasePriceCell}</td>
+          <td style="min-width:220px;">${marketPriceCell}</td>
+          <td style="width:170px;">${docsCell}</td>
+        </tr>
       `;
     }).join("");
 
-    wrap.innerHTML = html;
+    wrap.innerHTML = `
+      <div style="margin-bottom:8px; font-size:13px; color:var(--muted);">
+        Показано заявок: <strong>${filteredOrders.length}</strong> з <strong>${MY_ORDERS.length}</strong>
+      </div>
+      <div style="overflow-x:auto;">
+        <table style="margin-top:0;">
+          <thead>
+            <tr>
+              <th style="width:70px; text-align:center;">№ заявки</th>
+              <th>Предмет закупівлі</th>
+              <th style="width:140px;">Статус</th>
+              <th>Ціна закупівлі (без ПДВ)</th>
+              <th>Середньоринкова ціна Prozorro (без ПДВ)</th>
+              <th style="width:170px;">Документи (.docx)</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rowsHtml}
+          </tbody>
+        </table>
+      </div>
+    `;
   }
 
 
