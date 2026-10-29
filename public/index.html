@@ -1359,6 +1359,17 @@
   </div>
 </div>
 
+<!-- ===================== МОДАЛЬНЕ ВІКНО ПЕРЕГЛЯДУ ДОГОВОРІВ PROZORRO (ДЖЕРЕЛА) ===================== -->
+<div class="modal-backdrop" id="orderSourcesModal" style="display:none;">
+  <div class="modal" style="max-width:920px; width:95%;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; border-bottom:1px solid var(--border); padding-bottom:8px;">
+      <h3 style="margin:0; font-size:16px;" id="orderSourcesModalTitle">Першоджерела Prozorro для порівняння цін</h3>
+      <button class="btn btn-outline btn-sm" onclick="closeOrderSourcesModal()">Закрити</button>
+    </div>
+    <div id="orderSourcesModalBody"></div>
+  </div>
+</div>
+
 <div class="toast" id="toastBox"></div>
 <script>
 
@@ -3389,6 +3400,23 @@
       const devSign = devVal > 0 ? "+" : "";
       const devColor = devVal > 10 ? "#b91c1c" : (devVal < -10 ? "#b45309" : "var(--muted)");
 
+      // Активне посилання на власне оголошення клієнта (якщо вказано ID або посилання)
+      let ownTenderHtml = "";
+      const rawTid = (inp.tender_id || "").trim();
+      if (rawTid) {
+        let tenderUrl = rawTid;
+        if (!tenderUrl.startsWith("http://") && !tenderUrl.startsWith("https://")) {
+          tenderUrl = "https://prozorro.gov.ua/uk/tender/" + encodeURIComponent(rawTid);
+        }
+        ownTenderHtml = `
+          <div style="margin-top:3px; font-size:11.5px;">
+            <a href="${escapeHtml(tenderUrl)}" target="_blank" rel="noopener noreferrer" style="color:#1e3a8a; text-decoration:underline; font-weight:500;">
+              Оголошення: ${escapeHtml(rawTid)}
+            </a>
+          </div>
+        `;
+      }
+
       const purchasePriceCell = isAvailable
         ? `
           <div style="font-size:11.5px; color:var(--muted); margin-bottom:2px;">
@@ -3413,6 +3441,18 @@
           </div>
         `;
 
+      const benchList = o.benchmarks || [];
+      const benchCount = benchList.length;
+      const sourcesBtnHtml = (isAvailable && benchCount > 0)
+        ? `
+          <div style="margin-top:5px;">
+            <a href="javascript:void(0)" onclick="openOrderSourcesModal(${o.id})" style="font-size:11.5px; color:#1e3a8a; text-decoration:underline; font-weight:600; cursor:pointer;">
+              Джерела Prozorro (${benchCount} ${benchCount === 1 ? 'договір' : (benchCount < 5 ? 'договори' : 'договорів')})
+            </a>
+          </div>
+        `
+        : "";
+
       const marketPriceCell = isAvailable
         ? `
           <div style="font-size:11.5px; color:var(--muted); margin-bottom:2px;">
@@ -3424,6 +3464,7 @@
           <div style="font-size:11.5px; color:var(--muted); margin-top:2px;">
             Діапазон: ${Number(stats.min_market_price_no_vat || 0).toLocaleString('uk-UA')} – ${Number(stats.max_market_price_no_vat || 0).toLocaleString('uk-UA')} грн
           </div>
+          ${sourcesBtnHtml}
         `
         : `<span style="font-size:12px; color:var(--muted);">Розрахунок на перевірці</span>`;
 
@@ -3449,6 +3490,7 @@
           <td style="font-weight:700; white-space:nowrap; width:70px; text-align:center;">№ ${seqNum}</td>
           <td style="min-width:180px;">
             <div style="font-weight:600; color:var(--ink); font-size:13.5px;">${escapeHtml(subjName)}</div>
+            ${ownTenderHtml}
             ${o.admin_comment ? `<div style="margin-top:4px; font-size:11.5px; color:#1e3a8a;">Коментар: ${escapeHtml(o.admin_comment)}</div>` : ""}
           </td>
           <td style="white-space:nowrap; width:140px;">${statusBadge}</td>
@@ -4608,6 +4650,89 @@
         </div>
       </div>
     `;
+  }
+
+  function openOrderSourcesModal(orderId) {
+    const ord = MY_ORDERS.find(o => o.id === orderId);
+    if (!ord) return;
+    const inp = ord.input_data || {};
+    const stats = ord.stats || {};
+    const benchmarks = ord.benchmarks || [];
+    const subjName = inp.subject_name || "Без назви";
+    const unit = stats.unit_name || inp.unit_name || "од.";
+
+    const titleEl = document.getElementById("orderSourcesModalTitle");
+    if (titleEl) {
+      titleEl.textContent = `Джерела Prozorro: ${subjName}`;
+    }
+
+    const bodyEl = document.getElementById("orderSourcesModalBody");
+    if (!bodyEl) return;
+
+    if (!benchmarks.length) {
+      bodyEl.innerHTML = `<div style="padding:20px; text-align:center; color:var(--muted);">Для цієї заявки ще немає підібраних договорів Prozorro або вони очікують погодження адміністратора.</div>`;
+    } else {
+      const rows = benchmarks.map((b, idx) => {
+        const tid = (b.tender_id || "").trim();
+        let url = b.url || "";
+        if (!url && tid) {
+          url = "https://prozorro.gov.ua/uk/tender/" + tid;
+        }
+        const unitP = Number(b.unit_price_no_vat || 0).toLocaleString("uk-UA");
+        const amt = Number(b.amount_no_vat || 0).toLocaleString("uk-UA");
+        const vol = b.volume || "";
+        const bUnit = b.unit_name || unit;
+
+        return `
+          <tr>
+            <td style="text-align:center; font-weight:700;">${idx + 1}</td>
+            <td>
+              <div style="font-weight:600; color:var(--ink);">${escapeHtml(b.buyer || "—")}</div>
+            </td>
+            <td>${escapeHtml(b.supplier || "—")}</td>
+            <td style="white-space:nowrap;">${escapeHtml(String(vol))} ${escapeHtml(bUnit)}</td>
+            <td style="white-space:nowrap;">
+              <strong>${unitP} грн/${escapeHtml(bUnit)}</strong><br/>
+              <small style="color:var(--muted);">${amt} грн без ПДВ</small>
+            </td>
+            <td style="white-space:nowrap;">
+              ${url ? `<a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer" style="color:#1e3a8a; font-weight:600; text-decoration:underline;">${escapeHtml(tid || 'Переглянути в Prozorro')}</a>` : (escapeHtml(tid) || '—')}
+            </td>
+          </tr>
+        `;
+      }).join("");
+
+      bodyEl.innerHTML = `
+        <div style="font-size:13px; color:var(--muted); margin-bottom:12px;">
+          Реальні укладені договори в системі Prozorro (без ПДВ), на основі яких розраховано середньоринкову ціну <strong>${Number(stats.avg_market_price_no_vat || 0).toLocaleString("uk-UA")} грн</strong>:
+        </div>
+        <div style="overflow-x:auto;">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:40px; text-align:center;">№</th>
+                <th>Замовник</th>
+                <th>Постачальник</th>
+                <th style="width:110px;">Обсяг</th>
+                <th style="width:170px;">Ціна (без ПДВ)</th>
+                <th style="width:170px;">Посилання на Prozorro</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${rows}
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    const modalEl = document.getElementById("orderSourcesModal");
+    if (modalEl) modalEl.style.display = "flex";
+  }
+
+  function closeOrderSourcesModal() {
+    const modalEl = document.getElementById("orderSourcesModal");
+    if (modalEl) modalEl.style.display = "none";
   }
 
   function openEditOrderModal(orderId) {
