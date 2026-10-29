@@ -2859,12 +2859,6 @@
   }
 
   // ===================== ПОПЕРЕДНІЙ ПЕРЕГЛЯД ЦІН PROZORRO =====================
-  async function confirmResetOrderForm() {
-    if (confirm("Ви дійсно бажаєте очистити всі заповнені поля форми?")) {
-      resetOrderFormFields();
-    }
-  }
-
   function confirmResetOrderForm() {
     if (confirm("Ви дійсно бажаєте очистити всі заповнені поля форми?")) {
       resetOrderFormFields();
@@ -4409,6 +4403,13 @@
     } catch (e) {
       showToast(e.message);
     }
+  }
+
+  async function deleteUser(userId) {
+    const users = (ADMIN_OVERVIEW && ADMIN_OVERVIEW.users) ? ADMIN_OVERVIEW.users : [];
+    const u = users.find(item => Number(item.id) === Number(userId));
+    const name = u ? (u.full_name || u.email || ("#" + userId)) : ("#" + userId);
+    return deleteUserAccount(userId, name);
   }
 
   async function deleteUserAccount(userId, userName) {

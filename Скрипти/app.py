@@ -756,9 +756,10 @@ class TenderAppHandler(BaseHTTPRequestHandler):
                 try:
                     input_data = json.loads(order["input_data_json"] or "{}")
                     benchmarks = json.loads(order["benchmarks_json"] or "[]")
-                    f1_p, f2_p, f1_n, f2_n = doc_generator.generate_order_documents(oid, input_data, benchmarks, ORDERS_RESULT_DIR)
-                    file_path = f1_p if file_num == "1" else f2_p
-                    download_name = f1_n if file_num == "1" else f2_n
+                    order_folder = os.path.join(ORDERS_RESULT_DIR, f"order_{oid}")
+                    gen_res = doc_generator.generate_justification_bundle(input_data, benchmarks, order_folder)
+                    file_path = gen_res["file1_path"] if file_num == "1" else gen_res["file2_path"]
+                    download_name = gen_res["file1_name"] if file_num == "1" else gen_res["file2_name"]
                 except Exception as e:
                     print("Dynamic document generation failed:", e)
 
@@ -881,8 +882,10 @@ class TenderAppHandler(BaseHTTPRequestHandler):
             # Оновлення пароля та одноразове погашення токена (Розділ 2, Пункт 2)
             cur.execute("UPDATE users SET password_hash = ? WHERE id = ?", (hash_password(new_password), reset_entry["user_id"]))
             cur.execute("UPDATE password_resets SET is_used = 1 WHERE id = ?", (reset_entry["id"],))
-            # Global logout: анулюємо старі сесії
+            # Global logout: анулюємо старі сесії в БД та в оперативній пам'яті
             cur.execute("DELETE FROM sessions WHERE user_id = ?", (reset_entry["user_id"],))
+            for k_tok in [k for k, v in list(SESSIONS.items()) if v == reset_entry["user_id"]]:
+                SESSIONS.pop(k_tok, None)
             conn.commit()
             conn.close()
             self.send_json({"ok": True, "message": "Пароль успішно змінено! Тепер ви можете увійти до кабінету з новим паролем."})
@@ -1039,16 +1042,24 @@ class TenderAppHandler(BaseHTTPRequestHandler):
                 """, (email, hash_password(password), full_name, org_name, edrpou, phone, address, director_name, director_title, website, account_type, perms_str, now_str))
                 uid = cur.lastrowid
                 conn.commit()
-            except sqlite3.IntegrityError:
+            except Exception as reg_err:
                 conn.close()
-                self.send_json({"error": "Користувач з таким Email вже зареєстрований"}, 400)
-                return
+                err_str = str(reg_err).lower()
+                if isinstance(reg_err, sqlite3.IntegrityError) or "unique" in err_str or "duplicate" in err_str:
+                    self.send_json({"error": "Користувач з таким Email вже зареєстрований"}, 400)
+                    return
+                raise reg_err
 
             cur.execute("SELECT * FROM users WHERE id = ?", (uid,))
             user = cur.fetchone()
-            conn.close()
             token = secrets.token_hex(24)
             SESSIONS[token] = user["id"]
+            try:
+                cur.execute("INSERT OR REPLACE INTO sessions (token, user_id, created_at) VALUES (?, ?, ?)", (token, user["id"], now_str))
+                conn.commit()
+            except Exception:
+                pass
+            conn.close()
             self.send_json({"token": token, "user": serialize_user(user)})
             return
 
@@ -1486,10 +1497,13 @@ class TenderAppHandler(BaseHTTPRequestHandler):
                 ))
                 new_uid = cur.lastrowid
                 conn.commit()
-            except sqlite3.IntegrityError:
+            except Exception as create_err:
                 conn.close()
-                self.send_json({"error": "Користувач з таким Email вже існує в базі"}, 400)
-                return
+                err_str = str(create_err).lower()
+                if isinstance(create_err, sqlite3.IntegrityError) or "unique" in err_str or "duplicate" in err_str:
+                    self.send_json({"error": "Користувач з таким Email вже існує в базі"}, 400)
+                    return
+                raise create_err
             conn.close()
             self.send_json({"ok": True, "user_id": new_uid})
             return

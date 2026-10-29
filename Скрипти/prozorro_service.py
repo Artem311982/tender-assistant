@@ -638,6 +638,8 @@ def search_prozorro_portal_api(query_text="", cpv_code="", limit=6, exclude_tend
         except Exception:
             continue
 
+    fallback_text_results = []
+    q_keywords = [w.lower() for w in words if len(w) >= 3]
     if candidate_ua_ids:
         with ThreadPoolExecutor(max_workers=5) as ex:
             futs = {ex.submit(fetch_tender_by_ua_id, tid): tid for tid in candidate_ua_ids[:limit + 6]}
@@ -649,13 +651,19 @@ def search_prozorro_portal_api(query_text="", cpv_code="", limit=6, exclude_tend
                         if excl and tid_p == excl:
                             continue
                         if tid_p not in seen_tids and parsed.get("amount_no_vat", 0) > 0:
-                            # Суворий фільтр за кодом ДК (CPV prefix), щоб виключити непрофільні закупівлі
+                            seen_tids.add(tid_p)
                             if cpv_pref and parsed.get("cpv_prefix") and parsed.get("cpv_prefix") != cpv_pref:
+                                # Якщо клієнт помилково вказав чужий CPV, але предмет тендера точно містить ключові слова запиту
+                                subj_low = (parsed.get("subject_name") or parsed.get("subject") or "").lower()
+                                if q_keywords and all(kw[:4] in subj_low for kw in q_keywords[:2]):
+                                    fallback_text_results.append(parsed)
                                 continue
                             results.append(parsed)
-                            seen_tids.add(tid_p)
                 except Exception:
                     pass
+
+    if not results and fallback_text_results:
+        results = fallback_text_results
 
     return results[:limit]
 def lookup_tender_by_id(query_id):
@@ -763,16 +771,21 @@ def search_benchmarks_live(query_text="", cpv_code="", limit=6, exclude_tender_i
             combined.append(dict(b))
             seen_tids.add(tid)
 
-    # 3. Якщо за специфічним запитом знайдено менше 3 пропозицій (наприклад, лише 1),
-    # обов'язково добираємо пропозиції з бази за суміжною категорією, щоб у таблиці було мінімум 3-4 закупівлі
-    if len(combined) < 3:
-        for b in VERIFIED_PROZORRO_TENDERS:
-            tid = b["tender_id"]
-            if tid.lower() != excl and tid not in seen_tids:
-                combined.append(dict(b))
-                seen_tids.add(tid)
-                if len(combined) >= max(4, limit):
-                    break
+    # 3. Якщо із заданим кодом CPV нічого не знайдено, але є текстовий запит — повторюємо живий пошук суто за назвою предмета
+    if len(combined) < 2 and query_text and cpv_code:
+        retry_items = search_prozorro_portal_api(
+            query_text=query_text,
+            cpv_code="",
+            limit=limit,
+            exclude_tender_id=exclude_tender_id
+        )
+        for p in retry_items:
+            b_item = to_benchmark_item(p)
+            tid = (b_item.get("tender_id") or "").strip()
+            if not tid or tid.lower() == excl or tid in seen_tids:
+                continue
+            combined.append(b_item)
+            seen_tids.add(tid)
 
     # Пріоритизуємо результати, які точно збігаються за кодом ДК (cpv_prefix),
     # щоб до порівняння не потрапляли непрофільні супутні послуги (друк, ремонт тощо)
@@ -829,6 +842,26 @@ def find_benchmarks_for_order(order_data, custom_benchmarks=None):
     # Фільтруємо лише невалідні записи (нульова сума чи ціна).
     # Мільйонні контракти (будь-якого масштабу та вартості) НЕ відсікаються,
     # якщо їхня ціна за одиницю товару без ПДВ відповідає критеріям алгоритму пошуку.
+    def classify_unit_group(u_str):
+        u = (u_str or "").strip().lower()
+        if any(x in u for x in ["пог", "метр", "м.п", "п.м"]) or u in ("м", "м."):
+            return "linear_m"
+        if any(x in u for x in ["кв.м", "м2", "м²", "квадрат"]):
+            return "area_m2"
+        if any(x in u for x in ["куб", "м3", "м³"]):
+            return "vol_m3"
+        if any(x in u for x in ["тонн", "т."]) or u == "т":
+            return "mass_t"
+        if any(x in u for x in ["кілограм", "кг"]):
+            return "mass_kg"
+        if any(x in u for x in ["літр", "л."]) or u == "л":
+            return "vol_l"
+        if any(x in u for x in ["шт", "штук", "рулон", "пач", "упак", "компл"]):
+            return "piece"
+        return "other"
+
+    cust_u_group = classify_unit_group(unit_name)
+
     valid_candidates = []
     for c in candidates:
         c_unit = float(c.get("unit_price_no_vat") or 0.0)
@@ -839,6 +872,22 @@ def find_benchmarks_for_order(order_data, custom_benchmarks=None):
 
     if not valid_candidates:
         valid_candidates = candidates
+
+    # Відсікаємо кандидатів із несумісною одиницею виміру або аномальним відхиленням ціни (напр. рулон за 2900 грн проти метра за 70-300 грн, або штука за 430 грн проти тонни за 40000 грн)
+    if cust_unit_price > 0 and len(valid_candidates) >= 2:
+        filtered_by_scale = []
+        for c in valid_candidates:
+            c_unit = float(c.get("unit_price_no_vat") or 0.0)
+            c_u_group = classify_unit_group(c.get("unit_name") or "")
+            ratio = c_unit / cust_unit_price
+            # Якщо одиниці виміру з різних груп (напр. метри проти штук/рулонів) і ціна відрізняється більше ніж у 3 рази — відсікаємо
+            if cust_u_group != "other" and c_u_group != "other" and cust_u_group != c_u_group and (ratio > 3.0 or ratio < 0.25):
+                continue
+            # Загальний фільтр екстремальних викидів (> 4.5x або < 0.15x від ціни замовника)
+            if 0.15 <= ratio <= 4.5:
+                filtered_by_scale.append(c)
+        if filtered_by_scale:
+            valid_candidates = filtered_by_scale
 
     # ОСНОВНИЙ ОРІЄНТИР ДЛЯ ТОВАРУ: ЦІНА ЗА ОДИНИЦЮ БЕЗ ПДВ (unit_price_no_vat)
     higher_unit_candidates = []
