@@ -38,6 +38,11 @@ if DATABASE_URL:
             q = query.replace("?", "%s")
             clean_q = q.strip().upper()
 
+            # Translate SQLite scalar MAX(a, b) to PostgreSQL GREATEST(a, b)
+            if "MAX(0," in clean_q or "MAX(0 ," in clean_q:
+                q = re.sub(r"\bMAX\s*\(\s*0\s*,", "GREATEST(0,", q, flags=re.IGNORECASE)
+                clean_q = q.strip().upper()
+
             # Handle SQLite "INSERT OR REPLACE" / "INSERT OR IGNORE" translations for PostgreSQL
             if "INSERT OR REPLACE INTO SESSIONS" in clean_q:
                 q = "INSERT INTO sessions (token, user_id, created_at) VALUES (%s, %s, %s) ON CONFLICT (token) DO UPDATE SET user_id = EXCLUDED.user_id, created_at = EXCLUDED.created_at"

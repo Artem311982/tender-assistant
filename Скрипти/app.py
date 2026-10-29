@@ -1310,7 +1310,7 @@ class TenderAppHandler(BaseHTTPRequestHandler):
             ))
 
             if user["role"] != "admin":
-                cur.execute("UPDATE users SET quota = MAX(0, quota - 1) WHERE id = ?", (user["id"],))
+                cur.execute("UPDATE users SET quota = CASE WHEN quota > 0 THEN quota - 1 ELSE 0 END WHERE id = ?", (user["id"],))
 
             conn.commit()
             conn.close()
