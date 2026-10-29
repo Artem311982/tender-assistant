@@ -2867,10 +2867,6 @@
     return all;
   }
 
-  function renderProzorroUnitDatalistOptionsHtml() {
-    return getAllProzorroUnitsList().map(it => `<option value="${escapeHtml(it.value)}">${escapeHtml(it.label)}</option>`).join("");
-  }
-
   function onProzorroUnitInput(inp) {
     const q = (inp.value || "").trim().toLowerCase();
     const box = document.getElementById("orderUnitSuggestionsBox");
@@ -2892,19 +2888,13 @@
 
     box.innerHTML = matched.slice(0, 10).map(it => {
       return `
-        <div style="padding:8px 12px; cursor:pointer; font-size:13px; border-bottom:1px solid #f1f5f9; display:flex; justify-content:space-between; align-items:center;" onmousedown="selectProzorroUnitSuggestion('${escapeHtml(it.value)}')">
+        <div style="padding:8px 12px; cursor:pointer; font-size:13px; border-bottom:1px solid #f1f5f9; display:flex; justify-content:space-between; align-items:center; transition:background 0.15s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'" onmousedown="selectProzorroUnitSuggestion('${escapeHtml(it.value)}')">
           <span style="font-weight:600; color:var(--ink);">${escapeHtml(it.value)}</span>
           <span style="color:var(--muted); font-size:11.5px;">${escapeHtml(it.label)}</span>
         </div>
       `;
     }).join("");
     box.style.display = "block";
-  }
-
-  function onProzorroUnitFocus(inp) {
-    if (inp.value.trim()) {
-      onProzorroUnitInput(inp);
-    }
   }
 
   function onProzorroUnitBlur() {
@@ -3002,10 +2992,7 @@
         return `
           <div class="form-group" style="position:relative;">
             <label>${escapeHtml(f.label)}${reqStar}</label>
-            <input type="text" data-field-key="unit_name" id="orderUnitNameField" list="prozorroUnitsDatalist" value="${escapeHtml(val)}" placeholder="Почніть вводити (напр. шт, кг, м, Гкал, послуга)..." autocomplete="off" oninput="onProzorroUnitInput(this)" onfocus="onProzorroUnitFocus(this)" onblur="onProzorroUnitBlur()" />
-            <datalist id="prozorroUnitsDatalist">
-              ${renderProzorroUnitDatalistOptionsHtml()}
-            </datalist>
+            <input type="text" data-field-key="unit_name" id="orderUnitNameField" value="${escapeHtml(val)}" placeholder="Почніть вводити (напр. шт, кг, м, Гкал, послуга)..." autocomplete="off" oninput="onProzorroUnitInput(this)" onblur="onProzorroUnitBlur()" />
             <div id="orderUnitSuggestionsBox" style="display:none; position:absolute; top:100%; left:0; right:0; z-index:99; background:#fff; border:1px solid var(--border); border-radius:6px; box-shadow:0 6px 18px rgba(0,0,0,0.12); max-height:220px; overflow-y:auto; margin-top:2px;"></div>
           </div>
         `;
