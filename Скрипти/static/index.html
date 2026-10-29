@@ -402,7 +402,7 @@
             <label style="display:block; font-size:13px; font-weight:600; color:#1e293b; margin-bottom:6px;">Пароль доступу</label>
             <div style="position:relative; display:flex; align-items:center;">
               <input type="password" id="adminLoginPassword" placeholder="••••••••" autocomplete="current-password" required style="width:100%; box-sizing:border-box; padding:11px 40px 11px 14px; border:1.5px solid #cbd5e1; border-radius:8px; font-size:14px; outline:none; transition:border 0.2s;" onfocus="this.style.borderColor='#1e3a8a'" onblur="this.style.borderColor='#cbd5e1'" />
-              <button type="button" onclick="togglePasswordVisibility('adminLoginPassword', this)" style="position:absolute; right:12px; background:none; border:none; cursor:pointer; font-size:17px; padding:0; color:#64748b;" title="Показати/приховати пароль">👁</button>
+              <button type="button" onclick="togglePasswordVisibility('adminLoginPassword', this)" style="position:absolute; right:12px; background:none; border:none; cursor:pointer; font-size:17px; padding:0; color:#64748b;" title="Показати/приховати пароль">Показати</button>
             </div>
           </div>
 
@@ -410,7 +410,7 @@
         </form>
 
         <div style="margin-top:24px; padding-top:16px; border-top:1px solid #f1f5f9; text-align:center;">
-          <a href="/" style="font-size:12.5px; color:#64748b; text-decoration:none; font-weight:500; display:inline-flex; align-items:center; gap:5px;">← Перейти до кабінету клієнта (/)</a>
+          <a href="/" style="font-size:12.5px; color:#64748b; text-decoration:none; font-weight:500; display:inline-flex; align-items:center; gap:5px;">Перейти до кабінету клієнта (/)</a>
         </div>
       </div>
     </div>
@@ -423,7 +423,7 @@
       <div class="hero-grid">
         <!-- Ліва частина: Інформація про послуги Аналітичного центру «Тендерний помічник» -->
         <div class="hero-content">
-          <span class="hero-tag">🏛 Офіційна аналітична платформа</span>
+          <span class="hero-tag">Офіційна аналітична платформа</span>
           <h2 style="font-size:28px; line-height:1.25; margin:0 0 12px; color:#fff;">
             Аналітичний центр «Тендерний помічник»
           </h2>
@@ -433,7 +433,7 @@
 
           <div style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.18); border-radius:10px; padding:15px 18px; margin-bottom:16px;">
             <div style="font-weight:700; font-size:13.5px; margin-bottom:8px; color:#fff;">
-              🔍 Комплексні аналітичні послуги центру:
+              Комплексні аналітичні послуги центру:
             </div>
             <ul style="margin:0; padding-left:18px; color:#e0f2fe; font-size:13px; line-height:1.6;">
               <li><strong>Моніторинг ринкових цін:</strong> збір та аналіз реальних цін укладених договорів у системі Prozorro без ПДВ за потрібним кодом ДК 021:2015.</li>
@@ -444,9 +444,9 @@
           </div>
 
           <div style="display:flex; gap:14px; flex-wrap:wrap; font-size:12px; color:#bfdbfe;">
-            <span>✓ 100% реальні дані Prozorro</span>
-            <span>✓ Без ПДВ за чинним законодавством</span>
-            <span>✓ Економія до 80% часу УО</span>
+            <span>100% реальні дані Prozorro</span>
+            <span>Без ПДВ за чинним законодавством</span>
+            <span>Економія до 80% часу УО</span>
           </div>
         </div>
 
@@ -478,14 +478,14 @@
               <label style="font-size:12.5px;">Пароль</label>
               <div style="position:relative; display:flex; align-items:center;">
                 <input type="password" id="loginPassword" placeholder="Ваш пароль" autocomplete="current-password" style="padding:8px 34px 8px 10px; font-size:13px; width:100%;" oninput="clearLoginInlineError()" onkeydown="if(event.key==='Enter') doLogin()" />
-                <button type="button" onclick="togglePasswordVisibility('loginPassword', this)" style="position:absolute; right:8px; background:none; border:none; cursor:pointer; font-size:15px; padding:0; line-height:1; color:#64748b;" title="Показати/приховати пароль">👁</button>
+                <button type="button" onclick="togglePasswordVisibility('loginPassword', this)" style="position:absolute; right:8px; background:none; border:none; cursor:pointer; font-size:15px; padding:0; line-height:1; color:#64748b;" title="Показати/приховати пароль">Показати</button>
               </div>
             </div>
             <div style="display:flex; justify-content:flex-end; margin-bottom:12px;">
               <a href="javascript:void(0)" onclick="openForgotPasswordModal()" style="font-size:12px; color:var(--primary); text-decoration:none;">Забули пароль?</a>
             </div>
             <button class="btn btn-primary" id="btnLoginSubmit" style="width:100%; padding:10px; font-size:14px;" onclick="doLogin()">Увійти до кабінету</button>
-            <div style="text-align:center; margin-top:12px;"><a href="/admin" style="font-size:11.5px; color:#94a3b8; text-decoration:none;">🔐 Вхід для адміністратора (/admin)</a></div>
+            <div style="text-align:center; margin-top:12px;"><a href="/admin" style="font-size:11.5px; color:#94a3b8; text-decoration:none;">🔒 Вхід для адміністратора (/admin)</a></div>
           </div>
 
           <!-- Панель реєстрації з перемиканням ролі: Замовник / Постачальник (Рекомендація 4) -->
@@ -504,14 +504,14 @@
               <label style="font-size:11.5px; font-weight:600; color:var(--ink); display:block; margin-bottom:5px;">Тип вашої організації:</label>
               <div style="display:flex; gap:6px;">
                 <button type="button" class="tab-btn active" id="roleBtnBuyer" onclick="selectRegRole('buyer')" style="flex:1; font-size:11.5px; padding:6px 4px; text-align:center; border-radius:6px;">
-                  🏛 Замовник
+                  Замовник
                 </button>
                 <button type="button" class="tab-btn" id="roleBtnSupplier" onclick="selectRegRole('supplier')" style="flex:1; font-size:11.5px; padding:6px 4px; text-align:center; border-radius:6px;">
-                  🏢 Постачальник
+                  Постачальник
                 </button>
               </div>
               <small id="regRoleHint" style="display:block; margin-top:4px; font-size:11px; color:#64748b; line-height:1.3;">
-                🏛 Розрахунок та обґрунтування очікуваної вартості за Особливостями № 1178
+                Розрахунок та обґрунтування очікуваної вартості за Особливостями № 1178
               </small>
               <input type="hidden" id="regAccountType" value="buyer" />
             </div>
@@ -538,7 +538,7 @@
                 <label style="font-size:11.5px;">Пароль *</label>
                 <div style="position:relative; display:flex; align-items:center;">
                   <input type="password" id="regPassword" placeholder="Мін. 6 симв." autocomplete="new-password" style="padding:7px 32px 7px 10px; font-size:12px; width:100%;" oninput="clearRegInlineError(); updatePassMeter(this, 'regPassBar', 'regPassText', 'regPassMeter');" />
-                  <button type="button" onclick="togglePasswordVisibility('regPassword', this)" style="position:absolute; right:6px; background:none; border:none; cursor:pointer; font-size:14px; padding:0; line-height:1; color:#64748b;" title="Показати/приховати пароль">👁</button>
+                  <button type="button" onclick="togglePasswordVisibility('regPassword', this)" style="position:absolute; right:6px; background:none; border:none; cursor:pointer; font-size:14px; padding:0; line-height:1; color:#64748b;" title="Показати/приховати пароль">Показати</button>
                 </div>
                 <div id="regPassMeter" style="margin-top:4px; display:none;">
                   <div style="height:3px; background:#e2e8f0; border-radius:2px; overflow:hidden;">
@@ -567,21 +567,21 @@
     <!-- ІНДИКАТОРИ АКТИВНОСТІ ТА НАДІЙНОСТІ АНАЛІТИЧНОГО ЦЕНТРУ (Рекомендація 3 - без швидкості аналізу) -->
     <div class="platform-metrics-strip" style="background:#0f172a; border-radius:12px; margin:24px 0; padding:18px 24px; color:#fff; display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:18px; border:1px solid rgba(255,255,255,0.12); box-shadow:0 8px 20px rgba(15,23,42,0.15);">
       <div style="display:flex; align-items:center; gap:12px;">
-        <div style="font-size:28px;">📊</div>
+        
         <div>
           <div style="font-size:16.5px; font-weight:700; color:#38bdf8;">> 150 000+</div>
           <div style="font-size:12px; color:#94a3b8; line-height:1.3;">Верифікованих договорів Prozorro в базі</div>
         </div>
       </div>
       <div style="display:flex; align-items:center; gap:12px;">
-        <div style="font-size:28px;">⚖️</div>
+        
         <div>
           <div style="font-size:16.5px; font-weight:700; color:#4ade80;">Наказ Мінекономіки № 2754</div>
           <div style="font-size:12px; color:#94a3b8; line-height:1.3;">Офіційна примірна методика розрахунку цін</div>
         </div>
       </div>
       <div style="display:flex; align-items:center; gap:12px;">
-        <div style="font-size:28px;">🏛</div>
+        
         <div>
           <div style="font-size:16.5px; font-weight:700; color:#fbbf24;">100% захист від ДАСУ</div>
           <div style="font-size:12px; color:#94a3b8; line-height:1.3;">Відповідність Постанові № 710 та Особливостям</div>
@@ -601,7 +601,7 @@
       <div style="background:linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%); border:1px solid #bfdbfe; border-radius:14px; padding:22px 24px; box-shadow:0 4px 15px rgba(37,99,235,0.06);">
         <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
           <span style="background:#2563eb; color:#fff; font-size:11.5px; font-weight:700; padding:3px 8px; border-radius:6px; text-transform:uppercase; letter-spacing:0.5px;">Безкоштовний Lead Magnet</span>
-          <h3 style="margin:0; font-size:18.5px; color:var(--ink);">⚡ Експрес-перевірка ринкових цін Prozorro</h3>
+          <h3 style="margin:0; font-size:18.5px; color:var(--ink);">Експрес-перевірка ринкових цін Prozorro</h3>
         </div>
         <p style="margin:0 0 14px; font-size:13.5px; color:var(--muted); line-height:1.5;">
           Миттєва перевірка наявності укладених договорів та діапазону цін у реальній системі Prozorro без реєстрації. Введіть назву предмета закупівлі або код ДК 021:2015:
@@ -609,18 +609,18 @@
         <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:10px;">
           <input type="text" id="expressQueryInput" placeholder="напр. бензин А-95, офісний папір А4, генератор дизельний, 30192000-1..." style="flex:1; min-width:260px; padding:11px 14px; font-size:14px; border:1px solid #cbd5e1; border-radius:8px; outline:none; background:#fff;" onkeydown="if(event.key==='Enter') runExpressCheck();" />
           <button type="button" class="btn btn-primary" id="btnExpressCheck" onclick="runExpressCheck()" style="padding:11px 20px; font-size:14px; font-weight:600; white-space:nowrap;">
-            🔍 Перевірити ринок
+            Перевірити ринок
           </button>
         </div>
 
         <!-- Підказки популярних запитів (Рекомендація 2) -->
         <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:14px;">
           <span style="font-size:12px; color:var(--muted); font-weight:600;">Популярні запити:</span>
-          <button type="button" class="btn btn-outline btn-sm" style="font-size:12px; padding:3px 9px; border-radius:14px; background:#fff;" onclick="setExpressQuery('Бензин А-95')">⛽ Бензин А-95</button>
-          <button type="button" class="btn btn-outline btn-sm" style="font-size:12px; padding:3px 9px; border-radius:14px; background:#fff;" onclick="setExpressQuery('Офісний папір А4')">📄 Офісний папір А4</button>
-          <button type="button" class="btn btn-outline btn-sm" style="font-size:12px; padding:3px 9px; border-radius:14px; background:#fff;" onclick="setExpressQuery('Дизельне паливо')">🛢 Дизельне паливо</button>
-          <button type="button" class="btn btn-outline btn-sm" style="font-size:12px; padding:3px 9px; border-radius:14px; background:#fff;" onclick="setExpressQuery('Генератор дизельний')">⚡ Генератор дизельний</button>
-          <button type="button" class="btn btn-outline btn-sm" style="font-size:12px; padding:3px 9px; border-radius:14px; background:#fff;" onclick="setExpressQuery('Електроенергія')">💡 Електроенергія</button>
+          <button type="button" class="btn btn-outline btn-sm" style="font-size:12px; padding:3px 9px; border-radius:14px; background:#fff;" onclick="setExpressQuery('Бензин А-95')">Бензин А-95</button>
+          <button type="button" class="btn btn-outline btn-sm" style="font-size:12px; padding:3px 9px; border-radius:14px; background:#fff;" onclick="setExpressQuery('Офісний папір А4')">Офісний папір А4</button>
+          <button type="button" class="btn btn-outline btn-sm" style="font-size:12px; padding:3px 9px; border-radius:14px; background:#fff;" onclick="setExpressQuery('Дизельне паливо')">Дизельне паливо</button>
+          <button type="button" class="btn btn-outline btn-sm" style="font-size:12px; padding:3px 9px; border-radius:14px; background:#fff;" onclick="setExpressQuery('Генератор дизельний')">Генератор дизельний</button>
+          <button type="button" class="btn btn-outline btn-sm" style="font-size:12px; padding:3px 9px; border-radius:14px; background:#fff;" onclick="setExpressQuery('Електроенергія')">Електроенергія</button>
         </div>
         
         <!-- Контейнер для результатів експрес-перевірки -->
@@ -664,7 +664,7 @@
     <section class="section" id="benefits">
       <h3 class="section-title">Чому це зручно</h3>
 
-      <h4 style="margin:0 0 12px; color:var(--primary); font-size:17px;">🏛 Для державних та комунальних замовників</h4>
+      <h4 style="margin:0 0 12px; color:var(--primary); font-size:17px;">Для державних та комунальних замовників</h4>
       <div class="grid-3" style="margin-bottom:24px;">
         <div class="benefit"><h4>Перевірені дані Prozorro</h4><p>Підтверджені закупівлі й договори з прямими посиланнями та цінами без ПДВ, які легко перевірити.</p></div>
         <div class="benefit"><h4>Готові документи Word (.docx)</h4><p>Основне обґрунтування (п. 1–4 за Постановою КМУ № 710) та окремий додаток до обґрунтування з аналізом цін Prozorro без ПДВ.</p></div>
@@ -674,7 +674,7 @@
         <div class="benefit"><h4>Індивідуальний доступ</h4><p>Кожна установа чи підрозділ працює у власному кабінеті з визначеним обсягом прав і лімітом заявок.</p></div>
       </div>
 
-      <h4 style="margin:0 0 12px; color:var(--primary); font-size:17px;">🤝 Для постачальників та учасників тендерів</h4>
+      <h4 style="margin:0 0 12px; color:var(--primary); font-size:17px;">Для постачальників та учасників тендерів</h4>
       <div class="grid-3">
         <div class="benefit"><h4>Аналіз цін конкурентів перед торгами</h4><p>Об'єктивне порівняння цін переможців та укладених договорів у системі Prozorro (без ПДВ) за потрібним кодом ДК 021:2015.</p></div>
         <div class="benefit"><h4>Розрахунок виграшної пропозиції</h4><p>Чітке розуміння мінімальної, середньоринкової та максимальної ціни за одиницю товару чи послуги для підготовки конкурентної пропозиції.</p></div>
@@ -735,10 +735,10 @@
             <div style="font-weight:600; font-size:13px;">Обмін через файл шаблону Word (.docx):</div>
             <div style="display:flex; gap:8px; flex-wrap:wrap;">
               <button class="btn btn-outline btn-sm" onclick="downloadCurrentFormBlank()">
-                ⬇ Скачати бланк форми (.docx)
+                Скачати бланк форми (.docx)
               </button>
               <label class="btn btn-primary btn-sm" style="margin:0; cursor:pointer;">
-                ⬆ Завантажити заповнений .docx
+                Завантажити заповнений .docx
                 <input type="file" id="userDocxUpload" accept=".docx" style="display:none;" onchange="handleUserFilledDocx(event)" />
               </label>
             </div>
@@ -749,7 +749,7 @@
         <!-- Автозаповнення з Prozorro API -->
         <div id="prozorroAutofillBox" style="background:#eff6ff; border:1px solid #bfdbfe; padding:12px 14px; border-radius:8px; margin-bottom:18px;">
           <div style="font-weight:700; font-size:13.5px; margin-bottom:6px; color:#1e3a8a;">
-            🔍 Живе автозаповнення (за ідентифікатором оголошення UA-... або 32-символьним ID):
+            Живе автозаповнення (за ідентифікатором оголошення UA-... або 32-символьним ID):
           </div>
           <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
             <input type="text" id="prozorroLookupInput" oninput="sanitizeProzorroInput(this)" onpaste="handleProzorroPaste(event)" placeholder="Введіть ID закупівлі в Prozorro (напр. UA-2026-...)" style="max-width:360px; padding:8px 10px; border:1px solid #93c5fd; border-radius:6px;" />
@@ -763,10 +763,10 @@
         <div style="margin-top:16px; display:flex; justify-content:flex-end; gap:12px; flex-wrap:wrap; align-items:center;">
           <div style="display:inline-flex; align-items:center; gap:10px; flex-wrap:wrap;">
             <button type="button" class="btn btn-outline" id="btnPreviewBenchmarks" style="padding:11px 20px; font-size:14.5px;" onclick="previewOrderBenchmarks()" title="Аналіз цін без витрачання квоти кабінету. Заявка не списується з балансу до натискання кнопки «Надіслати форму»">
-              🔍 Попередній перегляд цін Prozorro
+              Попередній перегляд цін Prozorro
             </button>
             <button type="button" class="btn btn-outline" id="btnClearOrderForm" onclick="confirmResetOrderForm()" style="padding:11px 16px; font-size:14px; color:#64748b; border-color:#cbd5e1;" title="Очистити всі поля форми для введення нових даних">
-              🔄 Очистити поля
+              Очистити поля
             </button>
           </div>
           <button class="btn btn-success" id="btnSubmitOrder" style="padding:12px 24px; font-size:15px;" onclick="submitOrderForm()">
@@ -782,18 +782,21 @@
       <div class="card">
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
           <h2 style="margin:0;">Мої заявки: Порівняння цін Prozorro та згенеровані Обґрунтування</h2>
-          <button class="btn btn-outline btn-sm" onclick="loadOrders()">↻ Оновити список</button>
+          <div style="display:flex; gap:8px; align-items:center;">
+            <button class="btn btn-primary" onclick="switchTab('tabNewOrder')">➕ Подати заявку</button>
+            <button class="btn btn-outline btn-sm" onclick="loadOrders()">Оновити список</button>
+          </div>
         </div>
 
         <!-- Панель швидкого пошуку та фільтрації заявок -->
         <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:14px; align-items:center; background:#f8fafc; border:1px solid var(--border); padding:10px 14px; border-radius:8px;">
           <div style="flex:1; min-width:240px;">
-            <input type="text" id="orderSearchQuery" placeholder="🔍 Пошук за назвою предмета, номером чи кодом CPV..." style="width:100%; padding:8px 12px; border:1px solid #cbd5e1; border-radius:6px; font-size:13.5px;" oninput="filterOrdersList()" />
+            <input type="text" id="orderSearchQuery" placeholder="Пошук за назвою предмета, номером чи кодом CPV..." style="width:100%; padding:8px 12px; border:1px solid #cbd5e1; border-radius:6px; font-size:13.5px;" oninput="filterOrdersList()" />
           </div>
           <div style="display:flex; gap:6px;">
             <button type="button" class="btn btn-sm btn-primary" id="btnFilter_all" onclick="setOrdersFilter('all')">Усі заявки</button>
-            <button type="button" class="btn btn-sm btn-outline" id="btnFilter_ready" onclick="setOrdersFilter('ready')">✓ Готові</button>
-            <button type="button" class="btn btn-sm btn-outline" id="btnFilter_pending" onclick="setOrdersFilter('pending')">⏳ На перевірці</button>
+            <button type="button" class="btn btn-sm btn-outline" id="btnFilter_ready" onclick="setOrdersFilter('ready')">Готові</button>
+            <button type="button" class="btn btn-sm btn-outline" id="btnFilter_pending" onclick="setOrdersFilter('pending')">На перевірці</button>
           </div>
         </div>
 
@@ -846,7 +849,7 @@
         <!-- ДОДАВАННЯ ТА ВИДАЛЕННЯ ПІБ ІНШИХ УПОВНОВАЖЕНИХ ОСІБ -->
         <div style="background:#f8fafc; border:1px solid var(--border); border-radius:8px; padding:14px 16px; margin:14px 0 18px;">
           <h3 style="margin:0 0 6px; font-size:15.5px; color:var(--primary);">
-            👥 Інші уповноважені особи замовника (додавання та видалення ПІБ)
+            Інші уповноважені особи замовника (додавання та видалення ПІБ)
           </h3>
           <p style="font-size:12.5px; color:var(--muted); margin:0 0 10px;">
             Ви можете додати ПІБ інших уповноважених осіб вашої організації. Під час подачі заявки можна буде обрати потрібну уповноважену особу зі списку.
@@ -858,12 +861,12 @@
           <div id="authPersonsListContainer"></div>
         </div>
 
-        <button class="btn btn-primary" onclick="saveProfile()">💾 Зберегти реквізити профілю</button>
+        <button class="btn btn-primary" onclick="saveProfile()">Зберегти реквізити профілю</button>
 
         <!-- БЕЗПЕКА ТА ЗМІНА ПАРОЛЯ У ПРОФІЛІ КОРИСТУВАЧА -->
         <div style="background:#ffffff; border:1px solid var(--border); border-radius:8px; padding:18px 20px; margin-top:24px;">
           <h3 style="margin:0 0 6px; font-size:16px; color:var(--ink); display:flex; align-items:center; gap:8px;">
-            🔐 Безпека облікового запису та зміна пароля
+            🔒 Безпека облікового запису та зміна пароля
           </h3>
           <p style="font-size:12.5px; color:var(--muted); margin:0 0 14px;">
             Для зміни пароля вкажіть ваш діючий пароль та новий пароль (не менше 6 символів).
@@ -876,14 +879,14 @@
               <label style="font-size:12px;">Поточний пароль *</label>
               <div style="position:relative; display:flex; align-items:center;">
                 <input type="password" id="curPassword" placeholder="Ваш діючий пароль" autocomplete="current-password" style="padding-right:34px; width:100%;" />
-                <button type="button" onclick="togglePasswordVisibility('curPassword', this)" style="position:absolute; right:8px; background:none; border:none; cursor:pointer; font-size:15px; padding:0; line-height:1; color:#64748b;" title="Показати/приховати пароль">👁</button>
+                <button type="button" onclick="togglePasswordVisibility('curPassword', this)" style="position:absolute; right:8px; background:none; border:none; cursor:pointer; font-size:15px; padding:0; line-height:1; color:#64748b;" title="Показати/приховати пароль">Показати</button>
               </div>
             </div>
             <div class="form-group" style="margin-bottom:0;">
               <label style="font-size:12px;">Новий пароль *</label>
               <div style="position:relative; display:flex; align-items:center;">
                 <input type="password" id="newPassword" placeholder="Мін. 6 символів" autocomplete="new-password" style="padding-right:34px; width:100%;" oninput="updatePassMeter(this, 'newPassBar', 'newPassText', 'newPassMeter')" />
-                <button type="button" onclick="togglePasswordVisibility('newPassword', this)" style="position:absolute; right:8px; background:none; border:none; cursor:pointer; font-size:15px; padding:0; line-height:1; color:#64748b;" title="Показати/приховати пароль">👁</button>
+                <button type="button" onclick="togglePasswordVisibility('newPassword', this)" style="position:absolute; right:8px; background:none; border:none; cursor:pointer; font-size:15px; padding:0; line-height:1; color:#64748b;" title="Показати/приховати пароль">Показати</button>
               </div>
               <div id="newPassMeter" style="margin-top:4px; display:none;">
                 <div style="height:3px; background:#e2e8f0; border-radius:2px; overflow:hidden;">
@@ -896,13 +899,13 @@
               <label style="font-size:12px;">Підтвердження нового пароля *</label>
               <div style="position:relative; display:flex; align-items:center;">
                 <input type="password" id="confirmNewPassword" placeholder="Повторіть новий пароль" autocomplete="new-password" style="padding-right:34px; width:100%;" />
-                <button type="button" onclick="togglePasswordVisibility('confirmNewPassword', this)" style="position:absolute; right:8px; background:none; border:none; cursor:pointer; font-size:15px; padding:0; line-height:1; color:#64748b;" title="Показати/приховати пароль">👁</button>
+                <button type="button" onclick="togglePasswordVisibility('confirmNewPassword', this)" style="position:absolute; right:8px; background:none; border:none; cursor:pointer; font-size:15px; padding:0; line-height:1; color:#64748b;" title="Показати/приховати пароль">Показати</button>
               </div>
             </div>
           </div>
 
           <button type="button" class="btn btn-outline" id="btnChangePassword" onclick="changeUserPassword()">
-            🔑 Оновити пароль
+            Оновити пароль
           </button>
         </div>
       </div>
@@ -911,7 +914,7 @@
     <!-- ВКЛАДКА 3-Б: ЗВОРОТНИЙ ЗВ'ЯЗОК З АДМІНІСТРАТОРОМ САЙТУ (КАБІНЕТ КЛІЄНТА) -->
     <div id="tabFeedback" class="tab-pane" style="display:none;">
       <div class="card">
-        <h2>💬 Зворотний зв'язок з адміністратором сайту</h2>
+        <h2>Зворотний зв'язок з адміністратором сайту</h2>
         <p style="color:var(--muted); font-size:13.5px; margin-top:-6px;">
           Напишіть адміністратору сайту щодо погодження заявок, надання дозволу на зміну назви або коду ЄДРПОУ замовника, збільшення ліміту заявок чи інших питань.
         </p>
@@ -934,13 +937,13 @@
           <label>Текст повідомлення адміністратору *</label>
           <textarea id="fbMessageText" placeholder="Введіть текст вашого звернення до адміністратора сайту..."></textarea>
         </div>
-        <button class="btn btn-primary" onclick="sendCabinetFeedback()">📨 Надіслати звернення адміністратору</button>
+        <button class="btn btn-primary" onclick="sendCabinetFeedback()">Надіслати звернення адміністратору</button>
       </div>
 
       <div class="card">
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:12px;">
           <h3 style="margin:0;">Історія моїх звернень та відповіді адміністратора</h3>
-          <button class="btn btn-outline btn-sm" onclick="loadFeedbackMessages()">↻ Оновити</button>
+          <button class="btn btn-outline btn-sm" onclick="loadFeedbackMessages()">Оновити</button>
         </div>
         <div id="myFeedbackListContainer"></div>
       </div>
@@ -966,7 +969,7 @@
             <h2 style="margin:0;">Логотип, напис та контактні дані платформи</h2>
             <small style="color:var(--muted);">Встановіть фірмове найменування сайту, підпис у шапці, логотип та контактні дані в підвалі</small>
           </div>
-          <button type="button" class="btn btn-outline btn-sm" id="btnToggle_branding" style="pointer-events:none;">Розгорнути ▼</button>
+          <button type="button" class="btn btn-outline btn-sm" id="btnToggle_branding" style="pointer-events:none;">Розгорнути</button>
         </div>
         <div id="adminCardBody_branding" style="display:none; margin-top:14px; border-top:1px solid var(--border); padding-top:14px;">
           <div class="grid-2" style="margin-bottom:14px;">
@@ -986,10 +989,10 @@
               <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
                 <img id="adminLogoPreview" src="" alt="Прев'ю логотипу" style="display:none; max-height:44px; max-width:140px; border:1px solid var(--border); border-radius:6px; padding:3px; background:#f8fafc; object-fit:contain;" />
                 <label class="btn btn-outline btn-sm" style="margin:0; cursor:pointer;">
-                  🖼 Обрати файл логотипу
+                  Обрати файл логотипу
                   <input type="file" id="set_logo_file" accept="image/*" style="display:none;" onchange="onAdminLogoFileSelect(event)" />
                 </label>
-                <button type="button" class="btn btn-danger btn-sm" id="btnRemoveLogo" style="display:none;" onclick="clearAdminLogo()">✕ Прибрати логотип</button>
+                <button type="button" class="btn btn-danger btn-sm" id="btnRemoveLogo" style="display:none;" onclick="clearAdminLogo()">Прибрати логотип</button>
               </div>
             </div>
             <div class="form-group" style="margin-bottom:0;">
@@ -1001,7 +1004,7 @@
               <input type="text" id="set_contact_phone" placeholder="Вкажіть телефон за потреби" />
             </div>
           </div>
-          <button class="btn btn-primary" onclick="saveSiteContacts()">💾 Зберегти логотип, напис та контакти</button>
+          <button class="btn btn-primary" onclick="saveSiteContacts()">Зберегти логотип, напис та контакти</button>
         </div>
       </div>
 
@@ -1014,7 +1017,7 @@
           </div>
           <div style="display:flex; align-items:center; gap:8px;" onclick="event.stopPropagation()">
             <button class="btn btn-outline btn-sm" onclick="openUserModal(null, 'admin')">➕ Додати Адміністратора</button>
-            <button type="button" class="btn btn-outline btn-sm" id="btnToggle_admins" onclick="toggleAdminCard('adminCardBody_admins', 'btnToggle_admins')">Розгорнути ▼</button>
+            <button type="button" class="btn btn-outline btn-sm" id="btnToggle_admins" onclick="toggleAdminCard('adminCardBody_admins', 'btnToggle_admins')">Розгорнути</button>
           </div>
         </div>
         <div id="adminCardBody_admins" style="display:none; margin-top:14px; border-top:1px solid var(--border); padding-top:14px;">
@@ -1026,12 +1029,12 @@
       <div class="card" style="border-left:4px solid var(--primary); margin-bottom:12px;">
         <div style="display:flex; justify-content:space-between; align-items:center; cursor:pointer; user-select:none; gap:10px;" onclick="toggleAdminCard('adminCardBody_clients', 'btnToggle_clients')">
           <div>
-            <h2 style="margin:0;">🏢 Клієнти <span id="adminClientsCountBadge" class="badge badge-info" style="font-size:12.5px; margin-left:6px;">0</span></h2>
+            <h2 style="margin:0;">Клієнти <span id="adminClientsCountBadge" class="badge badge-info" style="font-size:12.5px; margin-left:6px;">0</span></h2>
             <small style="color:var(--muted);">Кабінети клієнтів (замовників та постачальників) з можливістю додавати заявки та визначати ступінь доступу.</small>
           </div>
           <div style="display:flex; align-items:center; gap:8px;" onclick="event.stopPropagation()">
             <button class="btn btn-primary btn-sm" onclick="openUserModal(null, 'client')">➕ Додати Клієнта</button>
-            <button type="button" class="btn btn-outline btn-sm" id="btnToggle_clients" onclick="toggleAdminCard('adminCardBody_clients', 'btnToggle_clients')">Розгорнути ▼</button>
+            <button type="button" class="btn btn-outline btn-sm" id="btnToggle_clients" onclick="toggleAdminCard('adminCardBody_clients', 'btnToggle_clients')">Розгорнути</button>
           </div>
         </div>
         <div id="adminCardBody_clients" style="display:none; margin-top:14px; border-top:1px solid var(--border); padding-top:14px;">
@@ -1047,20 +1050,20 @@
             <small style="color:var(--muted);">Управління заявками клієнтів, модерація та перегляд порівняння цін</small>
           </div>
           <div style="display:flex; align-items:center; gap:8px;" onclick="event.stopPropagation()">
-            <button class="btn btn-outline btn-sm" onclick="loadAdminData()">↻ Оновити дані</button>
-            <button type="button" class="btn btn-outline btn-sm" id="btnToggle_orders" onclick="toggleAdminCard('adminCardBody_orders', 'btnToggle_orders')">Розгорнути ▼</button>
+            <button class="btn btn-outline btn-sm" onclick="loadAdminData()">Оновити дані</button>
+            <button type="button" class="btn btn-outline btn-sm" id="btnToggle_orders" onclick="toggleAdminCard('adminCardBody_orders', 'btnToggle_orders')">Розгорнути</button>
           </div>
         </div>
         <div id="adminCardBody_orders" style="display:none; margin-top:14px; border-top:1px solid var(--border); padding-top:14px;">
           <!-- Панель швидкого пошуку та фільтрації для адміністратора -->
           <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:14px; align-items:center; background:#f8fafc; border:1px solid var(--border); padding:10px 14px; border-radius:8px;">
             <div style="flex:1; min-width:240px;">
-              <input type="text" id="adminOrderSearchQuery" placeholder="🔍 Пошук замовника, номера, предмета чи ЄДРПОУ..." style="width:100%; padding:8px 12px; border:1px solid #cbd5e1; border-radius:6px; font-size:13.5px;" oninput="filterAdminOrdersList()" />
+              <input type="text" id="adminOrderSearchQuery" placeholder="Пошук замовника, номера, предмета чи ЄДРПОУ..." style="width:100%; padding:8px 12px; border:1px solid #cbd5e1; border-radius:6px; font-size:13.5px;" oninput="filterAdminOrdersList()" />
             </div>
             <div style="display:flex; gap:6px; flex-wrap:wrap;">
               <button type="button" class="btn btn-sm btn-primary" id="btnAdminOrderFilter_all" onclick="setAdminOrdersFilter('all')">Усі заявки</button>
-              <button type="button" class="btn btn-sm btn-outline" id="btnAdminOrderFilter_pending" onclick="setAdminOrdersFilter('pending')">⚡ Потребують погодження</button>
-              <button type="button" class="btn btn-sm btn-outline" id="btnAdminOrderFilter_released" onclick="setAdminOrdersFilter('released')">✓ Погоджені</button>
+              <button type="button" class="btn btn-sm btn-outline" id="btnAdminOrderFilter_pending" onclick="setAdminOrdersFilter('pending')">Потребують погодження</button>
+              <button type="button" class="btn btn-sm btn-outline" id="btnAdminOrderFilter_released" onclick="setAdminOrdersFilter('released')">Погоджені</button>
             </div>
           </div>
           <div id="adminOrdersTableWrap"></div>
@@ -1071,12 +1074,12 @@
       <div class="card" style="border-left:4px solid var(--success); margin-bottom:12px;">
         <div style="display:flex; justify-content:space-between; align-items:center; cursor:pointer; user-select:none; gap:10px;" onclick="toggleAdminCard('adminCardBody_feedback', 'btnToggle_feedback')">
           <div>
-            <h2 style="margin:0;">💬 Зворотний зв'язок з адміністратором <span id="adminFbCountBadge"></span></h2>
+            <h2 style="margin:0;">Зворотний зв'язок з адміністратором <span id="adminFbCountBadge"></span></h2>
             <small style="color:var(--muted);">Звернення від зареєстрованих клієнтів та відвідувачів сайту з можливістю надати відповідь або відкрити клієнту доступ до зміни назви/ЄДРПОУ.</small>
           </div>
           <div style="display:flex; align-items:center; gap:8px;" onclick="event.stopPropagation()">
-            <button class="btn btn-outline btn-sm" onclick="loadAdminData()">↻ Оновити звернення</button>
-            <button type="button" class="btn btn-outline btn-sm" id="btnToggle_feedback" onclick="toggleAdminCard('adminCardBody_feedback', 'btnToggle_feedback')">Розгорнути ▼</button>
+            <button class="btn btn-outline btn-sm" onclick="loadAdminData()">Оновити звернення</button>
+            <button type="button" class="btn btn-outline btn-sm" id="btnToggle_feedback" onclick="toggleAdminCard('adminCardBody_feedback', 'btnToggle_feedback')">Розгорнути</button>
           </div>
         </div>
         <div id="adminCardBody_feedback" style="display:none; margin-top:14px; border-top:1px solid var(--border); padding-top:14px;">
@@ -1091,7 +1094,7 @@
             <h2 style="margin:0;">Управління формами подачі даних (імпорт .docx)</h2>
             <small style="color:var(--muted);">Завантажуйте файли Word (.docx) із таблицями полів або редагуйте чинні форми</small>
           </div>
-          <button type="button" class="btn btn-outline btn-sm" id="btnToggle_forms" style="pointer-events:none;">Розгорнути ▼</button>
+          <button type="button" class="btn btn-outline btn-sm" id="btnToggle_forms" style="pointer-events:none;">Розгорнути</button>
         </div>
         <div id="adminCardBody_forms" style="display:none; margin-top:14px; border-top:1px solid var(--border); padding-top:14px;">
           <div class="grid-2">
@@ -1132,8 +1135,8 @@
 <div class="modal-backdrop" id="forgotPasswordModal" style="display:none;">
   <div class="modal" style="max-width:480px;">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; border-bottom:1px solid #f1f5f9; padding-bottom:8px;">
-      <h3 style="margin:0; font-size:17px; color:var(--ink);">🔑 Відновлення доступу до кабінету</h3>
-      <button class="btn btn-outline btn-sm" onclick="closeForgotPasswordModal()">✕ Закрити</button>
+      <h3 style="margin:0; font-size:17px; color:var(--ink);">Відновлення доступу до кабінету</h3>
+      <button class="btn btn-outline btn-sm" onclick="closeForgotPasswordModal()">Закрити</button>
     </div>
 
     <div id="forgotStep1">
@@ -1154,7 +1157,7 @@
 
       <div style="margin-top:14px; text-align:center;">
         <a href="javascript:void(0)" onclick="toggleForgotStep(2)" style="font-size:12px; color:var(--primary); text-decoration:none;">
-          Вже маєте токен? Встановити новий пароль →
+          Вже маєте токен? Встановити новий пароль
         </a>
       </div>
     </div>
@@ -1174,7 +1177,7 @@
         <label style="font-size:12px;">Новий пароль (мін. 6 символів) *</label>
         <div style="position:relative; display:flex; align-items:center;">
           <input type="password" id="resetNewPasswordInput" placeholder="Ваш новий безпечний пароль" style="padding:8px 34px 8px 10px; font-size:13px; width:100%;" onkeydown="if(event.key==='Enter') doSubmitPasswordReset()" oninput="updatePassMeter(this, 'resetPassBar', 'resetPassText', 'resetPassMeter')" />
-          <button type="button" onclick="togglePasswordVisibility('resetNewPasswordInput', this)" style="position:absolute; right:8px; background:none; border:none; cursor:pointer; font-size:15px; padding:0; line-height:1; color:#64748b;" title="Показати/приховати пароль">👁</button>
+          <button type="button" onclick="togglePasswordVisibility('resetNewPasswordInput', this)" style="position:absolute; right:8px; background:none; border:none; cursor:pointer; font-size:15px; padding:0; line-height:1; color:#64748b;" title="Показати/приховати пароль">Показати</button>
         </div>
         <div id="resetPassMeter" style="margin-top:4px; display:none;">
           <div style="height:3px; background:#e2e8f0; border-radius:2px; overflow:hidden;">
@@ -1190,7 +1193,7 @@
 
       <div style="margin-top:14px; text-align:center;">
         <a href="javascript:void(0)" onclick="toggleForgotStep(1)" style="font-size:12px; color:var(--primary); text-decoration:none;">
-          ← Повернутися до введення пошти
+          Повернутися до введення пошти
         </a>
       </div>
     </div>
@@ -1201,7 +1204,7 @@
   <div class="modal">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
       <h3 style="margin:0;" id="userModalTitle">Налаштування користувача та ступеня доступу</h3>
-      <button class="btn btn-outline btn-sm" onclick="closeUserModal()">✕ Закрити</button>
+      <button class="btn btn-outline btn-sm" onclick="closeUserModal()">Закрити</button>
     </div>
 
     <input type="hidden" id="um_id" value="" />
@@ -1252,7 +1255,7 @@
       <div class="form-group" style="margin-bottom:0;">
         <label>Розділ в адмін-панелі</label>
         <select id="um_account_type">
-          <option value="client">🏢 Клієнт (Розділ «Клієнти»)</option>
+          <option value="client">Клієнт (Розділ «Клієнти»)</option>
           <option value="admin">🛡 Адміністратор сайту (Розділ «Адміністратори сайту»)</option>
         </select>
       </div>
@@ -1260,7 +1263,7 @@
         <label>Індивідуальний режим надання результату клієнту</label>
         <select id="um_delivery_override">
           <option value="manual">🔒 Після модерації (після моєї згоди)</option>
-          <option value="auto">⚡ Автоматично одразу</option>
+          <option value="auto">Автоматично одразу</option>
         </select>
       </div>
       <div class="form-group" style="margin-bottom:0;">
@@ -1325,7 +1328,7 @@
 
     <div style="display:flex; justify-content:flex-end; gap:10px;">
       <button class="btn btn-outline" onclick="closeUserModal()">Скасувати</button>
-      <button class="btn btn-primary" onclick="saveUserFromModal()">💾 Зберегти користувача та права доступу</button>
+      <button class="btn btn-primary" onclick="saveUserFromModal()">Зберегти користувача та права доступу</button>
     </div>
   </div>
 </div>
@@ -1335,7 +1338,7 @@
   <div class="modal">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
       <h3 style="margin:0;" id="editOrderModalTitle">Редагування заявки та Живий підбір цін Prozorro (Варіант 3)</h3>
-      <button class="btn btn-outline btn-sm" onclick="closeEditOrderModal()">✕ Закрити</button>
+      <button class="btn btn-outline btn-sm" onclick="closeEditOrderModal()">Закрити</button>
     </div>
     <div id="editOrderModalBody"></div>
   </div>
@@ -1521,7 +1524,7 @@
       document.getElementById("authSection").style.display = "none";
       document.getElementById("appSection").style.display = "none";
       document.getElementById("userBar").innerHTML = `
-        <a class="btn btn-outline btn-sm" href="/" style="background:#fff; color:#0f172a;">← Перейти до кабінету клієнта (/)</a>
+        <a class="btn btn-outline btn-sm" href="/" style="background:#fff; color:#0f172a;">Перейти до кабінету клієнта (/)</a>
       `;
       const foot = document.getElementById("publicLandingFooter");
       if (foot) foot.style.display = "none";
@@ -1566,17 +1569,17 @@
     const tabsEl = document.getElementById("mainTabs");
     let tabsHtml = "";
     if (isAdmin) {
-      tabsHtml += `<button class="tab-btn" id="btnTab_tabAdmin" onclick="switchTab('tabAdmin')">⚙ Адмін-панель (Клієнти, Форми, Модерація)</button>`;
+      tabsHtml += `<button class="tab-btn" id="btnTab_tabAdmin" onclick="switchTab('tabAdmin')">Адмін-панель (Клієнти, Форми, Модерація)</button>`;
     }
     if (isAdmin || perms.can_create_orders !== false) {
       tabsHtml += `<button class="tab-btn" id="btnTab_tabNewOrder" onclick="switchTab('tabNewOrder')">➕ Подати заявку за формою</button>`;
     }
     tabsHtml += `
-      <button class="tab-btn" id="btnTab_tabMyOrders" onclick="switchTab('tabMyOrders')">📂 Мої заявки та Результати (.docx)</button>
-      <button class="tab-btn" id="btnTab_tabProfile" onclick="switchTab('tabProfile')">🏢 Профіль замовника</button>
+      <button class="tab-btn" id="btnTab_tabMyOrders" onclick="switchTab('tabMyOrders')">Мої заявки та Результати (.docx)</button>
+      <button class="tab-btn" id="btnTab_tabProfile" onclick="switchTab('tabProfile')">Профіль замовника</button>
     `;
     if (!isAdmin) {
-      tabsHtml += `<button class="tab-btn" id="btnTab_tabFeedback" onclick="switchTab('tabFeedback')">💬 Зворотний зв'язок з адміністратором</button>`;
+      tabsHtml += `<button class="tab-btn" id="btnTab_tabFeedback" onclick="switchTab('tabFeedback')">Зворотний зв'язок з адміністратором</button>`;
     }
     tabsEl.innerHTML = tabsHtml;
 
@@ -1679,14 +1682,14 @@
     if (isBuyer) {
       if (orgLabel) orgLabel.innerText = "Найменування організації (замовника) *";
       if (orgInp) orgInp.placeholder = "Організація замовника (напр. Відділ освіти, КП, КНП...)";
-      if (roleHint) roleHint.innerText = "🏛 Розрахунок та обґрунтування очікуваної вартості за Особливостями № 1178";
+      if (roleHint) roleHint.innerText = "Розрахунок та обґрунтування очікуваної вартості за Особливостями № 1178";
       if (dirLabel) dirLabel.innerText = "ПІБ керівника (для грифу)";
       if (edrpouLabel) edrpouLabel.innerText = "Код ЄДРПОУ *";
       if (edrpouInp) edrpouInp.placeholder = "8 цифр";
     } else {
       if (orgLabel) orgLabel.innerText = "Найменування компанії або ФОП (постачальника) *";
       if (orgInp) orgInp.placeholder = "ТОВ, ПП або ФОП Іваненко І.І.";
-      if (roleHint) roleHint.innerText = "🏢 Аналіз цін конкурентів, дослідження ринку та оцінка рентабельності участі";
+      if (roleHint) roleHint.innerText = "Аналіз цін конкурентів, дослідження ринку та оцінка рентабельності участі";
       if (dirLabel) dirLabel.innerText = "ПІБ керівника / уповноваженої особи";
       if (edrpouLabel) edrpouLabel.innerText = "Код ЄДРПОУ або РНОКПП (ІПН) *";
       if (edrpouInp) edrpouInp.placeholder = "8 або 10 цифр";
@@ -1755,7 +1758,7 @@
     if (!/^\d+$/.test(val)) {
       hint.style.display = "block";
       hint.style.color = "#e11d48";
-      hint.innerHTML = "⚠️ Код повинен містити тільки цифри";
+      hint.innerHTML = "Код повинен містити тільки цифри";
       inp.style.borderColor = "#f43f5e";
       return;
     }
@@ -1770,7 +1773,7 @@
         if (validateEdrpouChecksum(val)) {
           hint.style.display = "block";
           hint.style.color = "#16a34a";
-          hint.innerHTML = '✓ Коректний код ЄДРПОУ <a href="javascript:void(0)" onclick="autofillOrgFromEdrpou()" style="color:#0284c7; margin-left:6px; font-weight:600; text-decoration:underline;">🏢 Підтягнути назву з Prozorro</a>';
+          hint.innerHTML = 'Коректний код ЄДРПОУ <a href="javascript:void(0)" onclick="autofillOrgFromEdrpou()" style="color:#0284c7; margin-left:6px; font-weight:600; text-decoration:underline;">Підтягнути назву з Prozorro</a>';
           inp.style.borderColor = "#22c55e";
           const orgInp = document.getElementById("regOrg");
           if (orgInp && !orgInp.value.trim()) {
@@ -1779,13 +1782,13 @@
         } else {
           hint.style.display = "block";
           hint.style.color = "#d97706";
-          hint.innerHTML = "⚠️ Можлива описка в цифрах коду (контрольна сума не збігається)";
+          hint.innerHTML = "Можлива описка в цифрах коду (контрольна сума не збігається)";
           inp.style.borderColor = "#f59e0b";
         }
       } else {
         hint.style.display = "block";
         hint.style.color = "#e11d48";
-        hint.innerHTML = "⚠️ Код ЄДРПОУ замовника має містити рівно 8 цифр";
+        hint.innerHTML = "Код ЄДРПОУ замовника має містити рівно 8 цифр";
         inp.style.borderColor = "#f43f5e";
       }
     } else {
@@ -1798,7 +1801,7 @@
         if (validateEdrpouChecksum(val)) {
           hint.style.display = "block";
           hint.style.color = "#16a34a";
-          hint.innerHTML = '✓ Коректний код ЄДРПОУ <a href="javascript:void(0)" onclick="autofillOrgFromEdrpou()" style="color:#0284c7; margin-left:6px; font-weight:600; text-decoration:underline;">🏢 Підтягнути назву з Prozorro</a>';
+          hint.innerHTML = 'Коректний код ЄДРПОУ <a href="javascript:void(0)" onclick="autofillOrgFromEdrpou()" style="color:#0284c7; margin-left:6px; font-weight:600; text-decoration:underline;">Підтягнути назву з Prozorro</a>';
           inp.style.borderColor = "#22c55e";
           const orgInp = document.getElementById("regOrg");
           if (orgInp && !orgInp.value.trim()) {
@@ -1819,18 +1822,18 @@
         if (validateRnokppChecksum(val)) {
           hint.style.display = "block";
           hint.style.color = "#16a34a";
-          hint.innerHTML = "✓ Коректний РНОКПП (контрольна сума збігається)";
+          hint.innerHTML = "Коректний РНОКПП (контрольна сума збігається)";
           inp.style.borderColor = "#22c55e";
         } else {
           hint.style.display = "block";
           hint.style.color = "#d97706";
-          hint.innerHTML = "⚠️ Можлива описка в цифрах РНОКПП (контрольна сума не збігається)";
+          hint.innerHTML = "Можлива описка в цифрах РНОКПП (контрольна сума не збігається)";
           inp.style.borderColor = "#f59e0b";
         }
       } else {
         hint.style.display = "block";
         hint.style.color = "#e11d48";
-        hint.innerHTML = "⚠️ Код має містити 8 (ЄДРПОУ) або 10 (РНОКПП) цифр";
+        hint.innerHTML = "Код має містити 8 (ЄДРПОУ) або 10 (РНОКПП) цифр";
         inp.style.borderColor = "#f43f5e";
       }
     }
@@ -1856,7 +1859,7 @@
           dirInp.value = res.director_name;
           highlightUpdatedFields(dirInp);
         }
-        showToast("🏢 Офіційну назву організації завантажено з Prozorro!");
+        showToast("Офіційну назву організації завантажено з Prozorro!");
       } else if (!silent) {
         showToast(res.message || "Організацію за вказаним кодом не знайдено в базі Prozorro.");
       }
@@ -1927,7 +1930,7 @@
     if (!email || !password) {
       _isLoginDebounceActive = false;
       if (errBox) {
-        errBox.innerText = "⚠️ Будь ласка, вкажіть електронну пошту та пароль для входу.";
+        errBox.innerText = "Будь ласка, вкажіть електронну пошту та пароль для входу.";
         errBox.style.display = "block";
       }
       if (!email && emailInp) emailInp.style.borderColor = "#e11d48";
@@ -1952,7 +1955,7 @@
     } catch (e) {
       // Замість вискакування вікна "не авторизовано" знизу справа — ненав'язлива підказка в блоці:
       if (errBox) {
-        errBox.innerText = "⚠️ Логін або пароль введено невірно. Перевірте введені дані.";
+        errBox.innerText = "Логін або пароль введено невірно. Перевірте введені дані.";
         errBox.style.display = "block";
       }
       if (emailInp) emailInp.style.borderColor = "#e11d48";
@@ -1983,7 +1986,7 @@
     if (!fullName || !email || !orgName || !edrpou || !password) {
       _isRegisterDebounceActive = false;
       if (errBox) {
-        errBox.innerText = "⚠️ Будь ласка, заповніть усі обов'язкові поля, позначені зірочкою (*).";
+        errBox.innerText = "Будь ласка, заповніть усі обов'язкові поля, позначені зірочкою (*).";
         errBox.style.display = "block";
       }
       return;
@@ -2018,7 +2021,7 @@
       await initApp();
     } catch (e) {
       if (errBox) {
-        errBox.innerText = "⚠️ " + (e.message || "Помилка реєстрації. Перевірте введені дані.");
+        errBox.innerText = "" + (e.message || "Помилка реєстрації. Перевірте введені дані.");
         errBox.style.display = "block";
       }
     } finally {
@@ -2046,7 +2049,7 @@
     if (!q) {
       if (resBox) {
         resBox.style.display = "block";
-        resBox.innerHTML = '<div style="color:#b91c1c; font-size:13px;">⚠️ Будь ласка, введіть назву товару або код ДК 021:2015 для перевірки.</div>';
+        resBox.innerHTML = '<div style="color:#b91c1c; font-size:13px;">Будь ласка, введіть назву товару або код ДК 021:2015 для перевірки.</div>';
       }
       if (inp) inp.focus();
       return;
@@ -2054,7 +2057,7 @@
 
     if (btn) {
       btn.disabled = true;
-      btn.innerHTML = '⏳ Пошук у Prozorro...';
+      btn.innerHTML = 'Пошук у Prozorro...';
     }
     if (resBox) {
       resBox.style.display = "block";
@@ -2075,7 +2078,7 @@
           <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
             <div>
               <div style="font-weight:700; color:#1e3a8a; font-size:15px; margin-bottom:3px;">
-                ✅ Знайдено ${data.count} реальних укладених договорів у системі Prozorro
+                Проаналізовано ${data.count} укладених договорів протягом ${data.months || 12} місяців
               </div>
               <div style="font-size:13px; color:#475569;">
                 Предмет: <strong>«${escapeHtml(data.query)}»</strong>
@@ -2104,14 +2107,14 @@
               ℹ️ Для завантаження офіційного протоколу з розрахунком згідно з Постановою КМУ № 710 та наказом № 2754:
             </span>
             <button type="button" class="btn btn-sm btn-primary" onclick="focusAuthBlock()" style="white-space:nowrap; padding:6px 12px; font-size:12.5px;">
-              Увійти / Зареєструватися (5 вільних заявок) →
+              Увійти / Зареєструватися (5 вільних заявок)
             </button>
           </div>
         `;
       } else {
         resBox.innerHTML = `
           <div style="color:#92400e; background:#fef3c7; border:1px solid #fde68a; padding:12px; border-radius:8px; font-size:13px; line-height:1.5;">
-            ⚠️ За вказаним запитом «<strong>${escapeHtml(q)}</strong>» не знайдено точних збігів у швидкому індексі. Спробуйте вказати код ДК 021:2015 або загальнішу назву товару (наприклад, <em>«бензин»</em> або <em>«папір»</em>). В особистому кабінеті діє розширений глобальний пошук.
+            За вказаним запитом «<strong>${escapeHtml(q)}</strong>» не знайдено точних збігів у швидкому індексі. Спробуйте вказати код ДК 021:2015 або загальнішу назву товару (наприклад, <em>«бензин»</em> або <em>«папір»</em>). В особистому кабінеті діє розширений глобальний пошук.
           </div>
         `;
       }
@@ -2122,7 +2125,7 @@
     } finally {
       if (btn) {
         btn.disabled = false;
-        btn.innerHTML = '🔍 Перевірити ринок';
+        btn.innerHTML = 'Перевірити ринок';
       }
     }
   }
@@ -2143,7 +2146,7 @@
     const btn = document.getElementById(btnId);
     if (btn) {
       const orig = btn.innerHTML;
-      btn.innerHTML = "✓ Скопійовано!";
+      btn.innerHTML = "Скопійовано!";
       btn.style.borderColor = "#16a34a";
       btn.style.color = "#16a34a";
       setTimeout(() => {
@@ -2204,7 +2207,7 @@
       </head>
       <body>
         <div class="no-print" style="margin-bottom:20px; text-align:right; border-bottom:1px solid #ccc; padding-bottom:10px;">
-          <button onclick="window.print()" style="padding:8px 18px; font-size:14px; cursor:pointer; font-weight:bold; background:#2563eb; color:#fff; border:none; border-radius:4px;">🖨 Надрукувати звіт</button>
+          <button onclick="window.print()" style="padding:8px 18px; font-size:14px; cursor:pointer; font-weight:bold; background:#2563eb; color:#fff; border:none; border-radius:4px;">Надрукувати звіт</button>
           <button onclick="window.close()" style="padding:8px 14px; font-size:14px; cursor:pointer; margin-left:8px; border:1px solid #ccc; background:#fff; border-radius:4px;">Закрити</button>
         </div>
 
@@ -2272,7 +2275,7 @@
     const isPass = inp.type === "password";
     inp.type = isPass ? "text" : "password";
     if (btnEl) {
-      btnEl.innerHTML = isPass ? "🙈" : "👁";
+      btnEl.innerText = isPass ? "Приховати" : "Показати";
       btnEl.title = isPass ? "Приховати пароль" : "Показати пароль";
     }
   }
@@ -2348,7 +2351,7 @@
         msgBox.style.background = "#fff1f2";
         msgBox.style.color = "#be123c";
         msgBox.style.border = "1px solid #fecdd3";
-        msgBox.innerText = "⚠️ Вкажіть, будь ласка, адресу електронної пошти.";
+        msgBox.innerText = "Вкажіть, будь ласка, адресу електронної пошти.";
       }
       return;
     }
@@ -2369,7 +2372,7 @@
         msgBox.style.background = "#ecfdf5";
         msgBox.style.color = "#047857";
         msgBox.style.border = "1px solid #a7f3d0";
-        msgBox.innerText = "✓ " + (res.message || "Якщо вказану адресу зареєстровано в системі, інструкції для відновлення доступу надіслано на вашу поштову скриньку.");
+        msgBox.innerText = "" + (res.message || "Якщо вказану адресу зареєстровано в системі, інструкції для відновлення доступу надіслано на вашу поштову скриньку.");
       }
     } catch (err) {
       if (msgBox) {
@@ -2377,7 +2380,7 @@
         msgBox.style.background = "#fff1f2";
         msgBox.style.color = "#be123c";
         msgBox.style.border = "1px solid #fecdd3";
-        msgBox.innerText = "⚠️ " + (err.message || "Помилка при запиті відновлення.");
+        msgBox.innerText = "" + (err.message || "Помилка при запиті відновлення.");
       }
     } finally {
       if (btn) {
@@ -2402,7 +2405,7 @@
         msgBox.style.background = "#fff1f2";
         msgBox.style.color = "#be123c";
         msgBox.style.border = "1px solid #fecdd3";
-        msgBox.innerText = "⚠️ Введіть токен відновлення та новий пароль.";
+        msgBox.innerText = "Введіть токен відновлення та новий пароль.";
       }
       return;
     }
@@ -2413,7 +2416,7 @@
         msgBox.style.background = "#fff1f2";
         msgBox.style.color = "#be123c";
         msgBox.style.border = "1px solid #fecdd3";
-        msgBox.innerText = "⚠️ Пароль має містити щонайменше 6 символів.";
+        msgBox.innerText = "Пароль має містити щонайменше 6 символів.";
       }
       return;
     }
@@ -2434,7 +2437,7 @@
         msgBox.style.background = "#ecfdf5";
         msgBox.style.color = "#047857";
         msgBox.style.border = "1px solid #a7f3d0";
-        msgBox.innerText = "✓ " + (res.message || "Пароль успішно змінено!");
+        msgBox.innerText = "" + (res.message || "Пароль успішно змінено!");
       }
       showToast("Пароль успішно оновлено! Тепер ви можете увійти з новим паролем.");
       setTimeout(() => {
@@ -2447,7 +2450,7 @@
         msgBox.style.background = "#fff1f2";
         msgBox.style.color = "#be123c";
         msgBox.style.border = "1px solid #fecdd3";
-        msgBox.innerText = "⚠️ " + (err.message || "Помилка встановлення пароля.");
+        msgBox.innerText = "" + (err.message || "Помилка встановлення пароля.");
       }
     } finally {
       if (btn) {
@@ -2479,7 +2482,7 @@
         msgBox.style.background = "#fff1f2";
         msgBox.style.color = "#be123c";
         msgBox.style.border = "1px solid #fecdd3";
-        msgBox.innerText = "⚠️ Будь ласка, заповніть усі поля для зміни пароля.";
+        msgBox.innerText = "Будь ласка, заповніть усі поля для зміни пароля.";
       }
       return;
     }
@@ -2490,7 +2493,7 @@
         msgBox.style.background = "#fff1f2";
         msgBox.style.color = "#be123c";
         msgBox.style.border = "1px solid #fecdd3";
-        msgBox.innerText = "⚠️ Новий пароль повинен містити щонайменше 6 символів.";
+        msgBox.innerText = "Новий пароль повинен містити щонайменше 6 символів.";
       }
       return;
     }
@@ -2501,7 +2504,7 @@
         msgBox.style.background = "#fff1f2";
         msgBox.style.color = "#be123c";
         msgBox.style.border = "1px solid #fecdd3";
-        msgBox.innerText = "⚠️ Новий пароль та підтвердження не співпадають.";
+        msgBox.innerText = "Новий пароль та підтвердження не співпадають.";
       }
       return;
     }
@@ -2525,7 +2528,7 @@
         msgBox.style.background = "#ecfdf5";
         msgBox.style.color = "#047857";
         msgBox.style.border = "1px solid #a7f3d0";
-        msgBox.innerText = "✓ Пароль успішно змінено!";
+        msgBox.innerText = "Пароль успішно змінено!";
       }
       if (curP) curP.value = "";
       if (newP) newP.value = "";
@@ -2537,12 +2540,12 @@
         msgBox.style.background = "#fff1f2";
         msgBox.style.color = "#be123c";
         msgBox.style.border = "1px solid #fecdd3";
-        msgBox.innerText = "⚠️ " + (err.message || "Помилка при зміні пароля.");
+        msgBox.innerText = "" + (err.message || "Помилка при зміні пароля.");
       }
     } finally {
       if (btn) {
         btn.disabled = false;
-        btn.innerText = "🔑 Оновити пароль";
+        btn.innerText = "Оновити пароль";
       }
     }
   }
@@ -2759,7 +2762,7 @@
             count++;
           }
         });
-        document.getElementById("uploadedDocxBadge").textContent = `✓ Файл «${file.name}» завантажено та розпізнано (${count} полів підставлено)`;
+        document.getElementById("uploadedDocxBadge").textContent = `Файл «${file.name}» завантажено та розпізнано (${count} полів підставлено)`;
         showToast("Дані з таблиці Word (.docx) підставлено у форму!");
       } catch (e) {
         showToast(e.message);
@@ -2881,7 +2884,7 @@
     }, 60);
 
     const btn = document.getElementById("btnPreviewBenchmarks");
-    const origBtnHtml = btn ? btn.innerHTML : "🔍 Попередній перегляд цін Prozorro";
+    const origBtnHtml = btn ? btn.innerHTML : "Попередній перегляд цін Prozorro";
     if (btn) {
       btn.disabled = true;
       btn.innerHTML = '<span class="spinner spinner-dark"></span> Підбір цін...';
@@ -2898,7 +2901,7 @@
       if (!benches.length) {
         previewBox.innerHTML = `
           <div style="background:#fffbeb; border:1px solid #fde68a; border-radius:8px; padding:16px; color:#92400e;">
-            <strong>⚠️ За вказаними параметрами автоматично не підібрано цін.</strong><br/>
+            <strong>За вказаними параметрами автоматично не підібрано цін.</strong><br/>
             Спробуйте уточнити код CPV чи назву предмета закупівлі, або надішліть заявку — адміністратор підбере закупівлі під час перевірки.
           </div>
         `;
@@ -2924,7 +2927,7 @@
           diffPct = (((custUnit - maxP) / maxP) * 100).toFixed(1);
           trafficLightHtml = `
             <div style="background:#fef2f2; border:1.5px solid #ef4444; border-radius:8px; padding:12px 16px; margin-bottom:14px; display:flex; align-items:center; gap:12px;">
-              <span style="font-size:26px; line-height:1;">🔴</span>
+              <span style="display:inline-block; width:22px; height:22px; border-radius:50%; background:#ef4444; border:2px solid #b91c1c; vertical-align:middle;"></span>
               <div>
                 <strong style="color:#991b1b; font-size:14px;">Ціна перевищує ринковий орієнтир (+${diffPct}% від максимуму)</strong>
                 <div style="color:#7f1d1d; font-size:12.5px; margin-top:2px;">
@@ -2937,7 +2940,7 @@
           diffPct = (((minP - custUnit) / minP) * 100).toFixed(1);
           trafficLightHtml = `
             <div style="background:#fffbeb; border:1.5px solid #f59e0b; border-radius:8px; padding:12px 16px; margin-bottom:14px; display:flex; align-items:center; gap:12px;">
-              <span style="font-size:26px; line-height:1;">🟡</span>
+              <span style="display:inline-block; width:22px; height:22px; border-radius:50%; background:#f59e0b; border:2px solid #d97706; vertical-align:middle;"></span>
               <div>
                 <strong style="color:#92400e; font-size:14px;">Ціна нижча за середньоринковий орієнтир (-${diffPct}% від мінімуму)</strong>
                 <div style="color:#78350f; font-size:12.5px; margin-top:2px;">
@@ -2949,7 +2952,7 @@
         } else {
           trafficLightHtml = `
             <div style="background:#f0fdf4; border:1.5px solid #22c55e; border-radius:8px; padding:12px 16px; margin-bottom:14px; display:flex; align-items:center; gap:12px;">
-              <span style="font-size:26px; line-height:1;">🟢</span>
+              <span style="display:inline-block; width:22px; height:22px; border-radius:50%; background:#10b981; border:2px solid #059669; vertical-align:middle;"></span>
               <div>
                 <strong style="color:#166534; font-size:14px;">Ціна повністю в межах ринку Prozorro</strong>
                 <div style="color:#14532d; font-size:12.5px; margin-top:2px;">
@@ -2965,10 +2968,10 @@
         <div style="background:#ffffff; border:1.5px solid #0284c7; border-radius:10px; padding:18px; box-shadow:0 4px 12px rgba(2, 132, 199, 0.08);">
           <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px; border-bottom:1px solid #e0f2fe; padding-bottom:10px;">
             <div style="display:flex; align-items:center; gap:8px;">
-              <span style="font-size:18px;">📊</span>
+              
               <strong style="font-size:15.5px; color:#0369a1;">Попередній перегляд підібраних цін Prozorro (${benches.length} закупівель)</strong>
             </div>
-            <button type="button" class="btn btn-outline btn-sm" onclick="document.getElementById('orderBenchmarksPreviewContainer').style.display='none'">✕ Закрити перегляд</button>
+            <button type="button" class="btn btn-outline btn-sm" onclick="document.getElementById('orderBenchmarksPreviewContainer').style.display='none'">Закрити перегляд</button>
           </div>
 
           <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:10px; margin-bottom:14px; background:#f0f9ff; padding:12px; border-radius:8px;">
@@ -2982,7 +2985,7 @@
 
           ${isHighest ? `
             <div style="background:#fef2f2; border:1px solid #f87171; color:#991b1b; padding:10px 14px; border-radius:6px; font-size:13px; margin-bottom:12px;">
-              ⚠️ <strong>Увага:</strong> Очікувана вартість або ціна за одиницю є найвищою серед порівнюваних цін.
+              <strong>Увага:</strong> Очікувана вартість або ціна за одиницю є найвищою серед порівнюваних цін.
             </div>
           ` : ''}
 
@@ -3020,7 +3023,7 @@
                         ${Number(b.unit_price_no_vat || 0).toLocaleString('uk-UA')} грн / од.
                       </td>
                       <td style="padding:8px; text-align:center;">
-                        <span class="badge badge-success" style="font-size:11px;">✓ Перевірено</span>
+                        <span class="badge badge-success" style="font-size:11px;">Перевірено</span>
                       </td>
                     </tr>
                   `;
@@ -3035,7 +3038,7 @@
 
           <div style="margin-top:12px; display:flex; justify-content:flex-end; gap:10px; align-items:center;">
             <button type="button" class="btn btn-success btn-sm" style="padding:9px 18px; font-size:14px;" onclick="submitOrderForm()">
-              ✓ Сформувати документи з повними реквізитами та посиланнями
+              Сформувати документи з повними реквізитами та посиланнями
             </button>
           </div>
         </div>
@@ -3110,7 +3113,7 @@
         existingBadge.textContent = `${count} нова відп.`;
         existingBadge.style.display = "inline-block";
       } else {
-        btn.innerHTML = `💬 Зворотний зв'язок з адміністратором <span id="fbNewRepliesBadge" class="badge badge-success" style="margin-left:6px; font-size:11px; padding:2px 7px;">${count} нова відп.</span>`;
+        btn.innerHTML = `Зворотний зв'язок з адміністратором <span id="fbNewRepliesBadge" class="badge badge-success" style="margin-left:6px; font-size:11px; padding:2px 7px;">${count} нова відп.</span>`;
       }
     } else {
       if (existingBadge) existingBadge.remove();
@@ -3254,7 +3257,7 @@
     if (!body) return;
     const isHidden = (body.style.display === "none" || !body.style.display);
     body.style.display = isHidden ? "block" : "none";
-    if (btn) btn.innerHTML = isHidden ? "Згорнути ▲" : "Розгорнути ▼";
+    if (btn) btn.innerHTML = isHidden ? "Згорнути" : "Розгорнути";
   }
 
   function expandAllOrders(expand) {
@@ -3262,14 +3265,19 @@
       el.style.display = expand ? "block" : "none";
     });
     document.querySelectorAll("[id^='btnToggleOrder_']").forEach(btn => {
-      btn.innerHTML = expand ? "Згорнути ▲" : "Розгорнути ▼";
+      btn.innerHTML = expand ? "Згорнути" : "Розгорнути";
     });
   }
 
   function renderMyOrders() {
     const wrap = document.getElementById("myOrdersContainer");
     if (!MY_ORDERS.length) {
-      wrap.innerHTML = `<p style="color:var(--muted);">У цьому кабінеті ще немає поданих заявок.</p>`;
+      wrap.innerHTML = `
+      <div style="background:#f8fafc; border:1px dashed var(--border); border-radius:8px; padding:24px; text-align:center; color:var(--muted); font-size:14px;">
+        <p style="margin-bottom:12px;">У цьому кабінеті ще немає поданих заявок.</p>
+        <button class="btn btn-primary" onclick="switchTab('tabNewOrder')">➕ Подати першу заявку</button>
+      </div>
+    `;
       return;
     }
 
@@ -3311,7 +3319,7 @@
     if (!filteredOrders.length) {
       wrap.innerHTML = `
         <div style="background:#f8fafc; border:1px dashed var(--border); border-radius:8px; padding:20px; text-align:center; color:var(--muted); font-size:13.5px;">
-          🔍 За вказаними критеріями пошуку або фільтрами заявок не знайдено.
+          За вказаними критеріями пошуку або фільтрами заявок не знайдено.
           <div style="margin-top:10px;">
             <button class="btn btn-outline btn-sm" onclick="resetOrdersSearchAndFilter()">Скинути пошук та фільтри</button>
           </div>
@@ -3339,8 +3347,8 @@
       const consult = o.consultation || {};
       const subjName = inp.subject_name || "Без назви";
       const releasedBadge = o.is_released
-        ? `<span class="badge badge-success" style="font-size:11px;">✓ Результат надано</span>`
-        : `<span class="badge badge-warn" style="font-size:11px;">⏳ Очікує погодження</span>`;
+        ? `<span class="badge badge-success" style="font-size:11px;">Результат надано</span>`
+        : `<span class="badge badge-warn" style="font-size:11px;">Очікує погодження</span>`;
 
       // Згорнутий стан: тільки номер заявки (вирівняний за кількістю) та предмет закупівлі
       const headerHtml = `
@@ -3350,7 +3358,7 @@
             ${releasedBadge}
           </div>
           <button type="button" class="btn btn-outline btn-sm" id="btnToggleOrder_${o.id}" style="pointer-events:none;">
-            Розгорнути ▼
+            Розгорнути
           </button>
         </div>
       `;
@@ -3366,7 +3374,7 @@
               <strong>Замовник:</strong> ${escapeHtml(inp.buyer_name || "")} (ЄДРПОУ: ${escapeHtml(inp.edrpou || "")})<br/>
               <strong>Код CPV:</strong> ${escapeHtml(inp.cpv_code || "")}<br/>
               <strong>Очікувана вартість:</strong> ${Number(inp.expected_value || 0).toLocaleString('uk-UA')} грн без ПДВ
-              ${stats.is_expected_value_highest ? `<span style="margin-left:8px; display:inline-block; background:#fef2f2; border:1px solid #f87171; color:#991b1b; padding:2px 8px; border-radius:4px; font-size:11.5px; font-weight:600;">⚠️ Очікувана вартість є найвищою</span>` : ''}
+              ${stats.is_expected_value_highest ? `<span style="margin-left:8px; display:inline-block; background:#fef2f2; border:1px solid #f87171; color:#991b1b; padding:2px 8px; border-radius:4px; font-size:11.5px; font-weight:600;">Очікувана вартість є найвищою</span>` : ''}
             </p>
             <div style="background:#fef3c7; color:#92400e; padding:10px 14px; border-radius:6px; font-size:13px; margin-top:10px;">
               Порівняння цін у системі Prozorro та проєкти 2 файлів обґрунтування сформовані системою і очікують погодження адміністратора.
@@ -3409,7 +3417,7 @@
                 <div class="label">Очікувана вартість (без ПДВ)</div>
                 <div class="val">${Number(stats.expected_value_no_vat || 0).toLocaleString('uk-UA')} грн</div>
                 <div style="font-size:12px; color:var(--muted);">Обсяг: ${stats.quantity || 0} ${escapeHtml(stats.unit_name || "")}</div>
-                ${stats.is_expected_value_highest ? `<div style="margin-top:6px; color:#991b1b; background:#fef2f2; border:1px solid #f87171; border-radius:6px; padding:4px 8px; font-size:11.5px; font-weight:600; line-height:1.35;">⚠️ Очікувана вартість є найвищою серед порівнюваних закупівель Prozorro</div>` : ''}
+                ${stats.is_expected_value_highest ? `<div style="margin-top:6px; color:#991b1b; background:#fef2f2; border:1px solid #f87171; border-radius:6px; padding:4px 8px; font-size:11.5px; font-weight:600; line-height:1.35;">Очікувана вартість є найвищою серед порівнюваних закупівель Prozorro</div>` : ''}
               </div>
               <div class="stat-box">
                 <div class="label">Ціна замовника за 1 ${escapeHtml(stats.unit_name || "од.")} (без ПДВ)</div>
@@ -3421,7 +3429,7 @@
                 <div class="val">${Number(stats.avg_market_price_no_vat || 0).toLocaleString('uk-UA')} грн</div>
                 <div style="margin-top:6px;">
                   <button type="button" class="btn btn-outline btn-sm" id="btnCopyStat_${o.id}" style="font-size:11px; padding:2px 8px;" onclick="copyPriceToClipboard('${Number(stats.avg_market_price_no_vat || 0).toFixed(2)}', '${escapeHtml(stats.unit_name || 'од.')}', 'btnCopyStat_${o.id}')" title="Скопіювати значення">
-                    📋 Скопіювати ціну
+                    Скопіювати ціну
                   </button>
                 </div>
                 <div style="font-size:12px; color:var(--muted);">Діапазон: ${Number(stats.min_market_price_no_vat || 0).toLocaleString('uk-UA')} – ${Number(stats.max_market_price_no_vat || 0).toLocaleString('uk-UA')} грн</div>
@@ -3431,12 +3439,12 @@
             <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:14px; padding:10px 14px; background:#f8fafc; border:1px solid var(--border); border-radius:8px;">
               ${canMainDoc ? `
                 <a class="btn btn-primary btn-sm" href="/api/orders/download/${o.id}/1?token=${encodeURIComponent(AUTH_TOKEN)}">
-                  📄 Скачати: ${escapeHtml(o.file1_name || "Обґрунтування (.docx)")}
+                  Скачати: ${escapeHtml(o.file1_name || "Обґрунтування (.docx)")}
                 </a>` : `<span class="badge badge-warn">Файл 1 обмежено рівнем доступу</span>`
               }
               ${canAnnexDoc ? `
                 <a class="btn btn-success btn-sm" href="/api/orders/download/${o.id}/2?token=${encodeURIComponent(AUTH_TOKEN)}">
-                  📊 Скачати: ${escapeHtml(o.file2_name || "Додаток до обґрунтування (.docx)")}
+                  Скачати: ${escapeHtml(o.file2_name || "Додаток до обґрунтування (.docx)")}
                 </a>` : `<span class="badge badge-warn">Файл 2 обмежено рівнем доступу</span>`
               }
             </div>
@@ -3469,7 +3477,7 @@
                     <th>Очікувана вартість предмета закупівлі:</th>
                     <td>
                       <strong>${Number(stats.expected_value_no_vat || inp.expected_value || 0).toLocaleString('uk-UA')} грн без ПДВ</strong>
-                      ${stats.is_expected_value_highest ? `<span style="margin-left:10px; display:inline-block; background:#fef2f2; border:1px solid #f87171; color:#991b1b; padding:2px 8px; border-radius:4px; font-size:11.5px; font-weight:600;">⚠️ Очікувана вартість є найвищою серед порівнюваних закупівель Prozorro</span>` : ''}
+                      ${stats.is_expected_value_highest ? `<span style="margin-left:10px; display:inline-block; background:#fef2f2; border:1px solid #f87171; color:#991b1b; padding:2px 8px; border-radius:4px; font-size:11.5px; font-weight:600;">Очікувана вартість є найвищою серед порівнюваних закупівель Prozorro</span>` : ''}
                     </td>
                   </tr>
                 </tbody>
@@ -3481,10 +3489,10 @@
                 <h4 style="margin:0;">2.1. Аналіз закупівель та укладених договорів у системі Prozorro за 2026 рік (без ПДВ):</h4>
                 <div style="display:flex; gap:6px; flex-wrap:wrap;">
                   <button type="button" class="btn btn-outline btn-sm" id="btnCopyPrice_${o.id}" onclick="copyPriceToClipboard('${Number(stats.avg_market_price_no_vat || 0).toFixed(2)}', '${escapeHtml(stats.unit_name || 'од.')}', 'btnCopyPrice_${o.id}')" title="Скопіювати середньозважену ціну">
-                    📋 Скопіювати ціну
+                    Скопіювати ціну
                   </button>
                   <button type="button" class="btn btn-outline btn-sm" onclick="printOrderTable(${o.id})" title="Друкувати зведену таблицю">
-                    🖨 Друк зведеної таблиці
+                    Друк зведеної таблиці
                   </button>
                 </div>
               </div>
@@ -3558,12 +3566,12 @@
       edrInp.style.background = "#fff";
       edrInp.style.color = "var(--ink)";
       edrInp.style.cursor = "text";
-      if (lblOrgBadge) lblOrgBadge.innerHTML = `<span class="badge badge-success">🔓 Редагування дозволено</span>`;
-      if (lblEdrBadge) lblEdrBadge.innerHTML = `<span class="badge badge-success">🔓 Редагування дозволено</span>`;
+      if (lblOrgBadge) lblOrgBadge.innerHTML = `<span class="badge badge-success">Редагування дозволено</span>`;
+      if (lblEdrBadge) lblEdrBadge.innerHTML = `<span class="badge badge-success">Редагування дозволено</span>`;
       if (noticeEl) {
         noticeEl.innerHTML = `
           <div style="background:#f0fdf4; border:1px solid #bbf7d0; color:#166534; padding:10px 14px; border-radius:8px; font-size:13px;">
-            🔓 <strong>Доступ відкрито адміністратором:</strong> Ви можете змінювати найменування організації замовника та код ЄДРПОУ.
+            <strong>Доступ відкрито адміністратором:</strong> Ви можете змінювати найменування організації замовника та код ЄДРПОУ.
           </div>
         `;
       }
@@ -3582,7 +3590,7 @@
         noticeEl.innerHTML = `
           <div style="background:#fef3c7; border:1px solid #fde68a; color:#92400e; padding:10px 14px; border-radius:8px; font-size:13px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
             <span>🔒 <strong>Назва та код ЄДРПОУ замовника захищені від редагування.</strong> За потреби зміни зверніться до адміністратора сайту.</span>
-            <button type="button" class="btn btn-outline btn-sm" onclick="openFeedbackForOrgChange()">💬 Запитати дозвіл у адміністратора</button>
+            <button type="button" class="btn btn-outline btn-sm" onclick="openFeedbackForOrgChange()">Запитати дозвіл у адміністратора</button>
           </div>
         `;
       }
@@ -3603,8 +3611,8 @@
       <div style="display:flex; flex-wrap:wrap; gap:8px;">
         ${list.map((person, idx) => `
           <div style="display:inline-flex; align-items:center; gap:8px; background:#fff; border:1px solid var(--border); padding:6px 12px; border-radius:99px; font-size:13px;">
-            <span>👤 <strong>${escapeHtml(person)}</strong></span>
-            <button type="button" class="btn btn-danger btn-sm" style="padding:2px 7px; font-size:11px; border-radius:99px;" onclick="removeAuthorizedPerson(${idx})" title="Видалити ПІБ уповноваженої особи">✕ Видалити</button>
+            <span><strong>${escapeHtml(person)}</strong></span>
+            <button type="button" class="btn btn-danger btn-sm" style="padding:2px 7px; font-size:11px; border-radius:99px;" onclick="removeAuthorizedPerson(${idx})" title="Видалити ПІБ уповноваженої особи">Видалити</button>
           </div>
         `).join("")}
       </div>
@@ -3718,8 +3726,8 @@
       }
       box.innerHTML = items.map(m => {
         const badge = m.admin_reply
-          ? `<span class="badge badge-success">✓ НАДАНО ВІДПОВІДЬ АДМІНІСТРАТОРА</span>`
-          : `<span class="badge badge-warn">⏳ ОЧІКУЄ ВІДПОВІДІ АДМІНІСТРАТОРА</span>`;
+          ? `<span class="badge badge-success">НАДАНО ВІДПОВІДЬ АДМІНІСТРАТОРА</span>`
+          : `<span class="badge badge-warn">ОЧІКУЄ ВІДПОВІДІ АДМІНІСТРАТОРА</span>`;
         return `
           <div style="border:1px solid var(--border); border-left:4px solid ${m.admin_reply ? 'var(--success)' : 'var(--primary)'}; border-radius:8px; padding:12px 14px; margin-bottom:10px; background:#fff;">
             <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:6px;">
@@ -3865,9 +3873,9 @@
     const needApprovalBadgeEl = document.getElementById("adminOrdersNeedApprovalBadge");
     if (needApprovalBadgeEl) {
       if (pendingOrdersCount > 0) {
-        needApprovalBadgeEl.innerHTML = `<span class="badge badge-warn" style="font-size:12px; margin-left:8px; background:#fef3c7; color:#b45309; border:1.5px solid #f59e0b; font-weight:700;">⚡ ${pendingOrdersCount} вимагає погодження</span>`;
+        needApprovalBadgeEl.innerHTML = `<span class="badge badge-warn" style="font-size:12px; margin-left:8px; background:#fef3c7; color:#b45309; border:1.5px solid #f59e0b; font-weight:700;">${pendingOrdersCount} вимагає погодження</span>`;
       } else {
-        needApprovalBadgeEl.innerHTML = `<span class="badge badge-success" style="font-size:11px; margin-left:8px;">✓ Усі заявки погоджено</span>`;
+        needApprovalBadgeEl.innerHTML = `<span class="badge badge-success" style="font-size:11px; margin-left:8px;">Усі заявки погоджено</span>`;
       }
     }
 
@@ -3901,7 +3909,7 @@
     if (!filtered.length) {
       ordWrap.innerHTML = `
         <div style="background:#f8fafc; border:1px dashed var(--border); border-radius:8px; padding:18px; text-align:center; color:var(--muted); font-size:13.5px;">
-          🔍 За вказаними критеріями пошуку або фільтрами заявок не знайдено.
+          За вказаними критеріями пошуку або фільтрами заявок не знайдено.
           <div style="margin-top:8px;">
             <button class="btn btn-outline btn-sm" onclick="resetAdminOrdersSearchAndFilter()">Скинути пошук та фільтри</button>
           </div>
@@ -3913,7 +3921,7 @@
     ordWrap.innerHTML = `
       <div style="margin-bottom:10px; font-size:13px; color:var(--muted); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
         <span>Показано: <strong>${filtered.length}</strong> з <strong>${MY_ORDERS.length}</strong> заявок</span>
-        ${pendingOrdersCount > 0 ? `<span style="color:#b45309; font-weight:600;">⚡ Очікують погодження: ${pendingOrdersCount}</span>` : ''}
+        ${pendingOrdersCount > 0 ? `<span style="color:#b45309; font-weight:600;">Очікують погодження: ${pendingOrdersCount}</span>` : ''}
       </div>
       <div style="overflow-x:auto;">
         <table>
@@ -3939,7 +3947,7 @@
                   <td>
                     <strong>№ ${seqNum}</strong><br/>
                     <small style="color:var(--muted);">${escapeHtml(o.created_at)}</small>
-                    ${needsApproval ? `<br/><span style="display:inline-block; margin-top:4px; background:#fef3c7; color:#b45309; border:1px solid #f59e0b; padding:2px 6px; border-radius:4px; font-size:10.5px; font-weight:700;">⚡ Потребує згоди</span>` : ''}
+                    ${needsApproval ? `<br/><span style="display:inline-block; margin-top:4px; background:#fef3c7; color:#b45309; border:1px solid #f59e0b; padding:2px 6px; border-radius:4px; font-size:10.5px; font-weight:700;">Потребує згоди</span>` : ''}
                   </td>
                   <td>
                     <strong>${escapeHtml(inp.buyer_name || o.user_org || "")}</strong><br/>
@@ -3951,34 +3959,34 @@
                     ДК: ${escapeHtml(inp.cpv_code || "")}<br/>
                     Тендер: <code>${escapeHtml(inp.tender_id || "—")}</code><br/>
                     ОВ: <strong>${Number(stats.expected_value_no_vat || inp.expected_value || 0).toLocaleString('uk-UA')} грн без ПДВ</strong>
-                    ${stats.is_expected_value_highest ? `<br/><span style="display:inline-block; margin-top:3px; background:#fef2f2; color:#991b1b; border:1px solid #f87171; border-radius:4px; padding:2px 6px; font-size:11px; font-weight:600;">⚠️ Очікувана вартість є найвищою</span>` : ''}
+                    ${stats.is_expected_value_highest ? `<br/><span style="display:inline-block; margin-top:3px; background:#fef2f2; color:#991b1b; border:1px solid #f87171; border-radius:4px; padding:2px 6px; font-size:11px; font-weight:600;">Очікувана вартість є найвищою</span>` : ''}
                   </td>
                   <td>
                     <div style="display:flex; flex-direction:column; gap:5px;">
-                      <a class="btn btn-outline btn-sm" href="/api/orders/download/${o.id}/1?token=${encodeURIComponent(AUTH_TOKEN)}">📄 ${escapeHtml(o.file1_name || "Файл 1: Обґрунтування")}</a>
-                      <a class="btn btn-outline btn-sm" href="/api/orders/download/${o.id}/2?token=${encodeURIComponent(AUTH_TOKEN)}">📊 ${escapeHtml(o.file2_name || "Файл 2: Додаток до обґрунтування")}</a>
+                      <a class="btn btn-outline btn-sm" href="/api/orders/download/${o.id}/1?token=${encodeURIComponent(AUTH_TOKEN)}">${escapeHtml(o.file1_name || "Файл 1: Обґрунтування")}</a>
+                      <a class="btn btn-outline btn-sm" href="/api/orders/download/${o.id}/2?token=${encodeURIComponent(AUTH_TOKEN)}">${escapeHtml(o.file2_name || "Файл 2: Додаток до обґрунтування")}</a>
                     </div>
                   </td>
                   <td style="min-width:190px; max-width:240px;">
                     ${needsApproval ? `
                       <div style="background:#fef3c7; color:#92400e; border:1.5px solid #f59e0b; border-radius:8px; padding:8px 10px; font-size:12px; font-weight:700; line-height:1.4; text-align:center; word-break:break-word; box-sizing:border-box; box-shadow:0 0 8px rgba(245, 158, 11, 0.25);">
-                        ⚡ ВИМАГАЄ ПОГОДЖЕННЯ<br/>
+                        ВИМАГАЄ ПОГОДЖЕННЯ<br/>
                         <small style="font-weight:500;">(Закрито для клієнта)</small>
                       </div>
                     ` : `
                       <div style="background:#dcfce7; color:#166534; border:1px solid #bbf7d0; border-radius:8px; padding:6px 10px; font-size:12px; font-weight:600; line-height:1.4; text-align:center; word-break:break-word; box-sizing:border-box;">
-                        ✓ Надано доступ (Клієнт бачить результат)
+                        Надано доступ (Клієнт бачить результат)
                       </div>
                     `}
                   </td>
                   <td>
                     <div style="display:flex; flex-direction:column; gap:6px;">
                       ${needsApproval
-                        ? `<button class="btn btn-success btn-sm" style="font-weight:700; box-shadow:0 2px 6px rgba(22, 101, 52, 0.25);" onclick="toggleOrderRelease(${o.id}, true)">✅ Надати згоду (Відкрити результат)</button>`
+                        ? `<button class="btn btn-success btn-sm" style="font-weight:700; box-shadow:0 2px 6px rgba(22, 101, 52, 0.25);" onclick="toggleOrderRelease(${o.id}, true)">Надати згоду (Відкрити результат)</button>`
                         : `<button class="btn btn-warn btn-sm" onclick="toggleOrderRelease(${o.id}, false)">🔒 Закрити доступ клієнту</button>`
                       }
-                      <button class="btn btn-outline btn-sm" onclick="openEditOrderModal(${o.id})">🔍 Підбір Prozorro API / Редагувати</button>
-                      <button class="btn btn-danger btn-sm" onclick="deleteOrderAsAdmin(${o.id})">🗑 Видалити заявку</button>
+                      <button class="btn btn-outline btn-sm" onclick="openEditOrderModal(${o.id})">Підбір Prozorro API / Редагувати</button>
+                      <button class="btn btn-danger btn-sm" onclick="deleteOrderAsAdmin(${o.id})">Видалити заявку</button>
                     </div>
                   </td>
                 </tr>
@@ -4059,7 +4067,7 @@
                       ${isClientsTable ? `
                         <div style="margin-top:6px;">
                           <button type="button" class="btn ${canOrgEdit ? 'btn-success' : 'btn-outline'} btn-sm" style="padding:3px 8px; font-size:11.5px; white-space:normal; line-height:1.3; text-align:left;" onclick="toggleClientOrgEdit(${u.id}, ${!canOrgEdit})">
-                            ${canOrgEdit ? '🔓 Зміна назви/ЄДРПОУ: ДОЗВОЛЕНО (вимкнути)' : '🔒 Надати доступ змінювати назву/ЄДРПОУ'}
+                            ${canOrgEdit ? 'Зміна назви/ЄДРПОУ: ДОЗВОЛЕНО (вимкнути)' : '🔒 Надати доступ змінювати назву/ЄДРПОУ'}
                           </button>
                         </div>
                       ` : ""}
@@ -4071,23 +4079,23 @@
                             🔒 Після модерації
                           </button>
                           <button type="button" class="btn ${isAutoMode ? 'btn-success' : 'btn-outline'} btn-sm" style="padding:4px 8px; font-size:11.5px;" onclick="setClientDeliveryMode(${u.id}, 'auto')">
-                            ⚡ Автоматично
+                            Автоматично
                           </button>
                         </div>
-                      ` : `<strong>⚡ Автоматично</strong><br/>`}
+                      ` : `<strong>Автоматично</strong><br/>`}
                       <div style="display:flex; align-items:center; gap:4px; margin-top:4px; flex-wrap:wrap;">
                         <small style="font-weight:700;">Заявок:</small>
                         <input type="number" id="inlineQuota_${u.id}" value="${u.quota}" style="width:62px; padding:3px 6px; font-size:12.5px;" />
-                        <button class="btn btn-outline btn-sm" style="padding:3px 7px; font-size:11.5px;" title="Зберегти вказану кількість заявок" onclick="setInlineUserQuota(${u.id})">💾</button>
+                        <button class="btn btn-outline btn-sm" style="padding:3px 7px; font-size:11.5px;" title="Зберегти вказану кількість заявок" onclick="setInlineUserQuota(${u.id})">Зберегти</button>
                         <button class="btn btn-success btn-sm" style="padding:3px 7px; font-size:11.5px;" title="Додати +5 заявок" onclick="adjustUserQuota(${u.id}, 5)">+5</button>
                         <button class="btn btn-outline btn-sm" style="padding:3px 7px; font-size:11.5px;" title="Додати +1 заявку" onclick="adjustUserQuota(${u.id}, 1)">+1</button>
                       </div>
                     </td>
                     <td>
                       <div style="display:flex; gap:6px; flex-wrap:wrap;">
-                        <button class="btn btn-outline btn-sm" onclick="openUserModal(${u.id}, '${isClientsTable ? 'client' : 'admin'}')">✏ Редагувати</button>
+                        <button class="btn btn-outline btn-sm" onclick="openUserModal(${u.id}, '${isClientsTable ? 'client' : 'admin'}')">Редагувати</button>
                         ${u.id !== CURRENT_USER.id ? `
-                          <button class="btn btn-danger btn-sm" onclick="deleteUser(${u.id})">🗑 Видалити</button>
+                          <button class="btn btn-danger btn-sm" onclick="deleteUser(${u.id})">Видалити</button>
                         ` : ""}
                       </div>
                     </td>
@@ -4141,8 +4149,8 @@
                         <strong>#${m.id}</strong><br/>
                         <small>${escapeHtml(m.created_at || "")}</small><br/>
                         ${isReplied
-                          ? `<span class="badge badge-success">✓ Відповідь надано</span>`
-                          : `<span class="badge badge-warn">⏳ Нова заявка</span>`
+                          ? `<span class="badge badge-success">Відповідь надано</span>`
+                          : `<span class="badge badge-warn">Нова заявка</span>`
                         }
                       </td>
                       <td>
@@ -4160,13 +4168,13 @@
                         <div style="display:flex; flex-direction:column; gap:6px;">
                           <textarea id="adminFbReply_${m.id}" placeholder="Введіть відповідь клієнту..." style="min-height:54px; font-size:12.5px;">${escapeHtml(m.admin_reply || "")}</textarea>
                           <div style="display:flex; gap:6px; flex-wrap:wrap;">
-                            <button type="button" class="btn btn-primary btn-sm" onclick="replyAdminFeedback(${m.id})">📨 Надіслати відповідь</button>
+                            <button type="button" class="btn btn-primary btn-sm" onclick="replyAdminFeedback(${m.id})">Надіслати відповідь</button>
                             ${clientObj ? `
                               <button type="button" class="btn ${canOrg ? 'btn-success' : 'btn-outline'} btn-sm" onclick="toggleClientOrgEdit(${clientObj.id}, ${!canOrg}, ${m.id})">
-                                ${canOrg ? '🔓 Назва/ЄДРПОУ відкрито' : '🔓 Дозволити зміну назви/ЄДРПОУ'}
+                                ${canOrg ? 'Назва/ЄДРПОУ відкрито' : 'Дозволити зміну назви/ЄДРПОУ'}
                               </button>
                             ` : ""}
-                            <button type="button" class="btn btn-danger btn-sm" onclick="deleteAdminFeedback(${m.id})">🗑</button>
+                            <button type="button" class="btn btn-danger btn-sm" onclick="deleteAdminFeedback(${m.id})">Видалити</button>
                           </div>
                         </div>
                       </td>
@@ -4189,7 +4197,7 @@
       <div style="border:1px solid var(--border); border-radius:8px; padding:10px 12px; margin-bottom:8px; background:#fff;">
         <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
           <strong>#${f.id}. ${escapeHtml(f.title)}</strong>
-          <a class="btn btn-outline btn-sm" href="/api/forms/download/${f.id}?token=${encodeURIComponent(AUTH_TOKEN)}">⬇ Шаблон .docx</a>
+          <a class="btn btn-outline btn-sm" href="/api/forms/download/${f.id}?token=${encodeURIComponent(AUTH_TOKEN)}">Шаблон .docx</a>
         </div>
         <div style="font-size:12px; color:var(--muted); margin-top:4px;">${escapeHtml(f.description || "")}</div>
         <div style="font-size:12px; margin-top:6px;">
@@ -4367,7 +4375,7 @@
     if (!el) return;
     const isHidden = (el.style.display === "none" || !el.style.display);
     el.style.display = isHidden ? "block" : "none";
-    if (btn) btn.innerHTML = isHidden ? "Згорнути ▲" : "Розгорнути ▼";
+    if (btn) btn.innerHTML = isHidden ? "Згорнути" : "Розгорнути";
   }
 
   function expandAllAdminCards(expand) {
@@ -4383,7 +4391,7 @@
       const b = document.getElementById(bId);
       const btn = document.getElementById(btnId);
       if (b) b.style.display = expand ? "block" : "none";
-      if (btn) btn.innerHTML = expand ? "Згорнути ▲" : "Розгорнути ▼";
+      if (btn) btn.innerHTML = expand ? "Згорнути" : "Розгорнути";
     });
   }
 
@@ -4394,7 +4402,7 @@
         body: { user_id: userId, delivery_override: mode }
       });
       showToast(mode === "auto"
-        ? `Для клієнта #${userId} встановлено індивідуальний режим: ⚡ Автоматично одразу!`
+        ? `Для клієнта #${userId} встановлено індивідуальний режим: Автоматично одразу!`
         : `Для клієнта #${userId} встановлено індивідуальний режим: 🔒 Після модерації (за вашою згодою)!`
       );
       await loadAdminData();
@@ -4615,7 +4623,7 @@
       <div style="border:1px solid var(--border); padding:10px; border-radius:6px; margin-bottom:8px; background:#f8fafc;" class="mod-bench-row">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
           <strong style="font-size:12.5px; color:var(--primary);">Закупівля-аналог Prozorro</strong>
-          <button type="button" class="btn btn-danger btn-sm" style="padding:2px 8px; font-size:11px;" onclick="this.closest('.mod-bench-row').remove()">✕ Прибрати</button>
+          <button type="button" class="btn btn-danger btn-sm" style="padding:2px 8px; font-size:11px;" onclick="this.closest('.mod-bench-row').remove()">Прибрати</button>
         </div>
         <div class="grid-3">
           <div class="form-group" style="margin-bottom:6px;">
@@ -4695,7 +4703,7 @@
       <!-- Живий пошук в Prozorro API (Варіант 3) -->
       <div style="background:#eff6ff; border:1px solid #93c5fd; border-radius:8px; padding:12px 14px; margin:12px 0;">
         <div style="font-weight:700; color:#1e3a8a; margin-bottom:6px;">
-          🔍 Пошук закупівель у системі Prozorro через API (за кодом ДК 021:2015, назвою або UA-...):
+          Пошук закупівель у системі Prozorro через API (за кодом ДК 021:2015, назвою або UA-...):
         </div>
         <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:8px;">
           <input type="text" id="liveSearchQuery" placeholder="Ключове слово або UA-..." value="${escapeHtml(inp.subject_name || "")}" style="flex:1; min-width:200px; padding:7px 10px; border:1px solid #93c5fd; border-radius:6px;" />
@@ -4718,7 +4726,7 @@
 
       <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:14px;">
         <button class="btn btn-outline" onclick="saveRegenerateOrder(${ord.id}, false)">Зберегти та перегенерувати (без відкриття клієнту)</button>
-        <button class="btn btn-success" onclick="saveRegenerateOrder(${ord.id}, true)">✅ Перегенерувати 2 файли .docx та Надати згоду клієнту</button>
+        <button class="btn btn-success" onclick="saveRegenerateOrder(${ord.id}, true)">Перегенерувати 2 файли .docx та Надати згоду клієнту</button>
       </div>
     `;
 

@@ -543,6 +543,7 @@ class TenderAppHandler(BaseHTTPRequestHandler):
 
             self.send_json({
                 "count": count,
+                "months": 12,
                 "min_price": round(min_price, 2),
                 "max_price": round(max_price, 2),
                 "avg_price": round(avg_price, 2),
