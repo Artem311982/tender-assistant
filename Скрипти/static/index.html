@@ -1412,6 +1412,14 @@
       try {
         const me = await apiFetch("/api/me");
         CURRENT_USER = me.user;
+        if (isAdminRoute() && CURRENT_USER.role !== "admin") {
+          // Якщо в браузері збережено токен клієнта, але відкрито /admin — очищуємо сесію клієнта для входу адміна
+          AUTH_TOKEN = "";
+          CURRENT_USER = null;
+          localStorage.removeItem("tender_token");
+          renderLoggedOutState();
+          return;
+        }
         renderLoggedInState();
         return;
       } catch (e) {
@@ -1488,7 +1496,7 @@
       CURRENT_USER = res.user;
       showToast("Вітаємо в панелі адміністратора, " + CURRENT_USER.full_name + "!");
       await initApp();
-      switchTab("admin");
+      switchTab("tabAdmin");
     } catch (e) {
       if (errBox) {
         errBox.innerText = e.message || "Помилка авторизації адміністратора";
@@ -1534,6 +1542,8 @@
   }
 
   function renderLoggedInState() {
+    const portal = document.getElementById("adminPortalSection");
+    if (portal) portal.style.display = "none";
     document.getElementById("authSection").style.display = "none";
     document.getElementById("appSection").style.display = "block";
 
