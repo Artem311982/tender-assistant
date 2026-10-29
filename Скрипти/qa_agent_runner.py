@@ -15,7 +15,7 @@ QA_MEMORY_PATH = os.path.join(MEMORY_DIR, "qa_agent_memory.json")
 
 sys.path.insert(0, SCRIPT_DIR)
 
-ALLOWED_SYMBOLS = {"🔒", "🛡", "🛡️", "➕", "+", "\ufe0f", "↻"}
+ALLOWED_SYMBOLS = {"🔒", "🛡", "🛡️", "➕", "+", "\ufe0f", "↻", "👁", "👁️"}
 
 
 def load_qa_memory():
@@ -85,7 +85,7 @@ def run_static_ui_checks():
             "issue": f"Знайдено заборонені піктограми ({len(forbidden_found)} шт.): {', '.join(forbidden_found[:5])}"
         })
     else:
-        passed.append("Правило піктограм: жодної забороненої іконки (залишено лише 🔒, 🛡️, ➕, ↻)")
+        passed.append("Правило піктограм: жодної забороненої іконки (дозволені лише 🔒, 🛡️, ➕, ↻ та піктограма ока пароля 👁️)")
 
     # 2. Check merged tab 'Мої заявки та результати' and order of blocks
     if "Мої заявки та результати</button>" in html and 'id="btnTab_tabNewOrder"' not in html:
@@ -134,6 +134,26 @@ def run_static_ui_checks():
             "severity": "MEDIUM",
             "area": "Orders Table",
             "issue": "У списку заявок клієнта залишилися старі розширені таблиці"
+        })
+
+    # 4. Check Prozorro units dropdown in service order form
+    if "PROZORRO_UNITS_GROUPS" in html and 'id="orderUnitNameField"' in html:
+        passed.append("Поле «Одиниця виміру»: підключено випадаючий список стандартних одиниць виміру Prozorro")
+    else:
+        findings.append({
+            "severity": "HIGH",
+            "area": "Order Form",
+            "issue": "Відсутній випадаючий список одиниць виміру Prozorro у формі замовлення послуги"
+        })
+
+    # 5. Check password eye toggle pictograms (closed eye when hidden, open eye when visible)
+    if "pwd-eye-closed" in html and "pwd-eye-open" in html and "PWD_EYE_CLOSED_SVG" in html and "PWD_EYE_OPEN_SVG" in html:
+        passed.append("Поля паролів: встановлено піктограму ока (закрите око коли пароль прихований, відкрите коли відкритий)")
+    else:
+        findings.append({
+            "severity": "HIGH",
+            "area": "Password Fields",
+            "issue": "Не всі поля паролів оснащені піктограмою закритого/відкритого ока"
         })
 
     return passed, findings

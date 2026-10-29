@@ -844,19 +844,35 @@ def find_benchmarks_for_order(order_data, custom_benchmarks=None):
     # якщо їхня ціна за одиницю товару без ПДВ відповідає критеріям алгоритму пошуку.
     def classify_unit_group(u_str):
         u = (u_str or "").strip().lower()
-        if any(x in u for x in ["пог", "метр", "м.п", "п.м"]) or u in ("м", "м."):
-            return "linear_m"
-        if any(x in u for x in ["кв.м", "м2", "м²", "квадрат"]):
+        if any(x in u for x in ["квадрат", "кв.м", "м.кв", "м2", "м²"]):
             return "area_m2"
+        if any(x in u for x in ["тисяча куб", "тис. м.куб", "тис. куб", "тис.м3", "тис. м³"]):
+            return "vol_1000m3"
         if any(x in u for x in ["куб", "м3", "м³"]):
             return "vol_m3"
+        if any(x in u for x in ["кілометр", "км"]) and u not in ("компл", "комплект"):
+            return "dist_km"
+        if any(x in u for x in ["пог", "метр", "м.п", "п.м"]) or u in ("м", "м."):
+            return "linear_m"
         if any(x in u for x in ["тонн", "т."]) or u == "т":
             return "mass_t"
         if any(x in u for x in ["кілограм", "кг"]):
             return "mass_kg"
+        if any(x in u for x in ["грам", "гр."]) or u in ("г", "гр"):
+            return "mass_g"
+        if any(x in u for x in ["мілілітр", "мл"]):
+            return "vol_ml"
         if any(x in u for x in ["літр", "л."]) or u == "л":
             return "vol_l"
-        if any(x in u for x in ["шт", "штук", "рулон", "пач", "упак", "компл"]):
+        if any(x in u for x in ["гкал", "гігакалор"]):
+            return "energy_gcal"
+        if any(x in u for x in ["квт·год", "квт-год", "квт*год", "кіловат-год"]):
+            return "energy_kwh"
+        if any(x in u for x in ["кіловат", "квт"]):
+            return "power_kw"
+        if any(x in u for x in ["послуг", "робот", "робіт", "комплекс", "лот", "рейс"]):
+            return "service"
+        if any(x in u for x in ["шт", "штук", "одиниц", "од.", "комплект", "компл", "набір", "пар", "упак", "пач", "рулон", "міш", "короб", "ящ", "банк", "пляш", "флак", "ампул", "табл", "аркуш", "прим"]):
             return "piece"
         return "other"
 

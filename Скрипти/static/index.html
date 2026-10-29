@@ -419,7 +419,7 @@
             <label style="display:block; font-size:13px; font-weight:600; color:#1e293b; margin-bottom:6px;">Пароль доступу</label>
             <div style="position:relative; display:flex; align-items:center;">
               <input type="password" id="adminLoginPassword" placeholder="••••••••" autocomplete="current-password" required style="width:100%; box-sizing:border-box; padding:11px 40px 11px 14px; border:1.5px solid #cbd5e1; border-radius:8px; font-size:14px; outline:none; transition:border 0.2s;" onfocus="this.style.borderColor='#1e3a8a'" onblur="this.style.borderColor='#cbd5e1'" />
-              <button type="button" onclick="togglePasswordVisibility('adminLoginPassword', this)" style="position:absolute; right:12px; background:none; border:none; cursor:pointer; font-size:17px; padding:0; color:#64748b;" title="Показати/приховати пароль">Показати</button>
+              <button type="button" onclick="togglePasswordVisibility('adminLoginPassword', this)" style="display:inline-flex; align-items:center; justify-content:center; position:absolute; right:12px; background:none; border:none; cursor:pointer; font-size:17px; padding:0; color:#64748b;" title="Показати/приховати пароль"><svg class="pwd-eye-icon pwd-eye-closed" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:block;"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg></button>
             </div>
           </div>
 
@@ -495,7 +495,7 @@
               <label style="font-size:12.5px;">Пароль</label>
               <div style="position:relative; display:flex; align-items:center;">
                 <input type="password" id="loginPassword" placeholder="Ваш пароль" autocomplete="current-password" style="padding:8px 34px 8px 10px; font-size:13px; width:100%;" oninput="clearLoginInlineError()" onkeydown="if(event.key==='Enter') doLogin()" />
-                <button type="button" onclick="togglePasswordVisibility('loginPassword', this)" style="position:absolute; right:8px; background:none; border:none; cursor:pointer; font-size:15px; padding:0; line-height:1; color:#64748b;" title="Показати/приховати пароль">Показати</button>
+                <button type="button" onclick="togglePasswordVisibility('loginPassword', this)" style="display:inline-flex; align-items:center; justify-content:center; position:absolute; right:8px; background:none; border:none; cursor:pointer; font-size:15px; padding:0; line-height:1; color:#64748b;" title="Показати/приховати пароль"><svg class="pwd-eye-icon pwd-eye-closed" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:block;"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg></button>
               </div>
             </div>
             <div style="display:flex; justify-content:flex-end; margin-bottom:12px;">
@@ -555,7 +555,7 @@
                 <label style="font-size:11.5px;">Пароль *</label>
                 <div style="position:relative; display:flex; align-items:center;">
                   <input type="password" id="regPassword" placeholder="Мін. 6 симв." autocomplete="new-password" style="padding:7px 32px 7px 10px; font-size:12px; width:100%;" oninput="clearRegInlineError(); updatePassMeter(this, 'regPassBar', 'regPassText', 'regPassMeter');" />
-                  <button type="button" onclick="togglePasswordVisibility('regPassword', this)" style="position:absolute; right:6px; background:none; border:none; cursor:pointer; font-size:14px; padding:0; line-height:1; color:#64748b;" title="Показати/приховати пароль">Показати</button>
+                  <button type="button" onclick="togglePasswordVisibility('regPassword', this)" style="display:inline-flex; align-items:center; justify-content:center; position:absolute; right:6px; background:none; border:none; cursor:pointer; font-size:14px; padding:0; line-height:1; color:#64748b;" title="Показати/приховати пароль"><svg class="pwd-eye-icon pwd-eye-closed" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:block;"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg></button>
                 </div>
                 <div id="regPassMeter" style="margin-top:4px; display:none;">
                   <div style="height:3px; background:#e2e8f0; border-radius:2px; overflow:hidden;">
@@ -894,14 +894,14 @@
               <label style="font-size:12px;">Поточний пароль *</label>
               <div style="position:relative; display:flex; align-items:center;">
                 <input type="password" id="curPassword" placeholder="Ваш діючий пароль" autocomplete="current-password" style="padding-right:34px; width:100%;" />
-                <button type="button" onclick="togglePasswordVisibility('curPassword', this)" style="position:absolute; right:8px; background:none; border:none; cursor:pointer; font-size:15px; padding:0; line-height:1; color:#64748b;" title="Показати/приховати пароль">Показати</button>
+                <button type="button" onclick="togglePasswordVisibility('curPassword', this)" style="display:inline-flex; align-items:center; justify-content:center; position:absolute; right:8px; background:none; border:none; cursor:pointer; font-size:15px; padding:0; line-height:1; color:#64748b;" title="Показати/приховати пароль"><svg class="pwd-eye-icon pwd-eye-closed" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:block;"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg></button>
               </div>
             </div>
             <div class="form-group" style="margin-bottom:0;">
               <label style="font-size:12px;">Новий пароль *</label>
               <div style="position:relative; display:flex; align-items:center;">
                 <input type="password" id="newPassword" placeholder="Мін. 6 символів" autocomplete="new-password" style="padding-right:34px; width:100%;" oninput="updatePassMeter(this, 'newPassBar', 'newPassText', 'newPassMeter')" />
-                <button type="button" onclick="togglePasswordVisibility('newPassword', this)" style="position:absolute; right:8px; background:none; border:none; cursor:pointer; font-size:15px; padding:0; line-height:1; color:#64748b;" title="Показати/приховати пароль">Показати</button>
+                <button type="button" onclick="togglePasswordVisibility('newPassword', this)" style="display:inline-flex; align-items:center; justify-content:center; position:absolute; right:8px; background:none; border:none; cursor:pointer; font-size:15px; padding:0; line-height:1; color:#64748b;" title="Показати/приховати пароль"><svg class="pwd-eye-icon pwd-eye-closed" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:block;"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg></button>
               </div>
               <div id="newPassMeter" style="margin-top:4px; display:none;">
                 <div style="height:3px; background:#e2e8f0; border-radius:2px; overflow:hidden;">
@@ -914,7 +914,7 @@
               <label style="font-size:12px;">Підтвердження нового пароля *</label>
               <div style="position:relative; display:flex; align-items:center;">
                 <input type="password" id="confirmNewPassword" placeholder="Повторіть новий пароль" autocomplete="new-password" style="padding-right:34px; width:100%;" />
-                <button type="button" onclick="togglePasswordVisibility('confirmNewPassword', this)" style="position:absolute; right:8px; background:none; border:none; cursor:pointer; font-size:15px; padding:0; line-height:1; color:#64748b;" title="Показати/приховати пароль">Показати</button>
+                <button type="button" onclick="togglePasswordVisibility('confirmNewPassword', this)" style="display:inline-flex; align-items:center; justify-content:center; position:absolute; right:8px; background:none; border:none; cursor:pointer; font-size:15px; padding:0; line-height:1; color:#64748b;" title="Показати/приховати пароль"><svg class="pwd-eye-icon pwd-eye-closed" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:block;"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg></button>
               </div>
             </div>
           </div>
@@ -1192,7 +1192,7 @@
         <label style="font-size:12px;">Новий пароль (мін. 6 символів) *</label>
         <div style="position:relative; display:flex; align-items:center;">
           <input type="password" id="resetNewPasswordInput" placeholder="Ваш новий безпечний пароль" style="padding:8px 34px 8px 10px; font-size:13px; width:100%;" onkeydown="if(event.key==='Enter') doSubmitPasswordReset()" oninput="updatePassMeter(this, 'resetPassBar', 'resetPassText', 'resetPassMeter')" />
-          <button type="button" onclick="togglePasswordVisibility('resetNewPasswordInput', this)" style="position:absolute; right:8px; background:none; border:none; cursor:pointer; font-size:15px; padding:0; line-height:1; color:#64748b;" title="Показати/приховати пароль">Показати</button>
+          <button type="button" onclick="togglePasswordVisibility('resetNewPasswordInput', this)" style="display:inline-flex; align-items:center; justify-content:center; position:absolute; right:8px; background:none; border:none; cursor:pointer; font-size:15px; padding:0; line-height:1; color:#64748b;" title="Показати/приховати пароль"><svg class="pwd-eye-icon pwd-eye-closed" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:block;"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg></button>
         </div>
         <div id="resetPassMeter" style="margin-top:4px; display:none;">
           <div style="height:3px; background:#e2e8f0; border-radius:2px; overflow:hidden;">
@@ -1234,7 +1234,10 @@
       </div>
       <div class="form-group">
         <label id="um_password_label">Пароль *</label>
-        <input type="text" id="um_password" placeholder="Введіть пароль" />
+        <div style="position:relative; display:flex; align-items:center;">
+          <input type="password" id="um_password" placeholder="Введіть пароль" style="padding-right:36px; width:100%;" />
+          <button type="button" onclick="togglePasswordVisibility('um_password', this)" style="display:inline-flex; align-items:center; justify-content:center; position:absolute; right:8px; background:none; border:none; cursor:pointer; padding:0; line-height:1; color:#64748b;" title="Показати/приховати пароль"><svg class="pwd-eye-icon pwd-eye-closed" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:block;"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg></button>
+        </div>
       </div>
       <div class="form-group">
         <label>Найменування організації (Замовника)</label>
@@ -2325,14 +2328,18 @@
     printWindow.document.close();
   }
 
+  const PWD_EYE_CLOSED_SVG = `<svg class="pwd-eye-icon pwd-eye-closed" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:block;"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>`;
+  const PWD_EYE_OPEN_SVG = `<svg class="pwd-eye-icon pwd-eye-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:block;"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>`;
+
   function togglePasswordVisibility(inputId, btnEl) {
     const inp = document.getElementById(inputId);
     if (!inp) return;
-    const isPass = inp.type === "password";
-    inp.type = isPass ? "text" : "password";
+    const willBeVisible = inp.type === "password";
+    inp.type = willBeVisible ? "text" : "password";
     if (btnEl) {
-      btnEl.innerText = isPass ? "Приховати" : "Показати";
-      btnEl.title = isPass ? "Приховати пароль" : "Показати пароль";
+      btnEl.innerHTML = willBeVisible ? PWD_EYE_OPEN_SVG : PWD_EYE_CLOSED_SVG;
+      btnEl.title = willBeVisible ? "Приховати пароль (зараз відкритий)" : "Показати пароль (зараз прихований)";
+      btnEl.style.color = willBeVisible ? "#1e3a8a" : "#64748b";
     }
   }
 
@@ -2727,6 +2734,179 @@
     return PUBLIC_FORMS.find(f => f.id === fid) || PUBLIC_FORMS[0];
   }
 
+  // ===================== КЛАСИФІКАТОР ОДИНИЦЬ ВИМІРУ PROZORRO =====================
+  const PROZORRO_UNITS_GROUPS = [
+    {
+      group: "Кількісні та штучні (Товари)",
+      items: [
+        { value: "штука", label: "штука (шт.)" },
+        { value: "комплект", label: "комплект (компл.)" },
+        { value: "одиниця", label: "одиниця (од.)" },
+        { value: "пара", label: "пара (пар)" },
+        { value: "набір", label: "набір (наб.)" },
+        { value: "упаковка", label: "упаковка (упак.)" },
+        { value: "пачка", label: "пачка (пач.)" },
+        { value: "рулон", label: "рулон (рул.)" },
+        { value: "мішок", label: "мішок (міш.)" },
+        { value: "коробка", label: "коробка (кор.)" },
+        { value: "ящик", label: "ящик (ящ.)" },
+        { value: "банка", label: "банка (бан.)" },
+        { value: "пляшка", label: "пляшка (пляш.)" },
+        { value: "флакон", label: "флакон (фл.)" },
+        { value: "ампула", label: "ампула (амп.)" },
+        { value: "таблетка", label: "таблетка (табл.)" },
+        { value: "аркуш", label: "аркуш (арк.)" },
+        { value: "примірник", label: "примірник (прим.)" }
+      ]
+    },
+    {
+      group: "Маса та вага",
+      items: [
+        { value: "кілограм", label: "кілограм (кг)" },
+        { value: "тонна", label: "тонна (т)" },
+        { value: "грам", label: "грам (г)" }
+      ]
+    },
+    {
+      group: "Об'єм та наливні товари",
+      items: [
+        { value: "літр", label: "літр (л)" },
+        { value: "метр кубічний", label: "метр кубічний (м³)" },
+        { value: "тисяча кубічних метрів", label: "тисяча кубічних метрів (тис. м³)" },
+        { value: "мілілітр", label: "мілілітр (мл)" }
+      ]
+    },
+    {
+      group: "Довжина та площа",
+      items: [
+        { value: "метр", label: "метр (м)" },
+        { value: "погонний метр", label: "погонний метр (пог. м)" },
+        { value: "метр квадратний", label: "метр квадратний (м²)" },
+        { value: "кілометр", label: "кілометр (км)" },
+        { value: "гектар", label: "гектар (га)" }
+      ]
+    },
+    {
+      group: "Енергоносії та комунальні ресурси",
+      items: [
+        { value: "кіловат-година", label: "кіловат-година (кВт·год)" },
+        { value: "Гкал", label: "гігакалорія (Гкал)" },
+        { value: "кіловат", label: "кіловат (кВт)" }
+      ]
+    },
+    {
+      group: "Послуги, роботи та час",
+      items: [
+        { value: "послуга", label: "послуга" },
+        { value: "роботи", label: "роботи" },
+        { value: "комплекс", label: "комплекс" },
+        { value: "лот", label: "лот" },
+        { value: "рейс", label: "рейс" },
+        { value: "година", label: "година (год)" },
+        { value: "людино-година", label: "людино-година (люд.-год)" },
+        { value: "машино-година", label: "машино-година (маш.-год)" },
+        { value: "доба", label: "доба" },
+        { value: "місяць", label: "місяць (міс.)" },
+        { value: "рік", label: "рік" }
+      ]
+    }
+  ];
+
+  const PROZORRO_UNIT_SYNONYMS = {
+    "шт": "штука", "шт.": "штука", "штук": "штука", "штуки": "штука", "штука": "штука",
+    "компл": "комплект", "компл.": "комплект", "комплекти": "комплект", "комплектів": "комплект",
+    "од": "одиниця", "од.": "одиниця", "одиниці": "одиниця", "одиниць": "одиниця",
+    "пар": "пара", "пари": "пара",
+    "наб": "набір", "наб.": "набір", "набори": "набір",
+    "уп": "упаковка", "уп.": "упаковка", "упак": "упаковка", "упак.": "упаковка", "упаковок": "упаковка",
+    "пач": "пачка", "пач.": "пачка", "пачки": "пачка", "пачок": "пачка",
+    "рул": "рулон", "рул.": "рулон", "рулони": "рулон", "рулонів": "рулон",
+    "міш": "мішок", "міш.": "мішок", "мішки": "мішок", "мішків": "мішок",
+    "кор": "коробка", "кор.": "коробка", "коробки": "коробка",
+    "ящ": "ящик", "ящ.": "ящик", "ящики": "ящик",
+    "бан": "банка", "бан.": "банка", "банки": "банка",
+    "пляш": "пляшка", "пляш.": "пляшка", "пляшки": "пляшка",
+    "фл": "флакон", "фл.": "флакон", "флакони": "флакон",
+    "амп": "ампула", "амп.": "ампула", "ампули": "ампула",
+    "табл": "таблетка", "табл.": "таблетка", "таблетки": "таблетка",
+    "арк": "аркуш", "арк.": "аркуш", "аркуші": "аркуш", "аркушів": "аркуш",
+    "прим": "примірник", "прим.": "примірник", "примірники": "примірник",
+    "кг": "кілограм", "кг.": "кілограм", "кілограми": "кілограм", "кілограмів": "кілограм",
+    "т": "тонна", "т.": "тонна", "тонн": "тонна", "тонни": "тонна",
+    "г": "грам", "г.": "грам", "гр": "грам", "гр.": "грам", "грами": "грам", "грамів": "грам",
+    "л": "літр", "л.": "літр", "літри": "літр", "літрів": "літр",
+    "мл": "мілілітр", "мл.": "мілілітр", "мілілітри": "мілілітр",
+    "м3": "метр кубічний", "м³": "метр кубічний", "куб.м": "метр кубічний", "куб. м": "метр кубічний", "м.куб.": "метр кубічний", "м.куб": "метр кубічний", "кубічний метр": "метр кубічний",
+    "тис. м3": "тисяча кубічних метрів", "тис. м³": "тисяча кубічних метрів", "тис. м.куб.": "тисяча кубічних метрів", "тис. куб.м": "тисяча кубічних метрів",
+    "м": "метр", "м.": "метр", "метри": "метр", "метрів": "метр",
+    "пог. м": "погонний метр", "пог.м": "погонний метр", "пог.м.": "погонний метр", "м.п.": "погонний метр", "м.п": "погонний метр", "п.м.": "погонний метр", "п.м": "погонний метр", "метр погонний": "погонний метр",
+    "м2": "метр квадратний", "м²": "метр квадратний", "кв.м": "метр квадратний", "кв. м": "метр квадратний", "м.кв.": "метр квадратний", "м.кв": "метр квадратний", "квадратний метр": "метр квадратний",
+    "км": "кілометр", "км.": "кілометр", "кілометри": "кілометр",
+    "га": "гектар", "гектари": "гектар",
+    "квт·год": "кіловат-година", "квт*год": "кіловат-година", "квт-год": "кіловат-година", "квт.год": "кіловат-година", "квт год": "кіловат-година",
+    "гкал": "Гкал", "гігакалорія": "Гкал", "гігакалорій": "Гкал", "гігакалорії": "Гкал",
+    "квт": "кіловат",
+    "послуги": "послуга", "посл.": "послуга", "посл": "послуга",
+    "робота": "роботи", "робіт": "роботи",
+    "год": "година", "год.": "година", "годин": "година", "години": "година",
+    "люд.-год": "людино-година", "люд.год": "людино-година",
+    "маш.-год": "машино-година", "маш.год": "машино-година",
+    "діб": "доба", "доби": "доба",
+    "міс": "місяць", "міс.": "місяць", "місяці": "місяць", "місяців": "місяць",
+    "р.": "рік", "років": "рік", "роки": "рік"
+  };
+
+  function normalizeProzorroUnitValue(rawVal) {
+    const clean = String(rawVal || "").trim();
+    if (!clean) return "";
+    const low = clean.toLowerCase();
+    if (PROZORRO_UNIT_SYNONYMS[low]) return PROZORRO_UNIT_SYNONYMS[low];
+    for (const grp of PROZORRO_UNITS_GROUPS) {
+      for (const it of grp.items) {
+        if (it.value.toLowerCase() === low || it.label.toLowerCase() === low) {
+          return it.value;
+        }
+      }
+    }
+    return clean;
+  }
+
+  function renderProzorroUnitSelectOptionsHtml(selectedVal) {
+    const normVal = normalizeProzorroUnitValue(selectedVal);
+    let found = false;
+    const groupsHtml = PROZORRO_UNITS_GROUPS.map(grp => {
+      const opts = grp.items.map(it => {
+        const isSel = normVal && it.value === normVal;
+        if (isSel) found = true;
+        return `<option value="${escapeHtml(it.value)}" ${isSel ? "selected" : ""}>${escapeHtml(it.label)}</option>`;
+      }).join("");
+      return `<optgroup label="${escapeHtml(grp.group)}">${opts}</optgroup>`;
+    }).join("");
+
+    const customOpt = (normVal && !found)
+      ? `<optgroup label="Власна одиниця з тендеру"><option value="${escapeHtml(normVal)}" selected>${escapeHtml(normVal)}</option></optgroup>`
+      : "";
+
+    return `<option value="">— Оберіть одиницю виміру Prozorro —</option>${customOpt}${groupsHtml}`;
+  }
+
+  function setProzorroUnitFieldValue(el, rawVal) {
+    if (!el) return;
+    const normVal = normalizeProzorroUnitValue(rawVal);
+    if (el.tagName === "SELECT") {
+      let exists = Array.from(el.options).some(o => o.value === normVal);
+      if (!exists && normVal) {
+        const opt = document.createElement("option");
+        opt.value = normVal;
+        opt.textContent = normVal;
+        el.appendChild(opt);
+      }
+      el.value = normVal;
+    } else {
+      el.value = normVal;
+    }
+  }
+
   function onSelectFormChange() {
     const form = getSelectedFormObj();
     if (!form) return;
@@ -2784,6 +2964,16 @@
           </div>
         `;
       }
+      if (f.key === "unit_name") {
+        return `
+          <div class="form-group">
+            <label>${escapeHtml(f.label)}${reqStar}</label>
+            <select data-field-key="unit_name" id="orderUnitNameField">
+              ${renderProzorroUnitSelectOptionsHtml(val)}
+            </select>
+          </div>
+        `;
+      }
       const isOrgLockedField = !canEditOrg && (f.key === "buyer_name" || f.key === "edrpou") && Boolean(val);
       return `
         <div class="form-group">
@@ -2818,7 +3008,11 @@
           if (inp.readOnly) return;
           const k = inp.getAttribute("data-field-key");
           if (mapped[k]) {
-            inp.value = mapped[k];
+            if (k === "unit_name") {
+              setProzorroUnitFieldValue(inp, mapped[k]);
+            } else {
+              inp.value = mapped[k];
+            }
             count++;
           }
         });
@@ -3217,7 +3411,11 @@
         if (inp.readOnly && inp.value.trim() !== "") return;
         const k = inp.getAttribute("data-field-key");
         if (d[k] !== undefined && d[k] !== "") {
-          inp.value = d[k];
+          if (k === "unit_name") {
+            setProzorroUnitFieldValue(inp, d[k]);
+          } else {
+            inp.value = d[k];
+          }
           updatedFields.push(inp);
         }
       });
