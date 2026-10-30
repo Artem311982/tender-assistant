@@ -2,14 +2,24 @@ import os
 import sqlite3
 import re
 
-DEFAULT_SUPABASE_URL = "postgresql://postgres.ixrbpktmwyuvaseetbyb:yDcqYOiP8AarvtXY@aws-0-eu-west-2.pooler.supabase.com:5432/postgres?sslmode=require"
-DATABASE_URL = os.environ.get("DATABASE_URL") or DEFAULT_SUPABASE_URL
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)
+LOCAL_KEY_PATH = os.path.join(PROJECT_ROOT, "key", "DATABASE_URL.nv.txt")
+
+def _load_local_db_url():
+    if os.path.exists(LOCAL_KEY_PATH):
+        try:
+            with open(LOCAL_KEY_PATH, "r", encoding="utf-8") as f:
+                return f.read().strip()
+        except Exception:
+            pass
+    return None
+
+DATABASE_URL = os.environ.get("DATABASE_URL") or _load_local_db_url()
 
 # Auto-fix: direct Supabase domain is IPv6-only, convert to IPv4 Pooler for Render compatibility
 if DATABASE_URL and ("db.ixrbpktmwyuvaseetbyb.supabase.co" in DATABASE_URL or "aws-0-eu-central-1" in DATABASE_URL):
-    DATABASE_URL = DEFAULT_SUPABASE_URL
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)
+    DATABASE_URL = DATABASE_URL.replace("db.ixrbpktmwyuvaseetbyb.supabase.co", "aws-0-eu-west-2.pooler.supabase.com").replace(":6543", ":5432")
 IS_VERCEL = bool(os.environ.get("VERCEL"))
 
 if IS_VERCEL:
