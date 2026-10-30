@@ -15,11 +15,20 @@ def _load_local_db_url():
             pass
     return None
 
-DATABASE_URL = os.environ.get("DATABASE_URL") or _load_local_db_url()
+def _normalize_supabase_pooler_url(url):
+    if not url:
+        return url
+    m = re.search(r'db\.([a-z0-9]+)\.supabase\.co', url)
+    project_ref = m.group(1) if m else "ixrbpktmwyuvaseetbyb"
+    # Convert direct domain or eu-central pooler to working IPv4 Pooler
+    if "db." in url or "pooler.supabase.com" in url or "aws-0-" in url:
+        url = re.sub(r'@[^:/]+:[0-9]+', '@aws-0-eu-west-2.pooler.supabase.com:5432', url)
+        # Ensure tenant identifier is in username
+        if f".{project_ref}" not in url:
+            url = re.sub(r'://postgres:', f'://postgres.{project_ref}:', url)
+    return url
 
-# Auto-fix: direct Supabase domain is IPv6-only, convert to IPv4 Pooler for Render compatibility
-if DATABASE_URL and ("db.ixrbpktmwyuvaseetbyb.supabase.co" in DATABASE_URL or "aws-0-eu-central-1" in DATABASE_URL):
-    DATABASE_URL = DATABASE_URL.replace("db.ixrbpktmwyuvaseetbyb.supabase.co", "aws-0-eu-west-2.pooler.supabase.com").replace(":6543", ":5432")
+DATABASE_URL = _normalize_supabase_pooler_url(os.environ.get("DATABASE_URL") or _load_local_db_url())
 IS_VERCEL = bool(os.environ.get("VERCEL"))
 
 if IS_VERCEL:
