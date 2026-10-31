@@ -31,7 +31,7 @@ KNOWN_REGRESSION_GUARDS = [
     "Tab persistence across F5 reload and anti-flicker hide-public-landing",
     "Hidden admin portal (/control-panel-artem) with no public /admin link or admin email leak",
     "Conservative contiguous browser-style admin tabs (.admin-browser-bar) & 5-module Site Constructor",
-    "CPV 2015 searchable dropdown according to Order No. 1749 matching Prozorro",
+    "CPV 2015 static display & button according to Order No. 1749 matching Prozorro",
     "CPV 2015 hierarchical modal tree with real-time search on digits/letters",
     "Removal of number spinners on expected value and quantity fields",
     "AST static undefined-name check (prevents NameError like TenderHandler vs TenderAppHandler)",
@@ -181,14 +181,14 @@ def run_static_ui_checks():
             "issue": "Відсутній випадаючий список одиниць виміру Prozorro у формі замовлення послуги"
         })
 
-    # 6a. Check CPV 2015 dropdown according to Order No. 1749 matching Prozorro
-    if "PROZORRO_CPV_GROUPS" in html and 'id="orderCpvCodeField"' in html and 'orderCpvSuggestionsBox' in html:
-        passed.append("Поле «Код ДК 021:2015»: підключено випадаючий список класифікатора ДК 021:2015 (Наказ Мінекономрозвитку № 1749)")
+    # 6a. Check CPV 2015 static display & button according to Order No. 1749 matching Prozorro
+    if 'id="orderCpvCodeField"' in html and 'id="orderCpvSelectedDisplay"' in html and 'openCpvClassifierModal' in html:
+        passed.append("Поле «Код ДК 021:2015»: статичне відображення обраного коду над кнопкою «Класифікатор ДК 021:2015» без зайвих полів введення")
     else:
         findings.append({
             "severity": "HIGH",
             "area": "Order Form",
-            "issue": "Відсутній випадаючий список класифікатора ДК 021:2015 у формі замовлення послуги"
+            "issue": "Відсутнє статичне відображення або кнопка виклику класифікатора ДК 021:2015 у формі замовлення послуги"
         })
 
     # 6b. Check CPV 2015 modal window with real-time tree search
@@ -205,7 +205,7 @@ def run_static_ui_checks():
     scripts = re.findall(r'<script>(.*?)</script>', html, re.DOTALL)
     js_errors = []
     for s_idx, s in enumerate(scripts):
-        backticks = re.findall(r'(?<!\\)`', s)
+        backticks = [i for i, ch in enumerate(s) if ch == chr(96) and (i == 0 or s[i-1] != '\\')]
         if len(backticks) % 2 != 0:
             js_errors.append(f"Незбалансовані backticks (`) у скрипті #{s_idx+1}")
         if "PROZORRO_CPV_TREE" in s:
