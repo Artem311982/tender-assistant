@@ -503,8 +503,8 @@ class TenderAppHandler(BaseHTTPRequestHandler):
         parsed = urllib.parse.urlparse(self.path)
         path = parsed.path
 
-        admin_sec_path = getattr(TenderHandler, "_cached_admin_sec_path", None) or "/control-panel-artem"
-        if not path.startswith("/api/") and not getattr(TenderHandler, "_cached_admin_sec_path", None):
+        admin_sec_path = getattr(TenderAppHandler, "_cached_admin_sec_path", None) or "/control-panel-artem"
+        if not path.startswith("/api/") and not getattr(TenderAppHandler, "_cached_admin_sec_path", None):
             try:
                 conn_sec = get_db()
                 cur_sec = conn_sec.cursor()
@@ -515,7 +515,7 @@ class TenderAppHandler(BaseHTTPRequestHandler):
                     val_sec = "/" + str(row_sec["value"]).strip().strip("/")
                     if val_sec not in ("/", "/api", "/index.html"):
                         admin_sec_path = val_sec
-                TenderHandler._cached_admin_sec_path = admin_sec_path
+                TenderAppHandler._cached_admin_sec_path = admin_sec_path
             except Exception:
                 pass
 
@@ -1383,7 +1383,7 @@ class TenderAppHandler(BaseHTTPRequestHandler):
                         val = "/" + val.strip().strip("/")
                         if val in ("/", "/api", "/index.html", ""):
                             val = "/control-panel-artem"
-                        TenderHandler._cached_admin_sec_path = val
+                        TenderAppHandler._cached_admin_sec_path = val
                     cur.execute("INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)", (k, val))
             conn.commit()
             conn.close()
