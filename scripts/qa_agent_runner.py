@@ -156,6 +156,16 @@ def run_static_ui_checks():
             "issue": "Не всі поля паролів оснащені піктограмою закритого/відкритого ока"
         })
 
+    # 6. Check hidden admin portal and absence of exposed admin links/emails
+    if 'href="/admin"' not in html and 'artemvolodymyrovych@gmail.com' not in html and '/control-panel-artem' in html:
+        passed.append("Безпека входу адміністратора: публічне посилання /admin та email приховано, активна секретна адреса /control-panel-artem")
+    else:
+        findings.append({
+            "severity": "HIGH",
+            "area": "Admin Portal Security",
+            "issue": "Знайдено публічне посилання на /admin або відкритий email адміністратора у HTML"
+        })
+
     return passed, findings
 
 

@@ -503,7 +503,7 @@ class TenderAppHandler(BaseHTTPRequestHandler):
         parsed = urllib.parse.urlparse(self.path)
         path = parsed.path
 
-        if path in ("/", "/index.html", "/admin", "/admin/"):
+        if path in ("/", "/index.html", "/control-panel-artem", "/control-panel-artem/"):
             index_file = os.path.join(STATIC_DIR, "index.html")
             if not os.path.exists(index_file):
                 index_file = os.path.join(PROJECT_ROOT, "public", "index.html")
@@ -965,7 +965,7 @@ class TenderAppHandler(BaseHTTPRequestHandler):
                 self.send_json({"error": "Невірний email або пароль"}, 401)
                 return
             if user["role"] == "admin":
-                self.send_json({"error": "Це вхід для клієнтів. Для входу в кабінет адміністратора перейдіть за адресою: /admin", "is_admin": True}, 403)
+                self.send_json({"error": "Невірний email або пароль"}, 401)
                 return
             if not user["is_active"]:
                 self.send_json({"error": "Обліковий запис вимкнено адміністратором"}, 403)

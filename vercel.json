@@ -2,6 +2,8 @@
   "version": 2,
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/index.py" },
+    { "source": "/control-panel-artem", "destination": "/public/index.html" },
+    { "source": "/control-panel-artem/", "destination": "/public/index.html" },
     { "source": "/(.*)", "destination": "/public/$1" }
   ]
 }
