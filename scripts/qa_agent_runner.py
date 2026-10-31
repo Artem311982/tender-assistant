@@ -201,7 +201,23 @@ def run_static_ui_checks():
             "issue": "Відсутнє або не повністю налаштоване модальне вікно класифікатора ДК 021:2015"
         })
 
-    # 6c. Check removal of spinners on number inputs
+    # 6c. Check JavaScript syntax integrity in static/index.html
+    scripts = re.findall(r'<script>(.*?)</script>', html, re.DOTALL)
+    js_errors = []
+    for s_idx, s in enumerate(scripts):
+        backticks = re.findall(r'(?<!\\)`', s)
+        if len(backticks) % 2 != 0:
+            js_errors.append(f"Незбалансовані backticks (`) у скрипті #{s_idx+1}")
+        if "PROZORRO_CPV_TREE" in s:
+            if re.search(r'inp\.value\s*=\s*`[^`]*PROZORRO_CPV_TREE', s):
+                js_errors.append("PROZORRO_CPV_TREE випадково потрапив всередину рядкового літералу inp.value!")
+    if not js_errors:
+        passed.append("Синтаксична цілісність JavaScript: всі template strings (`) збалансовані, класифікатор ДК оголошений на верхньому рівні")
+    else:
+        for err in js_errors:
+            findings.append({"severity": "CRITICAL", "area": "JavaScript Syntax", "issue": err})
+
+    # 6d. Check removal of spinners on number inputs
     if "::-webkit-inner-spin-button" in html and "-webkit-appearance: none" in html and "-moz-appearance: textfield" in html:
         passed.append("Поля «Очікувана вартість» та «Кількість»: прибрано стрілки-лічильники (spinners) у числових полях")
     else:
