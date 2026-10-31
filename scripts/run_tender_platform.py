@@ -9,11 +9,11 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)
 APP_PY = os.path.join(SCRIPT_DIR, "app.py")
 CLOUDFLARED_EXE = os.path.join(SCRIPT_DIR, "cloudflared.exe")
-MEMORY_DIR = os.path.join(PROJECT_ROOT, "Пам'ять")
+MEMORY_DIR = os.path.join(PROJECT_ROOT, "memory")
 os.makedirs(MEMORY_DIR, exist_ok=True)
 
 LOG_FILE = os.path.join(MEMORY_DIR, "platform_host.log")
-ADDRESS_TXT = os.path.join(PROJECT_ROOT, "ПУБЛІЧНА_АДРЕСА_САЙТУ.txt")
+ADDRESS_TXT = os.path.join(PROJECT_ROOT, "PUBLIC_SITE_URL.txt")
 DESKTOP_DIR = os.path.expanduser("~/Desktop")
 DESKTOP_SHORTCUT = os.path.join(DESKTOP_DIR, "Тендерний помічник ОНЛАЙН.url")
 

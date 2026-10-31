@@ -2,7 +2,7 @@ import sqlite3
 import os
 import json
 
-DB_PATH = os.path.join(r"C:\Projects\Тендерний помічник", "Пам'ять", "tender_assistant.db")
+DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "memory", "tender_assistant.db")
 SQL_OUT = os.path.join(r"C:\Projects\Тендерний помічник", "supabase_initial_data.sql")
 
 def generate_export_sql():

@@ -30,12 +30,12 @@ if IS_VERCEL:
     MEMORY_DIR = os.path.join(TMP_ROOT, "memory")
     STATIC_DIR = os.path.join(PROJECT_ROOT, "public")
 else:
-    INPUT_DIR = os.path.join(PROJECT_ROOT, "Вхідні дані")
-    FORMS_UPLOAD_DIR = os.path.join(INPUT_DIR, "Завантажені_форми")
-    USER_UPLOADS_DIR = os.path.join(INPUT_DIR, "Заповнені_форми_клієнтів")
-    RESULT_DIR = os.path.join(PROJECT_ROOT, "Результат")
-    ORDERS_RESULT_DIR = os.path.join(RESULT_DIR, "Заявки")
-    MEMORY_DIR = os.path.join(PROJECT_ROOT, "Пам'ять")
+    INPUT_DIR = os.path.join(PROJECT_ROOT, "input_data")
+    FORMS_UPLOAD_DIR = os.path.join(INPUT_DIR, "downloaded_forms")
+    USER_UPLOADS_DIR = os.path.join(INPUT_DIR, "filled_client_forms")
+    RESULT_DIR = os.path.join(PROJECT_ROOT, "results")
+    ORDERS_RESULT_DIR = os.path.join(RESULT_DIR, "orders")
+    MEMORY_DIR = os.path.join(PROJECT_ROOT, "memory")
     STATIC_DIR = os.path.join(SCRIPT_DIR, "static")
 
 for d in [INPUT_DIR, FORMS_UPLOAD_DIR, USER_UPLOADS_DIR, RESULT_DIR, ORDERS_RESULT_DIR, MEMORY_DIR, STATIC_DIR]:
@@ -508,7 +508,7 @@ class TenderAppHandler(BaseHTTPRequestHandler):
             if not os.path.exists(index_file):
                 index_file = os.path.join(PROJECT_ROOT, "public", "index.html")
             if not os.path.exists(index_file):
-                index_file = os.path.join(PROJECT_ROOT, "Скрипти", "static", "index.html")
+                index_file = os.path.join(PROJECT_ROOT, "scripts", "static", "index.html")
             if os.path.exists(index_file):
                 with open(index_file, "rb") as f:
                     content = f.read()

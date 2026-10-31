@@ -9,7 +9,7 @@ from datetime import datetime
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)
-MEMORY_DIR = os.path.join(PROJECT_ROOT, "Пам'ять")
+MEMORY_DIR = os.path.join(PROJECT_ROOT, "memory")
 os.makedirs(MEMORY_DIR, exist_ok=True)
 QA_MEMORY_PATH = os.path.join(MEMORY_DIR, "qa_agent_memory.json")
 
@@ -53,7 +53,7 @@ def run_static_ui_checks():
     pub_index_path = os.path.join(PROJECT_ROOT, "public", "index.html")
 
     if not os.path.exists(index_path):
-        findings.append({"severity": "HIGH", "area": "UI", "issue": "Файл Скрипти/static/index.html відсутній"})
+        findings.append({"severity": "HIGH", "area": "UI", "issue": "Файл scripts/static/index.html відсутній"})
         return passed, findings
 
     with open(index_path, "r", encoding="utf-8") as f:
@@ -66,7 +66,7 @@ def run_static_ui_checks():
             findings.append({
                 "severity": "MEDIUM",
                 "area": "Sync",
-                "issue": "Файли Скрипти/static/index.html та public/index.html не ідентичні"
+                "issue": "Файли scripts/static/index.html та public/index.html не ідентичні"
             })
         else:
             passed.append("Синхронізація static/index.html та public/index.html — ідентичні")

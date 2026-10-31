@@ -35,7 +35,7 @@ if IS_VERCEL:
     TMP_ROOT = "/tmp"
     MEMORY_DIR = os.path.join(TMP_ROOT, "memory")
 else:
-    MEMORY_DIR = os.path.join(PROJECT_ROOT, "Пам'ять")
+    MEMORY_DIR = os.path.join(PROJECT_ROOT, "memory")
 
 DB_PATH = os.path.join(MEMORY_DIR, "tender_assistant.db")
 os.makedirs(MEMORY_DIR, exist_ok=True)

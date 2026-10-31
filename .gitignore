@@ -4,6 +4,7 @@ key/
 *.nv.txt
 
 # Системні логи та локальні бази
+memory/
 Пам'ять/
 *.log
 *.db
@@ -16,10 +17,13 @@ cloudflared.exe
 *.bat
 *.vbs
 *.url
+PUBLIC_SITE_URL.txt
 ПУБЛІЧНА_АДРЕСА_САЙТУ.txt
 
 # Тимчасові та згенеровані файли
+results/orders/
 Результат/Заявки/
+results/*.docx
 Результат/*.docx
 __pycache__/
 *.pyc

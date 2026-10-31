@@ -15,7 +15,7 @@ flowchart TB
     end
 
     subgraph RenderCloud["Хмарний сервер Render (Python HTTP Backend)"]
-        MainPy["main.py / Скрипти/app.py"]
+        MainPy["main.py / scripts/app.py"]
         StaticUI["static/index.html та public/index.html"]
         ProzorroSvc["prozorro_service.py (Пошук та аналіз тендерів)"]
         DocGen["doc_generator.py (Генерація 2 файлів .docx Ч/Б)"]
@@ -28,7 +28,7 @@ flowchart TB
     end
 
     subgraph QALayer["Контур контролю якості"]
-        QAAgent["QA-Агент Тестувальник\n(qa_agent_runner.py)"]
+        QAAgent["QA-Агент Тестувальник\n(scripts/qa_agent_runner.py)"]
     end
 
     PublicUser --> StaticUI
