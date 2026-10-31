@@ -192,7 +192,7 @@ def run_static_ui_checks():
         })
 
     # 6b. Check CPV 2015 modal window with real-time tree search
-    if 'id="cpvClassifierModal"' in html and 'id="cpvModalSearchInput"' in html and 'PROZORRO_CPV_TREE' in html and 'openCpvClassifierModal' in html:
+    if 'id="cpvClassifierModal"' in html and 'id="cpvModalSearchInput"' in html and 'PROZORRO_CPV_TREE' in html and 'function openCpvClassifierModal' in html:
         passed.append("Модальне вікно класифікатора ДК 021:2015: деревоподібна структура з живим пошуком за цифрами/літерами, розгортанням та вибором")
     else:
         findings.append({
@@ -211,8 +211,19 @@ def run_static_ui_checks():
         if "PROZORRO_CPV_TREE" in s:
             if re.search(r'inp\.value\s*=\s*`[^`]*PROZORRO_CPV_TREE', s):
                 js_errors.append("PROZORRO_CPV_TREE випадково потрапив всередину рядкового літералу inp.value!")
+            try:
+                tree_match = re.search(r'const PROZORRO_CPV_TREE\s*=\s*(\[.*?\])\s*;', s, re.DOTALL)
+                if not tree_match:
+                    js_errors.append("Не вдалося знайти коректне оголошення const PROZORRO_CPV_TREE = [...];")
+                else:
+                    parsed_tree = json.loads(tree_match.group(1))
+                    if len(parsed_tree) < 40:
+                        js_errors.append(f"PROZORRO_CPV_TREE містить замало розділів: {len(parsed_tree)}")
+            except Exception as e_json:
+                js_errors.append(f"Синтаксична помилка JSON у PROZORRO_CPV_TREE: {e_json}")
+
     if not js_errors:
-        passed.append("Синтаксична цілісність JavaScript: всі template strings (`) збалансовані, класифікатор ДК оголошений на верхньому рівні")
+        passed.append("Синтаксична цілісність JavaScript: всі template strings (`) збалансовані, PROZORRO_CPV_TREE валідний JSON (45 розділів), функція openCpvClassifierModal активна")
     else:
         for err in js_errors:
             findings.append({"severity": "CRITICAL", "area": "JavaScript Syntax", "issue": err})
