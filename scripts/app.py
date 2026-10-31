@@ -503,7 +503,25 @@ class TenderAppHandler(BaseHTTPRequestHandler):
         parsed = urllib.parse.urlparse(self.path)
         path = parsed.path
 
-        if path in ("/", "/index.html", "/control-panel-artem", "/control-panel-artem/"):
+        admin_sec_path = getattr(TenderHandler, "_cached_admin_sec_path", None) or "/control-panel-artem"
+        if not path.startswith("/api/") and not getattr(TenderHandler, "_cached_admin_sec_path", None):
+            try:
+                conn_sec = get_db()
+                cur_sec = conn_sec.cursor()
+                cur_sec.execute("SELECT value FROM settings WHERE key = 'admin_secret_path' LIMIT 1")
+                row_sec = cur_sec.fetchone()
+                conn_sec.close()
+                if row_sec and row_sec["value"]:
+                    val_sec = "/" + str(row_sec["value"]).strip().strip("/")
+                    if val_sec not in ("/", "/api", "/index.html"):
+                        admin_sec_path = val_sec
+                TenderHandler._cached_admin_sec_path = admin_sec_path
+            except Exception:
+                pass
+
+        norm_req_path = path.rstrip("/") or "/"
+        is_admin_portal_req = (norm_req_path.lower() == admin_sec_path.lower() or norm_req_path.lower() == "/control-panel-artem")
+        if norm_req_path in ("/", "/index.html") or is_admin_portal_req:
             index_file = os.path.join(STATIC_DIR, "index.html")
             if not os.path.exists(index_file):
                 index_file = os.path.join(PROJECT_ROOT, "public", "index.html")
@@ -512,6 +530,9 @@ class TenderAppHandler(BaseHTTPRequestHandler):
             if os.path.exists(index_file):
                 with open(index_file, "rb") as f:
                     content = f.read()
+                if is_admin_portal_req:
+                    inject_tag = b"<script>window.__IS_ADMIN_PORTAL_ROUTE = true;</script></head>"
+                    content = content.replace(b"</head>", inject_tag, 1)
                 self.send_response(200)
                 self.send_header("Content-Type", "text/html; charset=utf-8")
                 self.send_header("Content-Length", str(len(content)))
@@ -596,7 +617,7 @@ class TenderAppHandler(BaseHTTPRequestHandler):
             conn = get_db()
             cur = conn.cursor()
             cur.execute("SELECT key, value FROM settings")
-            settings = {r["key"]: r["value"] for r in cur.fetchall()}
+            settings = {r["key"]: r["value"] for r in cur.fetchall() if r["key"] != "admin_secret_path"}
             cur.execute("SELECT id, title, description, fields_json, is_active, created_at FROM forms WHERE is_active = 1")
             forms = []
             for r in cur.fetchall():
@@ -1033,13 +1054,24 @@ class TenderAppHandler(BaseHTTPRequestHandler):
 
             conn = get_db()
             cur = conn.cursor()
+            cur.execute("SELECT key, value FROM settings WHERE key IN ('allow_self_registration', 'default_signup_quota', 'delivery_mode')")
+            reg_st = {r["key"]: r["value"] for r in cur.fetchall()}
+            if str(reg_st.get("allow_self_registration", "1")) == "0":
+                conn.close()
+                self.send_json({"error": "Самостійну реєстрацію тимчасово призупинено адміністратором платформи."}, 403)
+                return
+            try:
+                init_quota = max(0, int(reg_st.get("default_signup_quota", "5")))
+            except (ValueError, TypeError):
+                init_quota = 5
+            init_delivery = "auto" if reg_st.get("delivery_mode") == "auto" else "manual"
             try:
                 now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 perms_str = json.dumps(DEFAULT_USER_PERMISSIONS, ensure_ascii=False)
                 cur.execute("""
                     INSERT INTO users (email, password_hash, full_name, org_name, edrpou, phone, address, director_name, director_title, website, role, account_type, delivery_override, quota, is_active, permissions_json, created_at)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'user', ?, 'manual', 5, 1, ?, ?)
-                """, (email, hash_password(password), full_name, org_name, edrpou, phone, address, director_name, director_title, website, account_type, perms_str, now_str))
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'user', ?, ?, ?, 1, ?, ?)
+                """, (email, hash_password(password), full_name, org_name, edrpou, phone, address, director_name, director_title, website, account_type, init_delivery, init_quota, perms_str, now_str))
                 uid = cur.lastrowid
                 conn.commit()
             except Exception as reg_err:
@@ -1337,9 +1369,22 @@ class TenderAppHandler(BaseHTTPRequestHandler):
         if path == "/api/admin/settings":
             conn = get_db()
             cur = conn.cursor()
-            for k in ["delivery_mode", "service_title", "platform_name", "platform_subtitle", "logo_data_url", "contact_email", "contact_phone"]:
+            allowed_keys = [
+                "delivery_mode", "service_title", "platform_name", "platform_subtitle",
+                "logo_data_url", "contact_email", "contact_phone", "contact_schedule",
+                "default_signup_quota", "allow_self_registration", "auth_badge_text",
+                "theme_preset", "theme_primary", "theme_header_bg",
+                "site_builder_json", "admin_secret_path"
+            ]
+            for k in allowed_keys:
                 if k in body:
-                    cur.execute("INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)", (k, str(body[k])))
+                    val = str(body[k])
+                    if k == "admin_secret_path":
+                        val = "/" + val.strip().strip("/")
+                        if val in ("/", "/api", "/index.html", ""):
+                            val = "/control-panel-artem"
+                        TenderHandler._cached_admin_sec_path = val
+                    cur.execute("INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)", (k, val))
             conn.commit()
             conn.close()
             self.send_json({"ok": True})
@@ -1753,6 +1798,25 @@ class TenderAppHandler(BaseHTTPRequestHandler):
                     INSERT INTO forms (title, description, fields_json, docx_template_path, is_active, created_at)
                     VALUES (?, ?, ?, ?, ?, ?)
                 """, (title, description, json.dumps(fields, ensure_ascii=False), tpath, is_active, now_str))
+            conn.commit()
+            conn.close()
+            self.send_json({"ok": True})
+            return
+
+        if path == "/api/admin/forms/delete":
+            fid = int(body.get("id") or 0)
+            if not fid:
+                self.send_json({"error": "Не вказано ID форми"}, 400)
+                return
+            conn = get_db()
+            cur = conn.cursor()
+            cur.execute("SELECT COUNT(*) as cnt FROM forms")
+            cnt_row = cur.fetchone()
+            if cnt_row and int(cnt_row["cnt"]) <= 1:
+                conn.close()
+                self.send_json({"error": "У системі повинна залишатися щонайменше одна форма."}, 400)
+                return
+            cur.execute("DELETE FROM forms WHERE id = ?", (fid,))
             conn.commit()
             conn.close()
             self.send_json({"ok": True})

@@ -121,25 +121,159 @@
 
     .tabs {
       display: flex;
-      gap: 8px;
-      margin-bottom: 18px;
-      flex-wrap: wrap;
-      border-bottom: 2px solid var(--border);
-      padding-bottom: 10px;
+      gap: 0;
+      margin-bottom: 0;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      border-bottom: 1px solid #94a3b8;
+      background: #e2e8f0;
+      padding: 6px 8px 0 8px;
+      border-radius: 3px 3px 0 0;
+      border: 1px solid #94a3b8;
     }
     .tab-btn {
-      padding: 9px 16px;
-      border-radius: 6px;
-      border: 1px solid var(--border);
-      background: #fff;
-      color: var(--ink);
+      padding: 8px 16px;
+      border-radius: 3px 3px 0 0;
+      border: 1px solid #94a3b8;
+      border-bottom: none;
+      margin-right: -1px;
+      background: #cbd5e1;
+      color: #334155;
       font-weight: 600;
+      font-size: 13px;
+      white-space: nowrap;
       cursor: pointer;
+      transition: background 0.12s;
+    }
+    .tab-btn:hover {
+      background: #dbeafe;
+      color: #0f172a;
     }
     .tab-btn.active {
+      background: #ffffff;
+      color: #0f172a;
+      font-weight: 700;
+      border-color: #94a3b8;
+      border-top: 2.5px solid var(--primary);
+      position: relative;
+      bottom: -1px;
+      padding-bottom: 9px;
+      z-index: 2;
+    }
+    .auth-switch .tab-btn {
+      margin-right: 0;
+      border-bottom: 1px solid #94a3b8;
+      border-radius: 3px;
+      bottom: 0;
+      padding-bottom: 8px;
+    }
+    .auth-switch .tab-btn.active {
       background: var(--primary);
-      color: #fff;
+      color: #ffffff;
       border-color: var(--primary);
+    }
+    .admin-browser-bar {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      gap: 0;
+      background: #e2e8f0;
+      border: 1px solid #94a3b8;
+      border-bottom: 1px solid #94a3b8;
+      padding: 6px 6px 0 6px;
+      border-radius: 3px 3px 0 0;
+    }
+    .admin-browser-tab {
+      padding: 8px 15px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #334155;
+      background: #cbd5e1;
+      border: 1px solid #94a3b8;
+      border-bottom: none;
+      border-radius: 3px 3px 0 0;
+      margin-right: -1px;
+      white-space: nowrap;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.12s;
+    }
+    .admin-browser-tab:hover {
+      background: #dbeafe;
+      color: #0f172a;
+    }
+    .admin-browser-tab.active {
+      background: #ffffff;
+      color: #0f172a;
+      font-weight: 700;
+      border-top: 2.5px solid var(--primary);
+      position: relative;
+      bottom: -1px;
+      padding-bottom: 9px;
+      z-index: 2;
+    }
+    .admin-workspace-sheet {
+      background: #ffffff;
+      border: 1px solid #94a3b8;
+      border-top: none;
+      border-radius: 0 0 3px 3px;
+      padding: 16px;
+      margin-bottom: 18px;
+    }
+    .admin-subtab-bar {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      gap: 0;
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-bottom: 1px solid #cbd5e1;
+      padding: 5px 6px 0 6px;
+      border-radius: 2px 2px 0 0;
+      margin-bottom: 0;
+    }
+    .admin-subtab {
+      padding: 7px 13px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #475569;
+      background: #e2e8f0;
+      border: 1px solid #cbd5e1;
+      border-bottom: none;
+      border-radius: 2px 2px 0 0;
+      margin-right: -1px;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+    .admin-subtab:hover {
+      background: #f8fafc;
+      color: #0f172a;
+    }
+    .admin-subtab.active {
+      background: #ffffff;
+      color: var(--primary);
+      font-weight: 700;
+      border-top: 2px solid var(--primary);
+      position: relative;
+      bottom: -1px;
+      padding-bottom: 8px;
+      z-index: 2;
+    }
+    .admin-subworkspace {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-top: none;
+      border-radius: 0 0 2px 2px;
+      padding: 14px;
+    }
+    .conservative-box {
+      border: 1px solid #cbd5e1;
+      border-radius: 3px;
+      background: #f8fafc;
+      padding: 12px;
+      margin-bottom: 12px;
     }
     .form-group {
       margin-bottom: 12px;
@@ -440,19 +574,19 @@
       <div class="hero-grid">
         <!-- Ліва частина: Інформація про послуги Аналітичного центру «Тендерний помічник» -->
         <div class="hero-content">
-          <span class="hero-tag">Офіційна аналітична платформа</span>
-          <h2 style="font-size:28px; line-height:1.25; margin:0 0 12px; color:#fff;">
+          <span class="hero-tag" id="heroTagText">Офіційна аналітична платформа</span>
+          <h2 id="heroMainTitle" style="font-size:28px; line-height:1.25; margin:0 0 12px; color:#fff;">
             Аналітичний центр «Тендерний помічник»
           </h2>
-          <p style="font-size:14.5px; color:#dbeafe; line-height:1.5; margin:0 0 16px;">
+          <p id="heroMainSubtitle" style="font-size:14.5px; color:#dbeafe; line-height:1.5; margin:0 0 16px;">
             Професійна автоматизована підтримка державних і комунальних замовників, уповноважених осіб та постачальників при визначенні та обґрунтуванні очікуваної вартості закупівель.
           </p>
 
           <div style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.18); border-radius:10px; padding:15px 18px; margin-bottom:16px;">
-            <div style="font-weight:700; font-size:13.5px; margin-bottom:8px; color:#fff;">
+            <div id="heroBoxTitle" style="font-weight:700; font-size:13.5px; margin-bottom:8px; color:#fff;">
               Комплексні аналітичні послуги центру:
             </div>
-            <ul style="margin:0; padding-left:18px; color:#e0f2fe; font-size:13px; line-height:1.6;">
+            <ul id="heroBulletsList" style="margin:0; padding-left:18px; color:#e0f2fe; font-size:13px; line-height:1.6;">
               <li><strong>Моніторинг ринкових цін:</strong> збір та аналіз реальних цін укладених договорів у системі Prozorro без ПДВ за потрібним кодом ДК 021:2015.</li>
               <li><strong>Документи за Постановою КМУ № 710 та Особливостями № 1178:</strong> автоматична генерація офіційного Обґрунтування та Додатка до обґрунтування у форматі Word (.docx).</li>
               <li><strong>Розрахунок цінових діапазонів:</strong> визначення мінімальної, середньоринкової та максимальної ціни за одиницю товару/послуги для захисту від завищення цін та АНЦ.</li>
@@ -460,7 +594,7 @@
             </ul>
           </div>
 
-          <div style="display:flex; gap:14px; flex-wrap:wrap; font-size:12px; color:#bfdbfe;">
+          <div id="heroFootTags" style="display:flex; gap:14px; flex-wrap:wrap; font-size:12px; color:#bfdbfe;">
             <span>100% реальні дані Prozorro</span>
             <span>Без ПДВ за чинним законодавством</span>
             <span>Економія до 80% часу УО</span>
@@ -474,7 +608,7 @@
               <h3 style="margin:0; font-size:16.5px; color:var(--ink);">Кабінет користувача</h3>
               <small style="color:var(--muted); font-size:12px;">Аналітичний центр «Тендерний помічник»</small>
             </div>
-            <span class="badge badge-success" style="font-size:10.5px; padding:3px 7px;">5 безкоштовних заявок</span>
+            <span class="badge badge-success" id="heroAuthQuotaBadge" style="font-size:10.5px; padding:3px 7px;">5 безкоштовних заявок</span>
           </div>
 
           <div class="auth-switch" style="margin-bottom:12px;">
@@ -581,7 +715,7 @@
     </section>
 
     <!-- ІНДИКАТОРИ АКТИВНОСТІ ТА НАДІЙНОСТІ АНАЛІТИЧНОГО ЦЕНТРУ (Рекомендація 3 - без швидкості аналізу) -->
-    <div class="platform-metrics-strip" style="background:#0f172a; border-radius:12px; margin:24px 0; padding:18px 24px; color:#fff; display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:18px; border:1px solid rgba(255,255,255,0.12); box-shadow:0 8px 20px rgba(15,23,42,0.15);">
+    <div class="platform-metrics-strip" id="landingSection_metrics" style="background:#0f172a; border-radius:12px; margin:24px 0; padding:18px 24px; color:#fff; display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:18px; border:1px solid rgba(255,255,255,0.12); box-shadow:0 8px 20px rgba(15,23,42,0.15);">
       <div style="display:flex; align-items:center; gap:12px;">
         
         <div>
@@ -616,10 +750,10 @@
     <section class="section" id="expressCheckSection" style="padding-top:6px; margin-bottom:24px;">
       <div style="background:linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%); border:1px solid #bfdbfe; border-radius:14px; padding:22px 24px; box-shadow:0 4px 15px rgba(37,99,235,0.06);">
         <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
-          <span style="background:#2563eb; color:#fff; font-size:11.5px; font-weight:700; padding:3px 8px; border-radius:6px; text-transform:uppercase; letter-spacing:0.5px;">Безкоштовний Lead Magnet</span>
-          <h3 style="margin:0; font-size:18.5px; color:var(--ink);">Експрес-перевірка ринкових цін Prozorro</h3>
+          <span id="expressBadgeText" style="background:#2563eb; color:#fff; font-size:11.5px; font-weight:700; padding:3px 8px; border-radius:6px; text-transform:uppercase; letter-spacing:0.5px;">Безкоштовний Lead Magnet</span>
+          <h3 id="expressTitleText" style="margin:0; font-size:18.5px; color:var(--ink);">Експрес-перевірка ринкових цін Prozorro</h3>
         </div>
-        <p style="margin:0 0 14px; font-size:13.5px; color:var(--muted); line-height:1.5;">
+        <p id="expressDescText" style="margin:0 0 14px; font-size:13.5px; color:var(--muted); line-height:1.5;">
           Миттєва перевірка наявності укладених договорів та діапазону цін у реальній системі Prozorro без реєстрації. Введіть назву предмета закупівлі або код ДК 021:2015:
         </p>
         <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:10px;">
@@ -630,7 +764,7 @@
         </div>
 
         <!-- Підказки популярних запитів (Рекомендація 2) -->
-        <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:14px;">
+        <div id="expressPopularQueriesWrap" style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:14px;">
           <span style="font-size:12px; color:var(--muted); font-weight:600;">Популярні запити:</span>
           <button type="button" class="btn btn-outline btn-sm" style="font-size:12px; padding:3px 9px; border-radius:14px; background:#fff;" onclick="setExpressQuery('Бензин А-95')">Бензин А-95</button>
           <button type="button" class="btn btn-outline btn-sm" style="font-size:12px; padding:3px 9px; border-radius:14px; background:#fff;" onclick="setExpressQuery('Офісний папір А4')">Офісний папір А4</button>
@@ -949,183 +1083,353 @@
       </div>
     </div>
 
-    <!-- ВКЛАДКА 4: АДМІН-ПАНЕЛЬ (ТІЛЬКИ ДЛЯ АРТЕМА) -->
+    <!-- ВКЛАДКА 4: АДМІН-ПАНЕЛЬ (КОНСЕРВАТИВНІ ГОРИЗОНТАЛЬНІ ВКЛАДКИ ЯК У БРАУЗЕРІ) -->
     <div id="tabAdmin" class="tab-pane" style="display:none;">
-    <div class="content-wrapper">
-      
-      <!-- Верхня панель швидкого згортання/розгортання -->
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:8px;">
-        <span style="font-size:13.5px; color:var(--muted);">Панель керування платформою (усі вікна згорнуто за замовчуванням)</span>
-        <div style="display:flex; gap:8px;">
-          <button type="button" class="btn btn-outline btn-sm" onclick="expandAllAdminCards(true)">Розгорнути всі вікна</button>
-          <button type="button" class="btn btn-outline btn-sm" onclick="expandAllAdminCards(false)">Згорнути всі вікна</button>
-        </div>
-      </div>
+      <div class="content-wrapper" style="margin-top:10px;">
 
-      <!-- ВІКНО 1: БРЕНДИНГ ТА КОНТАКТИ -->
-      <div class="card" style="margin-bottom:12px;">
-        <div style="display:flex; justify-content:space-between; align-items:center; cursor:pointer; user-select:none; gap:10px;" onclick="toggleAdminCard('adminCardBody_branding', 'btnToggle_branding')">
-          <div>
-            <h2 style="margin:0;">Логотип, напис та контактні дані платформи</h2>
-            <small style="color:var(--muted);">Встановіть фірмове найменування сайту, підпис у шапці, логотип та контактні дані в підвалі</small>
-          </div>
-          <button type="button" class="btn btn-outline btn-sm" id="btnToggle_branding" style="pointer-events:none;">Розгорнути</button>
+        <!-- ГОРИЗОНТАЛЬНА ЛІНІЯ ВКЛАДОК АДМІН-ПАНЕЛІ (ВАРІАНТ 1: БЕЗ РОЗРИВІВ, КОНСЕРВАТИВНИЙ ДИЗАЙН) -->
+        <div class="admin-browser-bar" id="adminMainTabBar">
+          <button type="button" class="admin-browser-tab active" id="btnAdmTab_orders" onclick="switchAdminMainTab('orders')">
+            <span>Заявки клієнтів</span>
+            <span id="adminOrdersNeedApprovalBadge"></span>
+          </button>
+          <button type="button" class="admin-browser-tab" id="btnAdmTab_clients" onclick="switchAdminMainTab('clients')">
+            <span>Клієнти та квоти</span>
+            <span id="adminClientsCountBadge" class="badge badge-info" style="font-size:11px; padding:1px 6px; border-radius:2px;">0</span>
+          </button>
+          <button type="button" class="admin-browser-tab" id="btnAdmTab_feedback" onclick="switchAdminMainTab('feedback')">
+            <span>Звернення</span>
+            <span id="adminFbCountBadge"></span>
+          </button>
+          <button type="button" class="admin-browser-tab" id="btnAdmTab_builder" onclick="switchAdminMainTab('builder')">
+            <span>Конструктор сайту</span>
+          </button>
+          <button type="button" class="admin-browser-tab" id="btnAdmTab_forms" onclick="switchAdminMainTab('forms')">
+            <span>Конструктор форм</span>
+          </button>
+          <button type="button" class="admin-browser-tab" id="btnAdmTab_admins" onclick="switchAdminMainTab('admins')">
+            <span>🛡️ Адміністратори</span>
+          </button>
         </div>
-        <div id="adminCardBody_branding" style="display:none; margin-top:14px; border-top:1px solid var(--border); padding-top:14px;">
-          <div class="grid-2" style="margin-bottom:14px;">
-            <div class="form-group" style="margin-bottom:0;">
-              <label>Назва платформи (відображається в лівому куті шапки)</label>
-              <input type="text" id="set_platform_name" placeholder="Тендерний помічник" />
-            </div>
-            <div class="form-group" style="margin-bottom:0;">
-              <label>Додатковий напис / підзаголовок у шапці (за замовчуванням порожній)</label>
-              <input type="text" id="set_platform_subtitle" placeholder="Необов'язковий додатковий підпис у шапці сайту" />
-            </div>
-          </div>
 
-          <div class="grid-3" style="align-items:end; margin-bottom:14px;">
-            <div class="form-group" style="margin-bottom:0;">
-              <label>Логотип у шапці сайту (PNG, JPG, SVG, WebP)</label>
-              <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
-                <img id="adminLogoPreview" src="" alt="Прев'ю логотипу" style="display:none; max-height:44px; max-width:140px; border:1px solid var(--border); border-radius:6px; padding:3px; background:#f8fafc; object-fit:contain;" />
-                <label class="btn btn-outline btn-sm" style="margin:0; cursor:pointer;">
-                  Обрати файл логотипу
-                  <input type="file" id="set_logo_file" accept="image/*" style="display:none;" onchange="onAdminLogoFileSelect(event)" />
-                </label>
-                <button type="button" class="btn btn-danger btn-sm" id="btnRemoveLogo" style="display:none;" onclick="clearAdminLogo()">Прибрати логотип</button>
+        <!-- ЄДИНИЙ РОБОЧИЙ ЛИСТ АКТИВНОЇ ВКЛАДКИ -->
+        <div class="admin-workspace-sheet">
+
+          <!-- ПІДВКЛАДКА 1: ЗАЯВКИ КЛІЄНТІВ ТА ПОГОДЖЕННЯ -->
+          <div id="admPane_orders" class="adm-main-pane">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px; padding-bottom:10px; border-bottom:1px solid var(--border);">
+              <div>
+                <h2 style="margin:0; font-size:17px;">Заявки клієнтів, підбір цін Prozorro та погодження видачі</h2>
+                <small style="color:var(--muted);">Модерація розрахунків, перевірка закупівель-аналогів та відкриття доступу клієнтам</small>
+              </div>
+              <button class="btn btn-outline btn-sm" style="border-radius:3px;" onclick="loadAdminData()">↻ Оновити список</button>
+            </div>
+
+            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px; align-items:center; background:#f8fafc; border:1px solid var(--border); padding:8px 12px; border-radius:3px;">
+              <div style="flex:1; min-width:240px;">
+                <input type="text" id="adminOrderSearchQuery" placeholder="Пошук замовника, номера, предмета чи ЄДРПОУ..." style="width:100%; padding:7px 10px; border:1px solid #cbd5e1; border-radius:3px; font-size:13px;" oninput="filterAdminOrdersList()" />
+              </div>
+              <div style="display:flex; gap:4px; flex-wrap:wrap;">
+                <button type="button" class="btn btn-sm btn-primary" style="border-radius:3px;" id="btnAdminOrderFilter_all" onclick="setAdminOrdersFilter('all')">Усі заявки</button>
+                <button type="button" class="btn btn-sm btn-outline" style="border-radius:3px;" id="btnAdminOrderFilter_pending" onclick="setAdminOrdersFilter('pending')">Потребують погодження</button>
+                <button type="button" class="btn btn-sm btn-outline" style="border-radius:3px;" id="btnAdminOrderFilter_released" onclick="setAdminOrdersFilter('released')">Погоджені</button>
               </div>
             </div>
-            <div class="form-group" style="margin-bottom:0;">
-              <label>Контактний email (у підвалі)</label>
-              <input type="email" id="set_contact_email" placeholder="Вкажіть email за потреби" />
-            </div>
-            <div class="form-group" style="margin-bottom:0;">
-              <label>Контактний телефон (у підвалі)</label>
-              <input type="text" id="set_contact_phone" placeholder="Вкажіть телефон за потреби" />
-            </div>
+            <div id="adminOrdersTableWrap"></div>
           </div>
-          <button class="btn btn-primary" onclick="saveSiteContacts()">Зберегти логотип, напис та контакти</button>
-        </div>
-      </div>
 
-      <!-- ВІКНО 2: АДМІНІСТРАТОРИ САЙТУ -->
-      <div class="card" style="border-left:4px solid var(--accent); margin-bottom:12px;">
-        <div style="display:flex; justify-content:space-between; align-items:center; cursor:pointer; user-select:none; gap:10px;" onclick="toggleAdminCard('adminCardBody_admins', 'btnToggle_admins')">
-          <div>
-            <h2 style="margin:0;">🛡 Адміністратори сайту</h2>
-            <small style="color:var(--muted);">Облікові записи адміністраторів, які керують платформою, формами, користувачами та погодженням результатів.</small>
-          </div>
-          <div style="display:flex; align-items:center; gap:8px;" onclick="event.stopPropagation()">
-            <button class="btn btn-outline btn-sm" onclick="openUserModal(null, 'admin')">➕ Додати Адміністратора</button>
-            <button type="button" class="btn btn-outline btn-sm" id="btnToggle_admins" onclick="toggleAdminCard('adminCardBody_admins', 'btnToggle_admins')">Розгорнути</button>
-          </div>
-        </div>
-        <div id="adminCardBody_admins" style="display:none; margin-top:14px; border-top:1px solid var(--border); padding-top:14px;">
-          <div id="adminUsersTableWrap"></div>
-        </div>
-      </div>
-
-      <!-- ВІКНО 3: КЛІЄНТИ (З ЛІЧИЛЬНИКОМ) -->
-      <div class="card" style="border-left:4px solid var(--primary); margin-bottom:12px;">
-        <div style="display:flex; justify-content:space-between; align-items:center; cursor:pointer; user-select:none; gap:10px;" onclick="toggleAdminCard('adminCardBody_clients', 'btnToggle_clients')">
-          <div>
-            <h2 style="margin:0;">Клієнти <span id="adminClientsCountBadge" class="badge badge-info" style="font-size:12.5px; margin-left:6px;">0</span></h2>
-            <small style="color:var(--muted);">Кабінети клієнтів (замовників та постачальників) з можливістю додавати заявки та визначати ступінь доступу.</small>
-          </div>
-          <div style="display:flex; align-items:center; gap:8px;" onclick="event.stopPropagation()">
-            <button class="btn btn-primary btn-sm" onclick="openUserModal(null, 'client')">➕ Додати Клієнта</button>
-            <button type="button" class="btn btn-outline btn-sm" id="btnToggle_clients" onclick="toggleAdminCard('adminCardBody_clients', 'btnToggle_clients')">Розгорнути</button>
-          </div>
-        </div>
-        <div id="adminCardBody_clients" style="display:none; margin-top:14px; border-top:1px solid var(--border); padding-top:14px;">
-          <div id="adminClientsTableWrap"></div>
-        </div>
-      </div>
-
-      <!-- ВІКНО 4: ЗАЯВКИ КЛІЄНТІВ ТА ПОГОДЖЕННЯ -->
-      <div class="card" style="margin-bottom:12px;">
-        <div style="display:flex; justify-content:space-between; align-items:center; cursor:pointer; user-select:none; gap:10px;" onclick="toggleAdminCard('adminCardBody_orders', 'btnToggle_orders')">
-          <div>
-            <h2 style="margin:0;">Заявки клієнтів, Живий підбір цін Prozorro (в межах всієї України) та Погодження видачі <span id="adminOrdersNeedApprovalBadge"></span></h2>
-            <small style="color:var(--muted);">Управління заявками клієнтів, модерація та перегляд порівняння цін</small>
-          </div>
-          <div style="display:flex; align-items:center; gap:8px;" onclick="event.stopPropagation()">
-            <button class="btn btn-outline btn-sm" onclick="loadAdminData()">↻ Оновити дані</button>
-            <button type="button" class="btn btn-outline btn-sm" id="btnToggle_orders" onclick="toggleAdminCard('adminCardBody_orders', 'btnToggle_orders')">Розгорнути</button>
-          </div>
-        </div>
-        <div id="adminCardBody_orders" style="display:none; margin-top:14px; border-top:1px solid var(--border); padding-top:14px;">
-          <!-- Панель швидкого пошуку та фільтрації для адміністратора -->
-          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:14px; align-items:center; background:#f8fafc; border:1px solid var(--border); padding:10px 14px; border-radius:8px;">
-            <div style="flex:1; min-width:240px;">
-              <input type="text" id="adminOrderSearchQuery" placeholder="Пошук замовника, номера, предмета чи ЄДРПОУ..." style="width:100%; padding:8px 12px; border:1px solid #cbd5e1; border-radius:6px; font-size:13.5px;" oninput="filterAdminOrdersList()" />
-            </div>
-            <div style="display:flex; gap:6px; flex-wrap:wrap;">
-              <button type="button" class="btn btn-sm btn-primary" id="btnAdminOrderFilter_all" onclick="setAdminOrdersFilter('all')">Усі заявки</button>
-              <button type="button" class="btn btn-sm btn-outline" id="btnAdminOrderFilter_pending" onclick="setAdminOrdersFilter('pending')">Потребують погодження</button>
-              <button type="button" class="btn btn-sm btn-outline" id="btnAdminOrderFilter_released" onclick="setAdminOrdersFilter('released')">Погоджені</button>
-            </div>
-          </div>
-          <div id="adminOrdersTableWrap"></div>
-        </div>
-      </div>
-
-      <!-- ВІКНО 5: ЗВОРОТНИЙ ЗВ'ЯЗОК З АДМІНІСТРАТОРОМ -->
-      <div class="card" style="border-left:4px solid var(--success); margin-bottom:12px;">
-        <div style="display:flex; justify-content:space-between; align-items:center; cursor:pointer; user-select:none; gap:10px;" onclick="toggleAdminCard('adminCardBody_feedback', 'btnToggle_feedback')">
-          <div>
-            <h2 style="margin:0;">Зворотний зв'язок з адміністратором <span id="adminFbCountBadge"></span></h2>
-            <small style="color:var(--muted);">Звернення від зареєстрованих клієнтів та відвідувачів сайту з можливістю надати відповідь або відкрити клієнту доступ до зміни назви/ЄДРПОУ.</small>
-          </div>
-          <div style="display:flex; align-items:center; gap:8px;" onclick="event.stopPropagation()">
-            <button class="btn btn-outline btn-sm" onclick="loadAdminData()">↻ Оновити звернення</button>
-            <button type="button" class="btn btn-outline btn-sm" id="btnToggle_feedback" onclick="toggleAdminCard('adminCardBody_feedback', 'btnToggle_feedback')">Розгорнути</button>
-          </div>
-        </div>
-        <div id="adminCardBody_feedback" style="display:none; margin-top:14px; border-top:1px solid var(--border); padding-top:14px;">
-          <div id="adminFeedbackTableWrap"></div>
-        </div>
-      </div>
-
-      <!-- ВІКНО 6: УПРАВЛІННЯ ФОРМАМИ ПОДАЧІ ДАНИХ -->
-      <div class="card" style="margin-bottom:12px;">
-        <div style="display:flex; justify-content:space-between; align-items:center; cursor:pointer; user-select:none; gap:10px;" onclick="toggleAdminCard('adminCardBody_forms', 'btnToggle_forms')">
-          <div>
-            <h2 style="margin:0;">Управління формами подачі даних (імпорт .docx)</h2>
-            <small style="color:var(--muted);">Завантажуйте файли Word (.docx) із таблицями полів або редагуйте чинні форми</small>
-          </div>
-          <button type="button" class="btn btn-outline btn-sm" id="btnToggle_forms" style="pointer-events:none;">Розгорнути</button>
-        </div>
-        <div id="adminCardBody_forms" style="display:none; margin-top:14px; border-top:1px solid var(--border); padding-top:14px;">
-          <div class="grid-2">
-            <div style="background:#f8fafc; padding:15px; border:1px solid var(--border); border-radius:8px;">
-              <h3 style="margin-top:0; font-size:16px;">Завантажити нову форму з файлу Word (.docx)</h3>
-              <p style="font-size:13px; color:var(--muted);">
-                Завантажте файл .docx із таблицею полів. Система автоматично розпізнає поля та зробить форму доступною в особистих кабінетах клієнтів.
-              </p>
-              <div class="form-group">
-                <label>Назва форми для кабінету користувача</label>
-                <input type="text" id="adminUploadFormTitle" placeholder="Напр.: Форма заявки на аналіз цін Prozorro" />
+          <!-- ПІДВКЛАДКА 2: КЛІЄНТИ ТА КВОТИ -->
+          <div id="admPane_clients" class="adm-main-pane" style="display:none;">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px; padding-bottom:10px; border-bottom:1px solid var(--border);">
+              <div>
+                <h2 style="margin:0; font-size:17px;">Клієнти (Замовники та Постачальники)</h2>
+                <small style="color:var(--muted);">Управління обліковими записами, індивідуальним режимом видачі, квотами заявок та правами доступу</small>
               </div>
-              <div class="form-group">
-                <label>Короткий опис форми</label>
-                <input type="text" id="adminUploadFormDesc" placeholder="Опис призначення форми для клієнта" />
+              <div style="display:flex; gap:6px;">
+                <button class="btn btn-primary btn-sm" style="border-radius:3px;" onclick="openUserModal(null, 'client')">➕ Додати Клієнта</button>
+                <button class="btn btn-outline btn-sm" style="border-radius:3px;" onclick="loadAdminData()">↻ Оновити</button>
               </div>
-              <div class="form-group">
-                <label>Файл шаблону .docx</label>
-                <input type="file" id="adminFormDocxInput" accept=".docx" />
+            </div>
+            <div id="adminClientsTableWrap"></div>
+          </div>
+
+          <!-- ПІДВКЛАДКА 3: ЗВЕРНЕННЯ (ЗВОРОТНИЙ ЗВ'ЯЗОК) -->
+          <div id="admPane_feedback" class="adm-main-pane" style="display:none;">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px; padding-bottom:10px; border-bottom:1px solid var(--border);">
+              <div>
+                <h2 style="margin:0; font-size:17px;">Звернення клієнтів до адміністратора</h2>
+                <small style="color:var(--muted);">Повідомлення з кабінетів користувачів, запити на зміну назви/ЄДРПОУ та збільшення ліміту заявок</small>
               </div>
-              <button class="btn btn-primary" onclick="uploadNewAdminFormDocx()">Завантажити .docx та створити форму</button>
+              <button class="btn btn-outline btn-sm" style="border-radius:3px;" onclick="loadAdminData()">↻ Оновити звернення</button>
+            </div>
+            <div id="adminFeedbackTableWrap"></div>
+          </div>
+
+          <!-- ПІДВКЛАДКА 4: КОНСТРУКТОР ТА НАЛАШТУВАННЯ САЙТУ (МОДУЛІ 1–5) -->
+          <div id="admPane_builder" class="adm-main-pane" style="display:none;">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:10px;">
+              <div>
+                <h2 style="margin:0; font-size:17px;">Конструктор та налаштування сайту</h2>
+                <small style="color:var(--muted);">Самостійне керування структурою сторінки, текстами, картками, брендингом, квотами та безпекою</small>
+              </div>
+              <div style="display:flex; gap:6px;">
+                <button type="button" class="btn btn-outline btn-sm" style="border-radius:3px;" onclick="resetSiteBuilderToDefaults()">Відновити стандартні тексти</button>
+                <button type="button" class="btn btn-primary btn-sm" style="border-radius:3px;" onclick="saveAllSiteBuilderSettings()">Зберегти всі налаштування сайту</button>
+              </div>
             </div>
 
-            <div>
-              <h3 style="margin-top:0; font-size:16px;">Активні форми в системі</h3>
-              <div id="adminFormsList"></div>
+            <!-- Горизонтальна лінія підвкладок Конструктора (без розривів) -->
+            <div class="admin-subtab-bar">
+              <button type="button" class="admin-subtab active" id="btnBuilderSub_blocks" onclick="switchBuilderSubTab('blocks')">1. Блоки та порядок</button>
+              <button type="button" class="admin-subtab" id="btnBuilderSub_content" onclick="switchBuilderSubTab('content')">2. Тексти та картки</button>
+              <button type="button" class="admin-subtab" id="btnBuilderSub_branding" onclick="switchBuilderSubTab('branding')">3. Брендинг та кольори</button>
+              <button type="button" class="admin-subtab" id="btnBuilderSub_rules" onclick="switchBuilderSubTab('rules')">4. Правила кабінету та квоти</button>
+              <button type="button" class="admin-subtab" id="btnBuilderSub_security" onclick="switchBuilderSubTab('security')">5. Безпека та вхід</button>
+            </div>
+
+            <div class="admin-subworkspace">
+              <!-- МОДУЛЬ 1: БЛОКИ ТА ПОРЯДОК -->
+              <div id="builderPane_blocks" class="builder-sub-pane">
+                <p style="margin:0 0 10px; font-size:12.5px; color:var(--muted);">
+                  Увімкніть або вимкніть потрібні секції на головній сторінці та встановіть їхню черговість кнопками «Вгору» / «Вниз».
+                </p>
+                <div id="builderBlocksTableWrap"></div>
+              </div>
+
+              <!-- МОДУЛЬ 2: ТЕКСТИ ТА КАРТКИ -->
+              <div id="builderPane_content" class="builder-sub-pane" style="display:none;">
+                <div style="display:flex; gap:8px; align-items:center; margin-bottom:12px; background:#f8fafc; padding:8px 10px; border:1px solid #cbd5e1; border-radius:3px; flex-wrap:wrap;">
+                  <label style="font-size:12.5px; font-weight:700; margin:0;">Оберіть секцію для редагування:</label>
+                  <select id="builderContentSectionSelect" onchange="renderBuilderContentEditor()" style="padding:6px 10px; font-size:13px; border:1px solid #94a3b8; border-radius:3px; min-width:280px;">
+                    <option value="hero">1. Головний банер (Hero-блок)</option>
+                    <option value="metrics">2. Смуга показників надійності (4 індикатори)</option>
+                    <option value="express">3. Експрес-перевірка ринкових цін Prozorro</option>
+                    <option value="services">4. Картки секції «Послуги»</option>
+                    <option value="how">5. Кроки секції «Як це працює»</option>
+                    <option value="benefits">6. Картки секції «Переваги» (Замовники та Постачальники)</option>
+                    <option value="faq">7. Питання та відповіді (FAQ)</option>
+                  </select>
+                </div>
+                <div id="builderContentEditorWrap"></div>
+              </div>
+
+              <!-- МОДУЛЬ 3: БРЕНДИНГ ТА КОЛЬОРИ -->
+              <div id="builderPane_branding" class="builder-sub-pane" style="display:none;">
+                <div class="conservative-box">
+                  <h3 style="margin:0 0 10px; font-size:14.5px;">Назва платформи, логотип та контакти</h3>
+                  <div class="grid-2" style="margin-bottom:10px;">
+                    <div class="form-group" style="margin-bottom:0;">
+                      <label>Назва платформи (у шапці та підвалі)</label>
+                      <input type="text" id="set_platform_name" placeholder="Тендерний помічник" />
+                    </div>
+                    <div class="form-group" style="margin-bottom:0;">
+                      <label>Додатковий напис / підзаголовок у шапці</label>
+                      <input type="text" id="set_platform_subtitle" placeholder="Необов'язковий підпис у шапці сайту" />
+                    </div>
+                  </div>
+                  <div class="grid-3" style="align-items:end;">
+                    <div class="form-group" style="margin-bottom:0;">
+                      <label>Логотип у шапці (PNG, JPG, SVG, WebP)</label>
+                      <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                        <img id="adminLogoPreview" src="" alt="Прев'ю логотипу" style="display:none; max-height:40px; max-width:130px; border:1px solid var(--border); border-radius:3px; padding:2px; background:#fff; object-fit:contain;" />
+                        <label class="btn btn-outline btn-sm" style="margin:0; cursor:pointer; border-radius:3px;">
+                          Обрати файл
+                          <input type="file" id="set_logo_file" accept="image/*" style="display:none;" onchange="onAdminLogoFileSelect(event)" />
+                        </label>
+                        <button type="button" class="btn btn-danger btn-sm" id="btnRemoveLogo" style="display:none; border-radius:3px;" onclick="clearAdminLogo()">Прибрати</button>
+                      </div>
+                    </div>
+                    <div class="form-group" style="margin-bottom:0;">
+                      <label>Контактний email (у підвалі)</label>
+                      <input type="email" id="set_contact_email" placeholder="info@domain.ua" />
+                    </div>
+                    <div class="form-group" style="margin-bottom:0;">
+                      <label>Контактний телефон (у підвалі)</label>
+                      <input type="text" id="set_contact_phone" placeholder="+380..." />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="conservative-box" style="margin-bottom:0;">
+                  <h3 style="margin:0 0 10px; font-size:14.5px;">Консервативна кольорова схема сайту</h3>
+                  <div class="grid-3">
+                    <div class="form-group" style="margin-bottom:0;">
+                      <label>Пресет оформлення</label>
+                      <select id="set_theme_preset" onchange="onThemePresetChange(this.value)">
+                        <option value="navy">Офіційний темно-синій (Стандарт)</option>
+                        <option value="slate">Класичний графітовий (Діловий сірий)</option>
+                        <option value="emerald">Державний смарагдовий (Темно-зелений)</option>
+                        <option value="burgundy">Консервативний бордовий</option>
+                        <option value="custom">Власне налаштування кольорів</option>
+                      </select>
+                    </div>
+                    <div class="form-group" style="margin-bottom:0;">
+                      <label>Основний колір кнопок та акцентів</label>
+                      <div style="display:flex; gap:6px; align-items:center;">
+                        <input type="color" id="set_theme_primary_picker" value="#1e3a8a" style="width:44px; height:34px; padding:2px; cursor:pointer;" onchange="document.getElementById('set_theme_primary').value=this.value; document.getElementById('set_theme_preset').value='custom';" />
+                        <input type="text" id="set_theme_primary" value="#1e3a8a" style="font-family:monospace;" oninput="document.getElementById('set_theme_primary_picker').value=this.value;" />
+                      </div>
+                    </div>
+                    <div class="form-group" style="margin-bottom:0;">
+                      <label>Темний фон шапки та Hero-блоку</label>
+                      <div style="display:flex; gap:6px; align-items:center;">
+                        <input type="color" id="set_theme_header_picker" value="#0f172a" style="width:44px; height:34px; padding:2px; cursor:pointer;" onchange="document.getElementById('set_theme_header_bg').value=this.value; document.getElementById('set_theme_preset').value='custom';" />
+                        <input type="text" id="set_theme_header_bg" value="#0f172a" style="font-family:monospace;" oninput="document.getElementById('set_theme_header_picker').value=this.value;" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- МОДУЛЬ 4: ПРАВИЛА КАБІНЕТУ ТА РЕЄСТРАЦІЇ -->
+              <div id="builderPane_rules" class="builder-sub-pane" style="display:none;">
+                <div class="grid-2">
+                  <div class="conservative-box" style="margin-bottom:0;">
+                    <h3 style="margin:0 0 10px; font-size:14.5px;">Квоти та реєстрація нових клієнтів</h3>
+                    <div class="form-group">
+                      <label>Кількість безкоштовних заявок при реєстрації</label>
+                      <input type="number" id="set_default_signup_quota" min="0" max="1000" value="5" />
+                      <small style="color:var(--muted); font-size:11.5px;">Стільки заявок автоматично нараховується кожному новому клієнту</small>
+                    </div>
+                    <div class="form-group">
+                      <label>Текст зеленого бейджа на картці входу/реєстрації</label>
+                      <input type="text" id="set_auth_badge_text" placeholder="5 безкоштовних заявок" />
+                    </div>
+                    <div class="form-group" style="margin-bottom:0;">
+                      <label>Самостійна реєстрація на головній сторінці</label>
+                      <select id="set_allow_self_registration">
+                        <option value="1">Дозволено (клієнти можуть створювати кабінет самостійно)</option>
+                        <option value="0">🔒 Тільки через адміністратора (закрити публічну реєстрацію)</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="conservative-box" style="margin-bottom:0;">
+                    <h3 style="margin:0 0 10px; font-size:14.5px;">Режим видачі результатів за замовчуванням</h3>
+                    <div class="form-group">
+                      <label>Як нові клієнти отримують сформовані документи Word (.docx)?</label>
+                      <select id="set_default_delivery_mode">
+                        <option value="manual">🔒 Після погодження адміністратором (модерація перед видачею)</option>
+                        <option value="auto">Автоматично одразу після подачі заявки</option>
+                      </select>
+                      <small style="color:var(--muted); font-size:11.5px; display:block; margin-top:4px;">
+                        Ви також можете індивідуально перемикати цей режим для кожного клієнта у вкладці «Клієнти та квоти».
+                      </small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- МОДУЛЬ 5: БЕЗПЕКА ТА СЕКРЕТНА АДРЕСА АДМІН-ВХОДУ -->
+              <div id="builderPane_security" class="builder-sub-pane" style="display:none;">
+                <div class="conservative-box" style="margin-bottom:0;">
+                  <h3 style="margin:0 0 8px; font-size:14.5px;">🛡️ Прихована адреса входу до панелі адміністратора</h3>
+                  <p style="margin:0 0 12px; font-size:12.5px; color:var(--muted);">
+                    Публічне посилання на вхід адміністратора повністю приховано зі сторінки клієнтів. Вхід для вас доступний лише за цією секретною адресою:
+                  </p>
+                  <div class="grid-2" style="align-items:end;">
+                    <div class="form-group" style="margin-bottom:0;">
+                      <label>Секретний шлях порталу адміністратора (починається з /)</label>
+                      <input type="text" id="set_admin_secret_path" value="/control-panel-artem" style="font-family:monospace; font-weight:700;" oninput="updateAdminSecretUrlPreview()" />
+                    </div>
+                    <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+                      <button type="button" class="btn btn-outline btn-sm" style="border-radius:3px;" onclick="copyAdminSecretUrl()">Скопіювати повну адресу</button>
+                      <button type="button" class="btn btn-primary btn-sm" style="border-radius:3px;" onclick="saveAllSiteBuilderSettings()">Зберегти нову адресу</button>
+                    </div>
+                  </div>
+                  <div style="margin-top:10px; font-size:12px; color:#334155;">
+                    Повне посилання для входу: <code id="adminSecretFullUrlPreview" style="background:#e2e8f0; padding:3px 7px; border-radius:2px; font-weight:700;"></code>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
+
+          <!-- ПІДВКЛАДКА 5: ВІЗУАЛЬНИЙ КОНСТРУКТОР ФОРМ ТА ІМПОРТ .DOCX -->
+          <div id="admPane_forms" class="adm-main-pane" style="display:none;">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px; padding-bottom:10px; border-bottom:1px solid var(--border);">
+              <div>
+                <h2 style="margin:0; font-size:17px;">Візуальний конструктор форм подачі заявки та імпорт .docx</h2>
+                <small style="color:var(--muted);">Редагуйте поля форми в 1 клік (назва, порядок, обов'язковість) або завантажуйте шаблон із Word (.docx)</small>
+              </div>
+              <div style="display:flex; gap:6px; flex-wrap:wrap;">
+                <button type="button" class="btn btn-outline btn-sm" style="border-radius:3px;" onclick="createNewVisualForm()">➕ Створити нову порожню форму</button>
+                <button type="button" class="btn btn-primary btn-sm" style="border-radius:3px;" onclick="saveVisualFormChanges()">Зберегти форму та оновити .docx</button>
+              </div>
+            </div>
+
+            <!-- Вибір форми для візуального редагування -->
+            <div class="conservative-box">
+              <div class="grid-3" style="align-items:end; margin-bottom:10px;">
+                <div class="form-group" style="margin-bottom:0;">
+                  <label>Оберіть форму для редагування</label>
+                  <select id="vf_selectForm" onchange="onSelectVisualForm(this.value)"></select>
+                </div>
+                <div class="form-group" style="margin-bottom:0;">
+                  <label>Назва форми</label>
+                  <input type="text" id="vf_formTitle" placeholder="Назва форми" />
+                </div>
+                <div class="form-group" style="margin-bottom:0;">
+                  <label>Короткий опис форми</label>
+                  <input type="text" id="vf_formDesc" placeholder="Опис форми" />
+                </div>
+              </div>
+
+              <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:8px;">
+                <div style="display:flex; align-items:center; gap:12px;">
+                  <strong style="font-size:13px;">Поля обраної форми:</strong>
+                  <label style="display:inline-flex; align-items:center; gap:5px; font-size:12.5px; cursor:pointer;">
+                    <input type="checkbox" id="vf_formActive" checked /> Форма активна
+                  </label>
+                </div>
+                <div style="display:flex; gap:6px; flex-wrap:wrap;">
+                  <button type="button" class="btn btn-outline btn-sm" style="border-radius:3px;" onclick="addVisualFormField()">➕ Додати поле</button>
+                  <a id="vf_downloadDocxBtn" class="btn btn-outline btn-sm" style="border-radius:3px;" href="#">Завантажити бланк .docx</a>
+                  <button type="button" class="btn btn-danger btn-sm" style="border-radius:3px;" onclick="deleteVisualForm()">Видалити форму</button>
+                </div>
+              </div>
+
+              <div id="vf_fieldsTableWrap"></div>
+            </div>
+
+            <!-- Компактний блок імпорту з файлу Word (.docx) -->
+            <div class="conservative-box" style="margin-bottom:0;">
+              <h3 style="margin:0 0 6px; font-size:14px;">Швидкий імпорт нової форми з готового файлу Word (.docx)</h3>
+              <div class="grid-3" style="align-items:end;">
+                <div class="form-group" style="margin-bottom:0;">
+                  <label>Назва нової форми</label>
+                  <input type="text" id="adminUploadFormTitle" placeholder="Напр.: Форма заявки на аналіз цін" />
+                </div>
+                <div class="form-group" style="margin-bottom:0;">
+                  <label>Короткий опис</label>
+                  <input type="text" id="adminUploadFormDesc" placeholder="Опис призначення форми" />
+                </div>
+                <div class="form-group" style="margin-bottom:0;">
+                  <label>Файл шаблону .docx з таблицею</label>
+                  <div style="display:flex; gap:6px; align-items:center;">
+                    <input type="file" id="adminFormDocxInput" accept=".docx" style="padding:5px;" />
+                    <button class="btn btn-primary btn-sm" style="white-space:nowrap; border-radius:3px;" onclick="uploadNewAdminFormDocx()">Імпортувати .docx</button>
+                  </div>
+                </div>
+              </div>
+              <div id="adminFormsList" style="display:none;"></div>
+            </div>
+          </div>
+
+          <!-- ПІДВКЛАДКА 6: АДМІНІСТРАТОРИ САЙТУ -->
+          <div id="admPane_admins" class="adm-main-pane" style="display:none;">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px; padding-bottom:10px; border-bottom:1px solid var(--border);">
+              <div>
+                <h2 style="margin:0; font-size:17px;">🛡️ Адміністратори платформи</h2>
+                <small style="color:var(--muted);">Облікові записи з повним доступом до управління сайтом, клієнтами та модерації</small>
+              </div>
+              <button class="btn btn-outline btn-sm" style="border-radius:3px;" onclick="openUserModal(null, 'admin')">➕ Додати Адміністратора</button>
+            </div>
+            <div id="adminUsersTableWrap"></div>
+          </div>
+
         </div>
       </div>
-
     </div>
   </div>
 </div>
@@ -1447,6 +1751,95 @@
     renderLoggedOutState();
   }
 
+  function getDefaultSiteBuilderConfig() {
+    return {
+      blocks: [
+        { id: "metrics", title: "Смуга ключових показників надійності", enabled: true },
+        { id: "express", title: "Експрес-перевірка ринкових цін Prozorro", enabled: true },
+        { id: "services", title: "Послуги платформи", enabled: true },
+        { id: "how", title: "Як це працює (4 кроки)", enabled: true },
+        { id: "benefits", title: "Чому це зручно (Переваги)", enabled: true },
+        { id: "faq", title: "Часті запитання (FAQ)", enabled: true }
+      ],
+      hero: {
+        tag: "Автоматизована аналітика публічних закупівель • Постанова КМУ № 710 • Наказ Мінекономіки № 275",
+        title: "Порівняння цін у системі Prozorro та підготовка обґрунтування закупівлі",
+        subtitle: "Швидкий пошук релевантних закупівель і укладених договорів у Prozorro (без ПДВ), розрахунок середньоринкової ціни за одиницю та формування готових документів Word (.docx).",
+        box_title: "Що готує система у вашому кабінеті:",
+        bullets: [
+          "Основне обґрунтування технічних та якісних характеристик предмета закупівлі, розміру бюджетного призначення та очікуваної вартості (п. 1–4).",
+          "Окремий додаток до обґрунтування з нормативно-правовим регулюванням та таблицею порівняння цін аналогічних закупівель у системі Prozorro (без ПДВ) з прямими гіперпосиланнями.",
+          "Збереження реквізитів замовника у профілі та швидке замовлення через онлайн-форму або обмін файлами .docx."
+        ],
+        foot_tags: [
+          "Пряма інтеграція з API Prozorro",
+          "Аналіз цін та договорів без ПДВ",
+          "Два окремі документи Word (.docx)"
+        ]
+      },
+      metrics: [
+        { val: "API Prozorro", label: "Пряма синхронізація з реальними тендерами та договорами" },
+        { val: "КМУ № 710 • Наказ № 275", label: "Повна відповідність чинній нормативно-правовій базі" },
+        { val: "2 файли Word (.docx)", label: "Основне обґрунтування + Додаток із порівняльною таблицею" },
+        { val: "До 30 секунд", label: "Швидкість розрахунку середньоринкової ціни без ПДВ" }
+      ],
+      express: {
+        badge: "Безкоштовний Lead Magnet",
+        title: "Експрес-перевірка ринкових цін Prozorro",
+        desc: "Миттєва перевірка наявності укладених договорів та діапазону цін у реальній системі Prozorro без реєстрації. Введіть назву предмета закупівлі або код ДК 021:2015:",
+        queries: ["Бензин А-95", "Офісний папір А4", "Дизельне паливо", "Генератор дизельний", "Електроенергія"]
+      },
+      services: [
+        {
+          badge: "Доступно зараз",
+          badge_type: "success",
+          title: "Порівняння цін та обґрунтування закупівлі",
+          desc: "Живий пошук аналогічних закупівель у Prozorro за кодом ДК 021:2015 або номером оголошення, розрахунок середньоринкової ціни за методикою Наказу Мінекономіки № 275 та підготовка обґрунтування технічних і якісних характеристик, бюджетного призначення й очікуваної вартості."
+        },
+        {
+          badge: "Незабаром",
+          badge_type: "warn",
+          title: "Нові послуги для замовників",
+          desc: "Платформа розвивається: нові послуги з'являтимуться в кабінеті після запуску."
+        }
+      ],
+      how: [
+        { num: "1", title: "Реєстрація", desc: "Створюєте кабінет та отримуєте 5 безкоштовних заявок одразу після реєстрації." },
+        { num: "2", title: "Подача даних", desc: "Заповнюєте онлайн-форму, підтягуєте дані за номером оголошення з Prozorro або завантажуєте заповнений .docx." },
+        { num: "3", title: "Аналіз цін", desc: "Система підбирає закупівлі-аналоги у Prozorro та розраховує ціни без ПДВ." },
+        { num: "4", title: "Результат", desc: "Завантажуєте готові файли у кабінеті — одразу або після підтвердження адміністратором." }
+      ],
+      benefits: {
+        buyers_title: "Для державних та комунальних замовників",
+        buyers: [
+          { title: "Перевірені дані Prozorro", desc: "Підтверджені закупівлі й договори з прямими посиланнями та цінами без ПДВ, які легко перевірити." },
+          { title: "Готові документи Word (.docx)", desc: "Основне обґрунтування (п. 1–4 за Постановою КМУ № 710) та окремий додаток до обґрунтування з аналізом цін Prozorro без ПДВ." },
+          { title: "Власний кабінет організації", desc: "Історія заявок, збережені реквізити замовника та швидке повторне використання без повторного вводу." },
+          { title: "Гнучкі форми подачі", desc: "Введення даних онлайн, автозаповнення за номером оголошення UA-... або завантаження заповненого шаблону Word." },
+          { title: "Контроль якості", desc: "Результат надається автоматично або після фахової перевірки й погодження адміністратором платформи." },
+          { title: "Індивідуальний доступ", desc: "Кожна установа чи підрозділ працює у власному кабінеті з визначеним обсягом прав і лімітом заявок." }
+        ],
+        suppliers_title: "Для постачальників та учасників тендерів",
+        suppliers: [
+          { title: "Аналіз цін конкурентів перед торгами", desc: "Об'єктивне порівняння цін переможців та укладених договорів у системі Prozorro (без ПДВ) за потрібним кодом ДК 021:2015." },
+          { title: "Розрахунок виграшної пропозиції", desc: "Чітке розуміння мінімальної, середньоринкової та максимальної ціни за одиницю товару чи послуги для підготовки конкурентної пропозиції." },
+          { title: "Обґрунтування аномально низької ціни (АНЦ)", desc: "Готова порівняльна база закупівель Prozorro з прямими посиланнями для документального підтвердження економічної обґрунтованості вашої ціни." },
+          { title: "Оцінка рентабельності тендеру", desc: "Швидка перевірка, наскільки очікувана вартість замовника відповідає ринковому рівню ще до витрати часу на підготовку тендерної документації." },
+          { title: "Підготовка комерційних пропозицій", desc: "Аналітичні довідки з актуальними ринковими цінами Prozorro для аргументованих переговорів із замовниками при укладанні прямих договорів." },
+          { title: "Моніторинг динаміки ринку", desc: "Зручне відстеження обсягів, умов поставки та цінових орієнтирів провідних замовників у вашій галузі." }
+        ]
+      },
+      faq: [
+        { q: "Скільки безкоштовних заявок доступно після реєстрації?", a: "Після автоматичної реєстрації кожному новому замовнику нараховується 5 безкоштовних заявок. За потреби адміністратор може додати додаткові заявки вручну." },
+        { q: "Чи потрібно платити, щоб отримати результат?", a: "Видача результату не прив'язана до оплати на платформі: адміністратор обирає, надавати результат автоматично чи після власного підтвердження." },
+        { q: "Звідки беруться ціни для порівняння?", a: "Із системи електронних закупівель Prozorro. Кожна закупівля в документах має пряме посилання, а вартість наводиться без ПДВ." },
+        { q: "Що саме я отримаю?", a: "Два файли Word: основне обґрунтування та додаток до обґрунтування з нормативно-правовим регулюванням і порівняльною таблицею цін Prozorro без ПДВ." },
+        { q: "Чи можна заповнити дані з Word-файлу?", a: "Так. Можна завантажити бланк форми, заповнити його у Word і повернути у кабінет, або ввести дані онлайн чи підтягнути за номером оголошення." },
+        { q: "Чи безпечно зберігаються реквізити моєї організації?", a: "Реквізити доступні лише у вашому кабінеті та адміністратору платформи. Інші замовники їх не бачать." }
+      ]
+    };
+  }
+
   function applyBrandingSettings(s) {
     const st = s || {};
     const title = st.platform_name || "Тендерний помічник";
@@ -1475,11 +1868,176 @@
     if (fBrand) fBrand.textContent = title;
     const fSub = document.getElementById("footSubtitle");
     if (fSub && sub) fSub.textContent = sub;
+
+    // Контакти у підвалі
+    const fContacts = document.getElementById("footContacts");
+    if (fContacts) {
+      const parts = [];
+      if (st.contact_email) parts.push(`Email: <a href="mailto:${escapeHtml(st.contact_email)}" style="color:#fff;">${escapeHtml(st.contact_email)}</a>`);
+      if (st.contact_phone) parts.push(`Тел.: <strong>${escapeHtml(st.contact_phone)}</strong>`);
+      fContacts.innerHTML = parts.join(" &nbsp;•&nbsp; ");
+    }
+
+    // Кольорова схема (Консервативні пресети та кастомні кольори)
+    const primaryColor = st.theme_primary || "#1e3a8a";
+    const headerBg = st.theme_header_bg || "#0f172a";
+    document.documentElement.style.setProperty("--primary", primaryColor);
+    document.documentElement.style.setProperty("--primary-hover", primaryColor);
+    const headerEl = document.querySelector("header");
+    if (headerEl) headerEl.style.background = headerBg;
+    const heroEl = document.querySelector(".hero");
+    if (heroEl) heroEl.style.background = `linear-gradient(135deg, ${headerBg} 0%, ${primaryColor} 100%)`;
+
+    // Текст бейджа на картці входу та доступність самореєстрації
+    const quotaVal = st.default_signup_quota !== undefined && st.default_signup_quota !== "" ? st.default_signup_quota : "5";
+    const badgeTxt = st.auth_badge_text || `${quotaVal} безкоштовних заявок`;
+    const authBadgeEl = document.getElementById("heroAuthQuotaBadge");
+    if (authBadgeEl) authBadgeEl.textContent = badgeTxt;
+
+    const allowReg = String(st.allow_self_registration ?? "1") !== "0";
+    const regTabBtn = document.getElementById("authTabRegister");
+    if (regTabBtn) {
+      regTabBtn.style.display = allowReg ? "" : "none";
+    }
+
+    // Динамічний конструктор головної сторінки (site_builder_json)
+    let cfg = null;
+    if (st.site_builder_json) {
+      try {
+        cfg = typeof st.site_builder_json === "string" ? JSON.parse(st.site_builder_json) : st.site_builder_json;
+      } catch (e) {
+        cfg = null;
+      }
+    }
+    if (!cfg || typeof cfg !== "object") {
+      cfg = getDefaultSiteBuilderConfig();
+    }
+
+    // 1. Hero-блок
+    if (cfg.hero) {
+      const hTag = document.getElementById("heroTagText");
+      const hMainT = document.getElementById("heroMainTitle");
+      const hMainS = document.getElementById("heroMainSubtitle");
+      const hBoxT = document.getElementById("heroBoxTitle");
+      const hBullets = document.getElementById("heroBulletsList");
+      const hFoot = document.getElementById("heroFootTags");
+      if (hTag && cfg.hero.tag !== undefined) hTag.textContent = cfg.hero.tag;
+      if (hMainT && cfg.hero.title !== undefined) hMainT.textContent = cfg.hero.title;
+      if (hMainS && cfg.hero.subtitle !== undefined) hMainS.textContent = cfg.hero.subtitle;
+      if (hBoxT && cfg.hero.box_title !== undefined) hBoxT.textContent = cfg.hero.box_title;
+      if (hBullets && Array.isArray(cfg.hero.bullets)) {
+        hBullets.innerHTML = cfg.hero.bullets.map(b => `<li>${escapeHtml(b)}</li>`).join("");
+      }
+      if (hFoot && Array.isArray(cfg.hero.foot_tags)) {
+        hFoot.innerHTML = cfg.hero.foot_tags.map(t => `<span>• ${escapeHtml(t)}</span>`).join("");
+      }
+    }
+
+    // 2. Смуга показників (Metrics)
+    if (Array.isArray(cfg.metrics)) {
+      cfg.metrics.forEach((m, i) => {
+        const idx = i + 1;
+        const vEl = document.getElementById("metricVal_" + idx);
+        const lEl = document.getElementById("metricLbl_" + idx);
+        if (vEl && m.val !== undefined) vEl.textContent = m.val;
+        if (lEl && m.label !== undefined) lEl.textContent = m.label;
+      });
+    }
+
+    // 3. Експрес-перевірка
+    if (cfg.express) {
+      const eb = document.getElementById("expressBadgeText");
+      const et = document.getElementById("expressTitleText");
+      const ed = document.getElementById("expressDescText");
+      const eq = document.getElementById("expressPopularQueriesWrap");
+      if (eb && cfg.express.badge !== undefined) eb.textContent = cfg.express.badge;
+      if (et && cfg.express.title !== undefined) et.textContent = cfg.express.title;
+      if (ed && cfg.express.desc !== undefined) ed.textContent = cfg.express.desc;
+      if (eq && Array.isArray(cfg.express.queries)) {
+        eq.innerHTML = `<span style="font-size:12px; color:var(--muted); font-weight:600;">Популярні запити:</span>` +
+          cfg.express.queries.map(q => `<button type="button" class="btn btn-outline btn-sm" style="font-size:12px; padding:3px 9px; border-radius:14px; background:#fff;" onclick="setExpressQuery('${escapeHtml(q).replace(/'/g, "\'")}')">${escapeHtml(q)}</button>`).join("");
+      }
+    }
+
+    // 4. Послуги
+    const srvSec = document.getElementById("services");
+    if (srvSec && Array.isArray(cfg.services)) {
+      const grid = srvSec.querySelector(".grid-3");
+      if (grid) {
+        grid.innerHTML = cfg.services.map((sItem, idx) => `
+          <div class="service-card ${idx === 0 ? 'service-main' : 'service-soon'}">
+            <span class="badge badge-${sItem.badge_type || (idx === 0 ? 'success' : 'warn')}">${escapeHtml(sItem.badge || '')}</span>
+            <h4>${escapeHtml(sItem.title || '')}</h4>
+            <p>${escapeHtml(sItem.desc || '')}</p>
+          </div>
+        `).join("");
+      }
+    }
+
+    // 5. Як це працює
+    const howSec = document.getElementById("how");
+    if (howSec && Array.isArray(cfg.how)) {
+      const stepsEl = howSec.querySelector(".steps");
+      if (stepsEl) {
+        stepsEl.innerHTML = cfg.how.map((stItem, idx) => `
+          <div class="step">
+            <div class="step-num">${escapeHtml(stItem.num || String(idx + 1))}</div>
+            <h4>${escapeHtml(stItem.title || '')}</h4>
+            <p>${escapeHtml(stItem.desc || '')}</p>
+          </div>
+        `).join("");
+      }
+    }
+
+    // 6. Переваги
+    const benSec = document.getElementById("benefits");
+    if (benSec && cfg.benefits) {
+      const h4s = benSec.querySelectorAll("h4[ style*='color:var(--primary)' ]");
+      const grids = benSec.querySelectorAll(".grid-3");
+      if (h4s[0] && cfg.benefits.buyers_title) h4s[0].textContent = cfg.benefits.buyers_title;
+      if (h4s[1] && cfg.benefits.suppliers_title) h4s[1].textContent = cfg.benefits.suppliers_title;
+      if (grids[0] && Array.isArray(cfg.benefits.buyers)) {
+        grids[0].innerHTML = cfg.benefits.buyers.map(b => `<div class="benefit"><h4>${escapeHtml(b.title || '')}</h4><p>${escapeHtml(b.desc || '')}</p></div>`).join("");
+      }
+      if (grids[1] && Array.isArray(cfg.benefits.suppliers)) {
+        grids[1].innerHTML = cfg.benefits.suppliers.map(b => `<div class="benefit"><h4>${escapeHtml(b.title || '')}</h4><p>${escapeHtml(b.desc || '')}</p></div>`).join("");
+      }
+    }
+
+    // 7. FAQ
+    const faqSec = document.getElementById("faq");
+    if (faqSec && Array.isArray(cfg.faq)) {
+      const titleH3 = faqSec.querySelector(".section-title");
+      const titleHtml = titleH3 ? titleH3.outerHTML : `<h3 class="section-title">Часті запитання</h3>`;
+      faqSec.innerHTML = titleHtml + cfg.faq.map(f => `
+        <details class="faq"><summary>${escapeHtml(f.q || '')}</summary><p>${escapeHtml(f.a || '')}</p></details>
+      `).join("");
+    }
+
+    // 8. Порядок та видимість блоків на головній сторінці
+    const sectionMap = {
+      metrics: document.getElementById("landingSection_metrics"),
+      express: document.getElementById("expressCheckSection"),
+      services: document.getElementById("services"),
+      how: document.getElementById("how"),
+      benefits: document.getElementById("benefits"),
+      faq: document.getElementById("faq")
+    };
+    const footerEl = document.getElementById("contacts");
+    const landingParent = document.getElementById("landingSection");
+    if (landingParent && footerEl && Array.isArray(cfg.blocks)) {
+      cfg.blocks.forEach(b => {
+        const el = sectionMap[b.id];
+        if (!el) return;
+        el.style.display = b.enabled === false ? "none" : "";
+        landingParent.insertBefore(el, footerEl);
+      });
+    }
   }
 
 
   function isAdminRoute() {
-    return window.location.pathname.toLowerCase().startsWith("/control-panel-artem");
+    return Boolean(window.__IS_ADMIN_PORTAL_ROUTE) || window.location.pathname.toLowerCase().startsWith("/control-panel-artem");
   }
 
   async function doAdminLogin() {
@@ -4401,20 +4959,11 @@
     // Заявки в адмін-панелі
     renderAdminOrdersTable();
 
-    // Список форм в адмін-панелі
-    const formsWrap = document.getElementById("adminFormsList");
-    formsWrap.innerHTML = (ADMIN_OVERVIEW.forms || []).map(f => `
-      <div style="border:1px solid var(--border); border-radius:8px; padding:10px 12px; margin-bottom:8px; background:#fff;">
-        <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
-          <strong>#${f.id}. ${escapeHtml(f.title)}</strong>
-          <a class="btn btn-outline btn-sm" href="/api/forms/download/${f.id}?token=${encodeURIComponent(AUTH_TOKEN)}">Шаблон .docx</a>
-        </div>
-        <div style="font-size:12px; color:var(--muted); margin-top:4px;">${escapeHtml(f.description || "")}</div>
-        <div style="font-size:12px; margin-top:6px;">
-          <strong>Поля форми (${(f.fields || []).length}):</strong> ${(f.fields || []).map(fl => escapeHtml(fl.label)).join(" • ")}
-        </div>
-      </div>
-    `).join("");
+    // Наповнення полів Конструктора сайту (Модулі 1–5)
+    populateAdminSiteBuilderInputs(_st);
+
+    // Візуальний конструктор форм
+    renderVisualFormBuilder();
   }
 
   // ==================== УПРАВЛІННЯ КОРИСТУВАЧАМИ ТА ДОСТУПОМ ====================
@@ -5182,6 +5731,740 @@
       }
     }
   });
+
+
+  // ==================== КОНСТРУКТОР САЙТУ ТА ГОРИЗОНТАЛЬНІ ВКЛАДКИ АДМІН-ПАНЕЛІ ====================
+  let CURRENT_ADMIN_MAIN_TAB = "orders";
+  let CURRENT_BUILDER_SUB_TAB = "blocks";
+  let SITE_BUILDER_STATE = null;
+  let CURRENT_VISUAL_FORM_ID = null;
+  let CURRENT_VISUAL_FORM_FIELDS = [];
+
+  function switchAdminMainTab(tabId) {
+    CURRENT_ADMIN_MAIN_TAB = tabId;
+    const tabs = ["orders", "clients", "feedback", "builder", "forms", "admins"];
+    tabs.forEach(t => {
+      const btn = document.getElementById("btnAdmTab_" + t);
+      const pane = document.getElementById("admPane_" + t);
+      if (btn) btn.classList.toggle("active", t === tabId);
+      if (pane) pane.style.display = (t === tabId) ? "block" : "none";
+    });
+  }
+
+  function switchBuilderSubTab(subId) {
+    if (CURRENT_BUILDER_SUB_TAB === "content") {
+      syncBuilderContentFromDOM();
+    }
+    CURRENT_BUILDER_SUB_TAB = subId;
+    const subs = ["blocks", "content", "branding", "rules", "security"];
+    subs.forEach(s => {
+      const btn = document.getElementById("btnBuilderSub_" + s);
+      const pane = document.getElementById("builderPane_" + s);
+      if (btn) btn.classList.toggle("active", s === subId);
+      if (pane) pane.style.display = (s === subId) ? "block" : "none";
+    });
+  }
+
+  function ensureSiteBuilderConfig(st) {
+    const def = getDefaultSiteBuilderConfig();
+    let parsed = null;
+    if (st && st.site_builder_json) {
+      try {
+        parsed = typeof st.site_builder_json === "string" ? JSON.parse(st.site_builder_json) : st.site_builder_json;
+      } catch (e) {
+        parsed = null;
+      }
+    }
+    if (!parsed || typeof parsed !== "object") {
+      SITE_BUILDER_STATE = JSON.parse(JSON.stringify(def));
+      return SITE_BUILDER_STATE;
+    }
+    SITE_BUILDER_STATE = {
+      blocks: Array.isArray(parsed.blocks) && parsed.blocks.length ? parsed.blocks : def.blocks,
+      hero: Object.assign({}, def.hero, parsed.hero || {}),
+      metrics: Array.isArray(parsed.metrics) && parsed.metrics.length ? parsed.metrics : def.metrics,
+      express: Object.assign({}, def.express, parsed.express || {}),
+      services: Array.isArray(parsed.services) ? parsed.services : def.services,
+      how: Array.isArray(parsed.how) ? parsed.how : def.how,
+      benefits: Object.assign({}, def.benefits, parsed.benefits || {}),
+      faq: Array.isArray(parsed.faq) ? parsed.faq : def.faq
+    };
+    return SITE_BUILDER_STATE;
+  }
+
+  function populateAdminSiteBuilderInputs(st) {
+    ensureSiteBuilderConfig(st);
+    const setVal = (id, val) => {
+      const el = document.getElementById(id);
+      if (el) el.value = val;
+    };
+    setVal("set_platform_name", st.platform_name || "Тендерний помічник");
+    setVal("set_platform_subtitle", st.platform_subtitle || "");
+    setVal("set_contact_email", st.contact_email || "");
+    setVal("set_contact_phone", st.contact_phone || "");
+    setVal("set_theme_preset", st.theme_preset || "navy");
+    setVal("set_theme_primary", st.theme_primary || "#1e3a8a");
+    setVal("set_theme_primary_picker", st.theme_primary || "#1e3a8a");
+    setVal("set_theme_header_bg", st.theme_header_bg || "#0f172a");
+    setVal("set_theme_header_picker", st.theme_header_bg || "#0f172a");
+    setVal("set_default_signup_quota", st.default_signup_quota !== undefined && st.default_signup_quota !== "" ? st.default_signup_quota : "5");
+    setVal("set_auth_badge_text", st.auth_badge_text || "5 безкоштовних заявок");
+    setVal("set_allow_self_registration", String(st.allow_self_registration ?? "1"));
+    setVal("set_default_delivery_mode", st.delivery_mode || "manual");
+    setVal("set_admin_secret_path", st.admin_secret_path || "/control-panel-artem");
+
+    updateAdminSecretUrlPreview();
+    renderBuilderBlocksTable();
+    renderBuilderContentEditor();
+  }
+
+  function renderBuilderBlocksTable() {
+    const wrap = document.getElementById("builderBlocksTableWrap");
+    if (!wrap || !SITE_BUILDER_STATE) return;
+    const blocks = SITE_BUILDER_STATE.blocks || [];
+    wrap.innerHTML = `
+      <table>
+        <thead>
+          <tr>
+            <th style="width:55px; text-align:center;">Порядок</th>
+            <th>Назва секції на головній сторінці</th>
+            <th style="width:170px;">Статус відображення</th>
+            <th style="width:190px;">Зміна черговості</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${blocks.map((b, idx) => `
+            <tr>
+              <td style="text-align:center; font-weight:700;">${idx + 1}</td>
+              <td>
+                <strong>${escapeHtml(b.title)}</strong><br/>
+                <small style="color:var(--muted);">Код блоку: <code>${escapeHtml(b.id)}</code></small>
+              </td>
+              <td>
+                <label style="display:inline-flex; align-items:center; gap:6px; cursor:pointer; font-weight:600; font-size:12.5px;">
+                  <input type="checkbox" ${b.enabled !== false ? "checked" : ""} onchange="toggleBuilderBlock(${idx}, this.checked)" />
+                  <span class="badge ${b.enabled !== false ? 'badge-success' : 'badge-warn'}">${b.enabled !== false ? "Увімкнено" : "Приховано"}</span>
+                </label>
+              </td>
+              <td>
+                <div style="display:flex; gap:6px;">
+                  <button type="button" class="btn btn-outline btn-sm" style="border-radius:3px; padding:3px 9px;" ${idx === 0 ? "disabled" : ""} onclick="moveBuilderBlock(${idx}, -1)">Вгору</button>
+                  <button type="button" class="btn btn-outline btn-sm" style="border-radius:3px; padding:3px 9px;" ${idx === blocks.length - 1 ? "disabled" : ""} onclick="moveBuilderBlock(${idx}, 1)">Вниз</button>
+                </div>
+              </td>
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
+    `;
+  }
+
+  function toggleBuilderBlock(idx, enabled) {
+    if (!SITE_BUILDER_STATE || !SITE_BUILDER_STATE.blocks[idx]) return;
+    SITE_BUILDER_STATE.blocks[idx].enabled = Boolean(enabled);
+    renderBuilderBlocksTable();
+  }
+
+  function moveBuilderBlock(idx, dir) {
+    if (!SITE_BUILDER_STATE) return;
+    const arr = SITE_BUILDER_STATE.blocks;
+    const target = idx + dir;
+    if (target < 0 || target >= arr.length) return;
+    const tmp = arr[idx];
+    arr[idx] = arr[target];
+    arr[target] = tmp;
+    renderBuilderBlocksTable();
+  }
+
+  function syncBuilderContentFromDOM() {
+    if (!SITE_BUILDER_STATE) return;
+    const wrap = document.getElementById("builderContentEditorWrap");
+    if (!wrap) return;
+    const activeSec = wrap.getAttribute("data-active-section");
+    if (!activeSec) return;
+
+    if (activeSec === "hero") {
+      const g = id => document.getElementById(id)?.value || "";
+      SITE_BUILDER_STATE.hero.tag = g("b_hero_tag");
+      SITE_BUILDER_STATE.hero.title = g("b_hero_title");
+      SITE_BUILDER_STATE.hero.subtitle = g("b_hero_subtitle");
+      SITE_BUILDER_STATE.hero.box_title = g("b_hero_box_title");
+      SITE_BUILDER_STATE.hero.bullets = g("b_hero_bullets").split("\n").map(x => x.trim()).filter(Boolean);
+      SITE_BUILDER_STATE.hero.foot_tags = g("b_hero_foot_tags").split("\n").map(x => x.trim()).filter(Boolean);
+    } else if (activeSec === "metrics") {
+      const rows = wrap.querySelectorAll(".b-metric-row");
+      SITE_BUILDER_STATE.metrics = Array.from(rows).map(r => ({
+        val: r.querySelector(".bm-val")?.value || "",
+        label: r.querySelector(".bm-lbl")?.value || ""
+      }));
+    } else if (activeSec === "express") {
+      const g = id => document.getElementById(id)?.value || "";
+      SITE_BUILDER_STATE.express.badge = g("b_exp_badge");
+      SITE_BUILDER_STATE.express.title = g("b_exp_title");
+      SITE_BUILDER_STATE.express.desc = g("b_exp_desc");
+      SITE_BUILDER_STATE.express.queries = g("b_exp_queries").split(",").map(x => x.trim()).filter(Boolean);
+    } else if (activeSec === "services") {
+      const rows = wrap.querySelectorAll(".b-srv-row");
+      SITE_BUILDER_STATE.services = Array.from(rows).map(r => ({
+        badge: r.querySelector(".bs-badge")?.value || "",
+        badge_type: r.querySelector(".bs-btype")?.value || "success",
+        title: r.querySelector(".bs-title")?.value || "",
+        desc: r.querySelector(".bs-desc")?.value || ""
+      }));
+    } else if (activeSec === "how") {
+      const rows = wrap.querySelectorAll(".b-how-row");
+      SITE_BUILDER_STATE.how = Array.from(rows).map((r, i) => ({
+        num: r.querySelector(".bh-num")?.value || String(i + 1),
+        title: r.querySelector(".bh-title")?.value || "",
+        desc: r.querySelector(".bh-desc")?.value || ""
+      }));
+    } else if (activeSec === "benefits") {
+      SITE_BUILDER_STATE.benefits.buyers_title = document.getElementById("b_ben_buyers_title")?.value || "";
+      SITE_BUILDER_STATE.benefits.suppliers_title = document.getElementById("b_ben_suppliers_title")?.value || "";
+      SITE_BUILDER_STATE.benefits.buyers = Array.from(wrap.querySelectorAll(".b-ben-buyer-row")).map(r => ({
+        title: r.querySelector(".bb-title")?.value || "",
+        desc: r.querySelector(".bb-desc")?.value || ""
+      }));
+      SITE_BUILDER_STATE.benefits.suppliers = Array.from(wrap.querySelectorAll(".b-ben-supp-row")).map(r => ({
+        title: r.querySelector(".bs-title")?.value || "",
+        desc: r.querySelector(".bs-desc")?.value || ""
+      }));
+    } else if (activeSec === "faq") {
+      SITE_BUILDER_STATE.faq = Array.from(wrap.querySelectorAll(".b-faq-row")).map(r => ({
+        q: r.querySelector(".bf-q")?.value || "",
+        a: r.querySelector(".bf-a")?.value || ""
+      }));
+    }
+  }
+
+  function renderBuilderContentEditor() {
+    if (!SITE_BUILDER_STATE) return;
+    syncBuilderContentFromDOM();
+    const sel = document.getElementById("builderContentSectionSelect")?.value || "hero";
+    const wrap = document.getElementById("builderContentEditorWrap");
+    if (!wrap) return;
+    wrap.setAttribute("data-active-section", sel);
+
+    if (sel === "hero") {
+      const h = SITE_BUILDER_STATE.hero || {};
+      wrap.innerHTML = `
+        <div class="conservative-box" style="margin-bottom:0;">
+          <div class="grid-2">
+            <div class="form-group">
+              <label>Верхній нормативний підпис (над заголовком)</label>
+              <input type="text" id="b_hero_tag" value="${escapeHtml(h.tag || "")}" />
+            </div>
+            <div class="form-group">
+              <label>Заголовок блоку переваг у Hero</label>
+              <input type="text" id="b_hero_box_title" value="${escapeHtml(h.box_title || "")}" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Головний заголовок сайту (H2)</label>
+            <input type="text" id="b_hero_title" value="${escapeHtml(h.title || "")}" />
+          </div>
+          <div class="form-group">
+            <label>Підзаголовок / опис під головним заголовком</label>
+            <textarea id="b_hero_subtitle" style="min-height:56px;">${escapeHtml(h.subtitle || "")}</textarea>
+          </div>
+          <div class="grid-2">
+            <div class="form-group" style="margin-bottom:0;">
+              <label>Пункти списку (кожен пункт з нового рядка)</label>
+              <textarea id="b_hero_bullets" style="min-height:95px;">${escapeHtml((h.bullets || []).join("\n"))}</textarea>
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+              <label>Нижні тези під кнопкою (кожна з нового рядка)</label>
+              <textarea id="b_hero_foot_tags" style="min-height:95px;">${escapeHtml((h.foot_tags || []).join("\n"))}</textarea>
+            </div>
+          </div>
+        </div>
+      `;
+    } else if (sel === "metrics") {
+      const mList = SITE_BUILDER_STATE.metrics || [];
+      wrap.innerHTML = `
+        <div class="conservative-box" style="margin-bottom:0;">
+          <div class="grid-2">
+            ${mList.map((m, i) => `
+              <div class="b-metric-row" style="border:1px solid #cbd5e1; background:#fff; padding:10px; border-radius:3px;">
+                <strong style="font-size:12px; color:var(--primary); display:block; margin-bottom:6px;">Індикатор #${i + 1}</strong>
+                <div class="form-group" style="margin-bottom:6px;">
+                  <label>Значення (великий шрифт)</label>
+                  <input type="text" class="bm-val" value="${escapeHtml(m.val || "")}" />
+                </div>
+                <div class="form-group" style="margin-bottom:0;">
+                  <label>Пояснення під значенням</label>
+                  <input type="text" class="bm-lbl" value="${escapeHtml(m.label || "")}" />
+                </div>
+              </div>
+            `).join("")}
+          </div>
+        </div>
+      `;
+    } else if (sel === "express") {
+      const ex = SITE_BUILDER_STATE.express || {};
+      wrap.innerHTML = `
+        <div class="conservative-box" style="margin-bottom:0;">
+          <div class="grid-2">
+            <div class="form-group">
+              <label>Текст синього бейджа</label>
+              <input type="text" id="b_exp_badge" value="${escapeHtml(ex.badge || "")}" />
+            </div>
+            <div class="form-group">
+              <label>Заголовок блоку експрес-перевірки</label>
+              <input type="text" id="b_exp_title" value="${escapeHtml(ex.title || "")}" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Опис над полем пошуку</label>
+            <textarea id="b_exp_desc" style="min-height:52px;">${escapeHtml(ex.desc || "")}</textarea>
+          </div>
+          <div class="form-group" style="margin-bottom:0;">
+            <label>Швидкі популярні запити (через кому)</label>
+            <input type="text" id="b_exp_queries" value="${escapeHtml((ex.queries || []).join(", "))}" />
+          </div>
+        </div>
+      `;
+    } else if (sel === "services") {
+      const sList = SITE_BUILDER_STATE.services || [];
+      wrap.innerHTML = `
+        <div style="margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
+          <strong style="font-size:13px;">Картки секції «Послуги» (${sList.length})</strong>
+          <button type="button" class="btn btn-outline btn-sm" style="border-radius:3px;" onclick="addBuilderListItem('services')">➕ Додати картку послуги</button>
+        </div>
+        ${sList.map((sItem, i) => `
+          <div class="conservative-box b-srv-row" style="background:#fff;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+              <strong style="font-size:12.5px;">Картка послуги #${i + 1}</strong>
+              <button type="button" class="btn btn-danger btn-sm" style="border-radius:3px; padding:2px 8px;" onclick="removeBuilderListItem('services', null, ${i})">Видалити</button>
+            </div>
+            <div class="grid-3" style="margin-bottom:8px;">
+              <div class="form-group" style="margin-bottom:0;">
+                <label>Текст бейджа</label>
+                <input type="text" class="bs-badge" value="${escapeHtml(sItem.badge || "")}" />
+              </div>
+              <div class="form-group" style="margin-bottom:0;">
+                <label>Колір бейджа</label>
+                <select class="bs-btype">
+                  <option value="success" ${sItem.badge_type === "success" ? "selected" : ""}>Зелений (Активно)</option>
+                  <option value="warn" ${sItem.badge_type === "warn" ? "selected" : ""}>Жовтий (Незабаром)</option>
+                  <option value="info" ${sItem.badge_type === "info" ? "selected" : ""}>Синій (Інфо)</option>
+                </select>
+              </div>
+              <div class="form-group" style="margin-bottom:0;">
+                <label>Назва послуги</label>
+                <input type="text" class="bs-title" value="${escapeHtml(sItem.title || "")}" />
+              </div>
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+              <label>Опис послуги</label>
+              <textarea class="bs-desc" style="min-height:52px;">${escapeHtml(sItem.desc || "")}</textarea>
+            </div>
+          </div>
+        `).join("")}
+      `;
+    } else if (sel === "how") {
+      const hList = SITE_BUILDER_STATE.how || [];
+      wrap.innerHTML = `
+        <div style="margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
+          <strong style="font-size:13px;">Кроки секції «Як це працює» (${hList.length})</strong>
+          <button type="button" class="btn btn-outline btn-sm" style="border-radius:3px;" onclick="addBuilderListItem('how')">➕ Додати крок</button>
+        </div>
+        <div class="grid-2">
+          ${hList.map((stItem, i) => `
+            <div class="conservative-box b-how-row" style="background:#fff; margin-bottom:0;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                <strong style="font-size:12.5px;">Крок #${i + 1}</strong>
+                <button type="button" class="btn btn-danger btn-sm" style="border-radius:3px; padding:2px 8px;" onclick="removeBuilderListItem('how', null, ${i})">Видалити</button>
+              </div>
+              <div class="grid-2" style="margin-bottom:6px;">
+                <div class="form-group" style="margin-bottom:0;">
+                  <label>Номер</label>
+                  <input type="text" class="bh-num" value="${escapeHtml(stItem.num || String(i + 1))}" />
+                </div>
+                <div class="form-group" style="margin-bottom:0;">
+                  <label>Заголовок кроку</label>
+                  <input type="text" class="bh-title" value="${escapeHtml(stItem.title || "")}" />
+                </div>
+              </div>
+              <div class="form-group" style="margin-bottom:0;">
+                <label>Опис кроку</label>
+                <textarea class="bh-desc" style="min-height:48px;">${escapeHtml(stItem.desc || "")}</textarea>
+              </div>
+            </div>
+          `).join("")}
+        </div>
+      `;
+    } else if (sel === "benefits") {
+      const ben = SITE_BUILDER_STATE.benefits || {};
+      wrap.innerHTML = `
+        <div class="conservative-box">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; flex-wrap:wrap; gap:8px;">
+            <div style="flex:1; min-width:240px;">
+              <label style="font-size:11.5px; font-weight:700;">Підзаголовок блоку для Замовників</label>
+              <input type="text" id="b_ben_buyers_title" value="${escapeHtml(ben.buyers_title || "")}" />
+            </div>
+            <button type="button" class="btn btn-outline btn-sm" style="border-radius:3px;" onclick="addBuilderListItem('benefits', 'buyers')">➕ Додати перевагу для замовників</button>
+          </div>
+          <div class="grid-2">
+            ${(ben.buyers || []).map((b, i) => `
+              <div class="b-ben-buyer-row" style="border:1px solid #cbd5e1; background:#fff; padding:8px; border-radius:3px;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+                  <small style="font-weight:700;">Картка замовника #${i + 1}</small>
+                  <button type="button" class="btn btn-danger btn-sm" style="padding:1px 6px; font-size:11px; border-radius:2px;" onclick="removeBuilderListItem('benefits', 'buyers', ${i})">Видалити</button>
+                </div>
+                <input type="text" class="bb-title" value="${escapeHtml(b.title || "")}" placeholder="Заголовок" style="margin-bottom:5px; font-weight:600;" />
+                <textarea class="bb-desc" style="min-height:46px; font-size:12px;">${escapeHtml(b.desc || "")}</textarea>
+              </div>
+            `).join("")}
+          </div>
+        </div>
+
+        <div class="conservative-box" style="margin-bottom:0;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; flex-wrap:wrap; gap:8px;">
+            <div style="flex:1; min-width:240px;">
+              <label style="font-size:11.5px; font-weight:700;">Підзаголовок блоку для Постачальників</label>
+              <input type="text" id="b_ben_suppliers_title" value="${escapeHtml(ben.suppliers_title || "")}" />
+            </div>
+            <button type="button" class="btn btn-outline btn-sm" style="border-radius:3px;" onclick="addBuilderListItem('benefits', 'suppliers')">➕ Додати перевагу для постачальників</button>
+          </div>
+          <div class="grid-2">
+            ${(ben.suppliers || []).map((b, i) => `
+              <div class="b-ben-supp-row" style="border:1px solid #cbd5e1; background:#fff; padding:8px; border-radius:3px;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+                  <small style="font-weight:700;">Картка постачальника #${i + 1}</small>
+                  <button type="button" class="btn btn-danger btn-sm" style="padding:1px 6px; font-size:11px; border-radius:2px;" onclick="removeBuilderListItem('benefits', 'suppliers', ${i})">Видалити</button>
+                </div>
+                <input type="text" class="bs-title" value="${escapeHtml(b.title || "")}" placeholder="Заголовок" style="margin-bottom:5px; font-weight:600;" />
+                <textarea class="bs-desc" style="min-height:46px; font-size:12px;">${escapeHtml(b.desc || "")}</textarea>
+              </div>
+            `).join("")}
+          </div>
+        </div>
+      `;
+    } else if (sel === "faq") {
+      const fList = SITE_BUILDER_STATE.faq || [];
+      wrap.innerHTML = `
+        <div style="margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
+          <strong style="font-size:13px;">Питання та відповіді FAQ (${fList.length})</strong>
+          <button type="button" class="btn btn-outline btn-sm" style="border-radius:3px;" onclick="addBuilderListItem('faq')">➕ Додати питання FAQ</button>
+        </div>
+        ${fList.map((f, i) => `
+          <div class="conservative-box b-faq-row" style="background:#fff; padding:10px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+              <strong style="font-size:12.5px;">Питання #${i + 1}</strong>
+              <button type="button" class="btn btn-danger btn-sm" style="border-radius:3px; padding:2px 8px;" onclick="removeBuilderListItem('faq', null, ${i})">Видалити</button>
+            </div>
+            <div class="form-group" style="margin-bottom:6px;">
+              <input type="text" class="bf-q" value="${escapeHtml(f.q || "")}" placeholder="Питання" style="font-weight:600;" />
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+              <textarea class="bf-a" style="min-height:46px;" placeholder="Відповідь">${escapeHtml(f.a || "")}</textarea>
+            </div>
+          </div>
+        `).join("")}
+      `;
+    }
+  }
+
+  function addBuilderListItem(section, subkey) {
+    syncBuilderContentFromDOM();
+    if (section === "services") {
+      SITE_BUILDER_STATE.services.push({ badge: "Нова послуга", badge_type: "success", title: "Назва послуги", desc: "Короткий опис послуги..." });
+    } else if (section === "how") {
+      const nextNum = String((SITE_BUILDER_STATE.how?.length || 0) + 1);
+      SITE_BUILDER_STATE.how.push({ num: nextNum, title: "Новий крок", desc: "Опис кроку..." });
+    } else if (section === "benefits" && subkey) {
+      SITE_BUILDER_STATE.benefits[subkey].push({ title: "Нова перевага", desc: "Опис переваги..." });
+    } else if (section === "faq") {
+      SITE_BUILDER_STATE.faq.push({ q: "Нове запитання?", a: "Текст відповіді..." });
+    }
+    const wrap = document.getElementById("builderContentEditorWrap");
+    if (wrap) wrap.removeAttribute("data-active-section");
+    renderBuilderContentEditor();
+  }
+
+  function removeBuilderListItem(section, subkey, idx) {
+    syncBuilderContentFromDOM();
+    if (section === "benefits" && subkey) {
+      SITE_BUILDER_STATE.benefits[subkey].splice(idx, 1);
+    } else if (Array.isArray(SITE_BUILDER_STATE[section])) {
+      SITE_BUILDER_STATE[section].splice(idx, 1);
+    }
+    const wrap = document.getElementById("builderContentEditorWrap");
+    if (wrap) wrap.removeAttribute("data-active-section");
+    renderBuilderContentEditor();
+  }
+
+  function onThemePresetChange(preset) {
+    const map = {
+      navy: { primary: "#1e3a8a", header: "#0f172a" },
+      slate: { primary: "#334155", header: "#1e293b" },
+      emerald: { primary: "#065f46", header: "#064e3b" },
+      burgundy: { primary: "#7f1d1d", header: "#450a0a" }
+    };
+    if (map[preset]) {
+      document.getElementById("set_theme_primary").value = map[preset].primary;
+      document.getElementById("set_theme_primary_picker").value = map[preset].primary;
+      document.getElementById("set_theme_header_bg").value = map[preset].header;
+      document.getElementById("set_theme_header_picker").value = map[preset].header;
+    }
+  }
+
+  function updateAdminSecretUrlPreview() {
+    const inp = document.getElementById("set_admin_secret_path");
+    const prev = document.getElementById("adminSecretFullUrlPreview");
+    if (!inp || !prev) return;
+    let raw = (inp.value || "/control-panel-artem").trim();
+    if (!raw.startsWith("/")) raw = "/" + raw;
+    prev.textContent = window.location.origin + raw;
+  }
+
+  function copyAdminSecretUrl() {
+    const prev = document.getElementById("adminSecretFullUrlPreview");
+    if (!prev) return;
+    navigator.clipboard?.writeText(prev.textContent || "");
+    showToast("Повне посилання на вхід адміністратора скопійовано!");
+  }
+
+  async function saveAllSiteBuilderSettings() {
+    try {
+      syncBuilderContentFromDOM();
+      let secretPath = (document.getElementById("set_admin_secret_path")?.value || "/control-panel-artem").trim();
+      if (!secretPath.startsWith("/")) secretPath = "/" + secretPath;
+
+      const payload = {
+        platform_name: (document.getElementById("set_platform_name")?.value || "").trim() || "Тендерний помічник",
+        platform_subtitle: (document.getElementById("set_platform_subtitle")?.value || "").trim(),
+        logo_data_url: window._pendingLogoDataUrl || "",
+        contact_email: (document.getElementById("set_contact_email")?.value || "").trim(),
+        contact_phone: (document.getElementById("set_contact_phone")?.value || "").trim(),
+        theme_preset: document.getElementById("set_theme_preset")?.value || "navy",
+        theme_primary: (document.getElementById("set_theme_primary")?.value || "#1e3a8a").trim(),
+        theme_header_bg: (document.getElementById("set_theme_header_bg")?.value || "#0f172a").trim(),
+        default_signup_quota: String(parseInt(document.getElementById("set_default_signup_quota")?.value || "5", 10)),
+        auth_badge_text: (document.getElementById("set_auth_badge_text")?.value || "").trim(),
+        allow_self_registration: document.getElementById("set_allow_self_registration")?.value || "1",
+        delivery_mode: document.getElementById("set_default_delivery_mode")?.value || "manual",
+        admin_secret_path: secretPath,
+        site_builder_json: JSON.stringify(SITE_BUILDER_STATE || getDefaultSiteBuilderConfig())
+      };
+
+      await apiFetch("/api/admin/settings", { method: "POST", body: payload });
+      applyBrandingSettings(payload);
+      showToast("Налаштування та структуру сайту успішно збережено!");
+      await loadAdminData();
+    } catch (e) {
+      showToast(e.message);
+    }
+  }
+
+  async function resetSiteBuilderToDefaults() {
+    if (!confirm("Відновити стандартні тексти, блоки та кольори головної сторінки?")) return;
+    SITE_BUILDER_STATE = getDefaultSiteBuilderConfig();
+    const wrap = document.getElementById("builderContentEditorWrap");
+    if (wrap) wrap.removeAttribute("data-active-section");
+    onThemePresetChange("navy");
+    document.getElementById("set_theme_preset").value = "navy";
+    renderBuilderBlocksTable();
+    renderBuilderContentEditor();
+    await saveAllSiteBuilderSettings();
+  }
+
+  // ==================== ВІЗУАЛЬНИЙ КОНСТРУКТОР ФОРМ ====================
+  function renderVisualFormBuilder(selectedId) {
+    const forms = (ADMIN_OVERVIEW && ADMIN_OVERVIEW.forms) ? ADMIN_OVERVIEW.forms : [];
+    const selEl = document.getElementById("vf_selectForm");
+    if (!selEl) return;
+
+    if (!forms.length) {
+      selEl.innerHTML = `<option value="">Немає форм</option>`;
+      return;
+    }
+
+    const targetId = selectedId || CURRENT_VISUAL_FORM_ID || forms[0].id;
+    CURRENT_VISUAL_FORM_ID = Number(targetId);
+    selEl.innerHTML = forms.map(f => `<option value="${f.id}" ${Number(f.id) === CURRENT_VISUAL_FORM_ID ? "selected" : ""}>#${f.id}. ${escapeHtml(f.title)}</option>`).join("");
+
+    onSelectVisualForm(CURRENT_VISUAL_FORM_ID);
+  }
+
+  function onSelectVisualForm(fid) {
+    const forms = (ADMIN_OVERVIEW && ADMIN_OVERVIEW.forms) ? ADMIN_OVERVIEW.forms : [];
+    const formObj = forms.find(f => Number(f.id) === Number(fid)) || forms[0];
+    if (!formObj) return;
+    CURRENT_VISUAL_FORM_ID = Number(formObj.id);
+    document.getElementById("vf_formTitle").value = formObj.title || "";
+    document.getElementById("vf_formDesc").value = formObj.description || "";
+    document.getElementById("vf_formActive").checked = Boolean(formObj.is_active ?? 1);
+    const dlBtn = document.getElementById("vf_downloadDocxBtn");
+    if (dlBtn) {
+      dlBtn.href = `/api/forms/download/${formObj.id}?token=${encodeURIComponent(AUTH_TOKEN)}`;
+      dlBtn.style.display = "inline-flex";
+    }
+    CURRENT_VISUAL_FORM_FIELDS = JSON.parse(JSON.stringify(formObj.fields || []));
+    renderVisualFormFieldsTable();
+  }
+
+  function createNewVisualForm() {
+    CURRENT_VISUAL_FORM_ID = 0;
+    document.getElementById("vf_formTitle").value = "Нова форма заявки";
+    document.getElementById("vf_formDesc").value = "Опис нової форми для клієнтів";
+    document.getElementById("vf_formActive").checked = true;
+    const dlBtn = document.getElementById("vf_downloadDocxBtn");
+    if (dlBtn) dlBtn.style.display = "none";
+    CURRENT_VISUAL_FORM_FIELDS = [
+      { key: "buyer_name", label: "Найменування замовника", type: "text", required: true, placeholder: "" },
+      { key: "edrpou", label: "Код за ЄДРПОУ", type: "text", required: true, placeholder: "" },
+      { key: "subject_name", label: "Предмет закупівлі", type: "text", required: true, placeholder: "" },
+      { key: "cpv_code", label: "Код ДК 021:2015", type: "text", required: true, placeholder: "" },
+      { key: "expected_value", label: "Очікувана вартість без ПДВ, грн", type: "number", required: true, placeholder: "" }
+    ];
+    renderVisualFormFieldsTable();
+    showToast("Заповніть поля нової форми та натисніть «Зберегти форму та оновити .docx»");
+  }
+
+  function syncVisualFormFieldsFromDOM() {
+    const wrap = document.getElementById("vf_fieldsTableWrap");
+    if (!wrap) return;
+    const rows = wrap.querySelectorAll(".vf-field-row");
+    if (!rows.length) return;
+    CURRENT_VISUAL_FORM_FIELDS = Array.from(rows).map((r, idx) => ({
+      key: (r.querySelector(".vff-key")?.value || `field_${idx + 1}`).trim(),
+      label: (r.querySelector(".vff-label")?.value || "").trim(),
+      type: r.querySelector(".vff-type")?.value || "text",
+      placeholder: (r.querySelector(".vff-ph")?.value || "").trim(),
+      required: Boolean(r.querySelector(".vff-req")?.checked)
+    }));
+  }
+
+  function renderVisualFormFieldsTable() {
+    const wrap = document.getElementById("vf_fieldsTableWrap");
+    if (!wrap) return;
+    if (!CURRENT_VISUAL_FORM_FIELDS.length) {
+      wrap.innerHTML = `<p style="color:var(--muted); font-size:12.5px;">У цій формі ще немає полів. Натисніть «➕ Додати поле».</p>`;
+      return;
+    }
+    wrap.innerHTML = `
+      <div style="overflow-x:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:45px; text-align:center;">№</th>
+              <th>Назва поля для клієнта</th>
+              <th style="width:165px;">Системний ключ</th>
+              <th style="width:140px;">Тип поля</th>
+              <th>Підказка (placeholder)</th>
+              <th style="width:110px; text-align:center;">Обов'язкове</th>
+              <th style="width:195px;">Порядок / Дія</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${CURRENT_VISUAL_FORM_FIELDS.map((fl, i) => `
+              <tr class="vf-field-row">
+                <td style="text-align:center; font-weight:700;">${i + 1}</td>
+                <td><input type="text" class="vff-label" value="${escapeHtml(fl.label || "")}" style="font-weight:600;" /></td>
+                <td><input type="text" class="vff-key" value="${escapeHtml(fl.key || "")}" style="font-family:monospace; font-size:12px;" /></td>
+                <td>
+                  <select class="vff-type">
+                    <option value="text" ${fl.type === "text" ? "selected" : ""}>Рядок (text)</option>
+                    <option value="number" ${fl.type === "number" ? "selected" : ""}>Число (number)</option>
+                    <option value="textarea" ${fl.type === "textarea" ? "selected" : ""}>Абзац (textarea)</option>
+                  </select>
+                </td>
+                <td><input type="text" class="vff-ph" value="${escapeHtml(fl.placeholder || "")}" /></td>
+                <td style="text-align:center;">
+                  <input type="checkbox" class="vff-req" ${fl.required ? "checked" : ""} />
+                </td>
+                <td>
+                  <div style="display:flex; gap:4px; flex-wrap:wrap;">
+                    <button type="button" class="btn btn-outline btn-sm" style="border-radius:3px; padding:2px 7px;" ${i === 0 ? "disabled" : ""} onclick="moveVisualFormField(${i}, -1)">Вгору</button>
+                    <button type="button" class="btn btn-outline btn-sm" style="border-radius:3px; padding:2px 7px;" ${i === CURRENT_VISUAL_FORM_FIELDS.length - 1 ? "disabled" : ""} onclick="moveVisualFormField(${i}, 1)">Вниз</button>
+                    <button type="button" class="btn btn-danger btn-sm" style="border-radius:3px; padding:2px 7px;" onclick="removeVisualFormField(${i})">Х</button>
+                  </div>
+                </td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      </div>
+    `;
+  }
+
+  function addVisualFormField() {
+    syncVisualFormFieldsFromDOM();
+    const nextIdx = CURRENT_VISUAL_FORM_FIELDS.length + 1;
+    CURRENT_VISUAL_FORM_FIELDS.push({
+      key: `custom_field_${nextIdx}`,
+      label: `Нове поле #${nextIdx}`,
+      type: "text",
+      placeholder: "",
+      required: false
+    });
+    renderVisualFormFieldsTable();
+  }
+
+  function moveVisualFormField(idx, dir) {
+    syncVisualFormFieldsFromDOM();
+    const target = idx + dir;
+    if (target < 0 || target >= CURRENT_VISUAL_FORM_FIELDS.length) return;
+    const tmp = CURRENT_VISUAL_FORM_FIELDS[idx];
+    CURRENT_VISUAL_FORM_FIELDS[idx] = CURRENT_VISUAL_FORM_FIELDS[target];
+    CURRENT_VISUAL_FORM_FIELDS[target] = tmp;
+    renderVisualFormFieldsTable();
+  }
+
+  function removeVisualFormField(idx) {
+    syncVisualFormFieldsFromDOM();
+    CURRENT_VISUAL_FORM_FIELDS.splice(idx, 1);
+    renderVisualFormFieldsTable();
+  }
+
+  async function saveVisualFormChanges() {
+    try {
+      syncVisualFormFieldsFromDOM();
+      const title = (document.getElementById("vf_formTitle")?.value || "").trim() || "Форма заявки";
+      const description = (document.getElementById("vf_formDesc")?.value || "").trim();
+      const is_active = document.getElementById("vf_formActive")?.checked ? 1 : 0;
+
+      const res = await apiFetch("/api/admin/forms/save", {
+        method: "POST",
+        body: {
+          id: CURRENT_VISUAL_FORM_ID || undefined,
+          title,
+          description,
+          is_active,
+          fields: CURRENT_VISUAL_FORM_FIELDS
+        }
+      });
+      CURRENT_VISUAL_FORM_ID = res.id;
+      showToast(`Форму «${title}» збережено та шаблон .docx оновлено!`);
+      const pub = await apiFetch("/api/public/info");
+      PUBLIC_FORMS = pub.forms || [];
+      populateFormsDropdown();
+      await loadAdminData();
+    } catch (e) {
+      showToast(e.message);
+    }
+  }
+
+  async function deleteVisualForm() {
+    if (!CURRENT_VISUAL_FORM_ID) return;
+    if (!confirm(`Видалити форму #${CURRENT_VISUAL_FORM_ID}?`)) return;
+    try {
+      await apiFetch("/api/admin/forms/delete", {
+        method: "POST",
+        body: { form_id: CURRENT_VISUAL_FORM_ID }
+      });
+      CURRENT_VISUAL_FORM_ID = null;
+      showToast("Форму видалено.");
+      const pub = await apiFetch("/api/public/info");
+      PUBLIC_FORMS = pub.forms || [];
+      populateFormsDropdown();
+      await loadAdminData();
+    } catch (e) {
+      showToast(e.message);
+    }
+  }
 
   initApp();
 </script>
