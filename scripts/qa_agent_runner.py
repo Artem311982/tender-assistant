@@ -32,6 +32,7 @@ KNOWN_REGRESSION_GUARDS = [
     "Hidden admin portal (/control-panel-artem) with no public /admin link or admin email leak",
     "Conservative contiguous browser-style admin tabs (.admin-browser-bar) & 5-module Site Constructor",
     "CPV 2015 searchable dropdown according to Order No. 1749 matching Prozorro",
+    "CPV 2015 hierarchical modal tree with real-time search on digits/letters",
     "Removal of number spinners on expected value and quantity fields",
     "AST static undefined-name check (prevents NameError like TenderHandler vs TenderAppHandler)",
     "Pre-deploy in-process local HTTP server test (GET /, GET /control-panel-artem, GET /api/public/info, POST /api/auth/login) to prevent 502 Bad Gateway on Render"
@@ -190,7 +191,17 @@ def run_static_ui_checks():
             "issue": "Відсутній випадаючий список класифікатора ДК 021:2015 у формі замовлення послуги"
         })
 
-    # 6b. Check removal of spinners on number inputs
+    # 6b. Check CPV 2015 modal window with real-time tree search
+    if 'id="cpvClassifierModal"' in html and 'id="cpvModalSearchInput"' in html and 'PROZORRO_CPV_TREE' in html and 'openCpvClassifierModal' in html:
+        passed.append("Модальне вікно класифікатора ДК 021:2015: деревоподібна структура з живим пошуком за цифрами/літерами, розгортанням та вибором")
+    else:
+        findings.append({
+            "severity": "HIGH",
+            "area": "CPV Modal Classifier",
+            "issue": "Відсутнє або не повністю налаштоване модальне вікно класифікатора ДК 021:2015"
+        })
+
+    # 6c. Check removal of spinners on number inputs
     if "::-webkit-inner-spin-button" in html and "-webkit-appearance: none" in html and "-moz-appearance: textfield" in html:
         passed.append("Поля «Очікувана вартість» та «Кількість»: прибрано стрілки-лічильники (spinners) у числових полях")
     else:
