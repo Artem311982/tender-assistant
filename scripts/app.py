@@ -310,7 +310,7 @@ def init_db():
             {"key": "unit_name", "label": "Одиниця виміру (Гкал, кВт·год, шт, послуга тощо)", "type": "text", "required": True},
             {"key": "tender_id", "label": "Ідентифікатор закупівлі в Prozorro (UA-... за наявності)", "type": "text", "required": False}
         ]
-        f1_template_path = os.path.join(FORMS_UPLOAD_DIR, "Форма_1_Інформація_для_проведення_аналізу_цін.docx")
+        f1_template_path = os.path.join(FORMS_UPLOAD_DIR, "Form_1_Price_Analysis_Information.docx")
         doc_generator.generate_form_template_docx(
             "Інформація для проведення аналізу цін та формування обґрунтування підстав проведення закупівлі",
             form1_fields,
@@ -348,7 +348,7 @@ def init_db():
             {"key": "delivery_address", "label": "Місця поставки (кожна адреса з нового рядка)", "type": "textarea", "required": False},
             {"key": "tech_specs", "label": "Технічні та якісні характеристики предмета закупівлі", "type": "textarea", "required": False}
         ]
-        f2_template_path = os.path.join(FORMS_UPLOAD_DIR, "Форма_2_Повне_Обгрунтування_Постанова_710.docx")
+        f2_template_path = os.path.join(FORMS_UPLOAD_DIR, "Form_2_Full_Justification_Resolution_710.docx")
         doc_generator.generate_form_template_docx(
             "Повна форма: Обґрунтування технічних характеристик, бюджетного призначення та очікуваної вартості (Постанова КМУ № 710)",
             form2_fields,
@@ -378,7 +378,7 @@ def init_db():
                 and "email" not in str(fl.get("label", "")).lower()
                 and "електронна пошта" not in str(fl.get("label", "")).lower()
             ]
-            tpath = f_row["docx_template_path"] or os.path.join(FORMS_UPLOAD_DIR, f"Форма_{fid}.docx")
+            tpath = os.path.join(FORMS_UPLOAD_DIR, "Form_1_Price_Analysis_Information.docx" if fid == 1 else ("Form_2_Full_Justification_Resolution_710.docx" if fid == 2 else f"Form_{fid}.docx"))
             cur.execute("UPDATE forms SET fields_json = ?, docx_template_path = ? WHERE id = ?", (
                 json.dumps(cleaned_fields, ensure_ascii=False),
                 tpath,
@@ -664,7 +664,7 @@ class TenderAppHandler(BaseHTTPRequestHandler):
                 return
             tpath = form["docx_template_path"]
             if not tpath or not os.path.exists(tpath):
-                tpath = os.path.join(FORMS_UPLOAD_DIR, f"Форма_{form['id']}.docx")
+                tpath = os.path.join(FORMS_UPLOAD_DIR, f"Form_{form['id']}.docx")
                 doc_generator.generate_form_template_docx(form["title"], json.loads(form["fields_json"]), tpath)
             self.send_file_download(tpath, os.path.basename(tpath))
             return
@@ -1189,7 +1189,7 @@ class TenderAppHandler(BaseHTTPRequestHandler):
             if not b64:
                 self.send_json({"error": "Порожній файл"}, 400)
                 return
-            safe_name = f"user_{user['id']}_{int(datetime.now().timestamp())}_{os.path.basename(filename)}"
+            safe_name = f"user_{user['id']}_{int(datetime.now().timestamp())}_{doc_generator.to_english_slug(os.path.splitext(os.path.basename(filename))[0], 'form')}.docx"
             save_path = os.path.join(USER_UPLOADS_DIR, safe_name)
             with open(save_path, "wb") as f:
                 f.write(base64.b64decode(b64))
@@ -1688,7 +1688,7 @@ class TenderAppHandler(BaseHTTPRequestHandler):
                 self.send_json({"error": "Не вибрано файл .docx"}, 400)
                 return
 
-            safe_name = f"admin_form_{int(datetime.now().timestamp())}_{os.path.basename(filename)}"
+            safe_name = f"admin_form_{int(datetime.now().timestamp())}_{doc_generator.to_english_slug(os.path.splitext(os.path.basename(filename))[0], 'form')}.docx"
             save_path = os.path.join(FORMS_UPLOAD_DIR, safe_name)
             with open(save_path, "wb") as f:
                 f.write(base64.b64decode(b64))
@@ -1739,7 +1739,7 @@ class TenderAppHandler(BaseHTTPRequestHandler):
             conn = get_db()
             cur = conn.cursor()
             if fid:
-                tpath = os.path.join(FORMS_UPLOAD_DIR, f"Форма_{fid}_оновлена.docx")
+                tpath = os.path.join(FORMS_UPLOAD_DIR, f"Form_{fid}_updated.docx")
                 doc_generator.generate_form_template_docx(title, fields, tpath)
                 cur.execute("""
                     UPDATE forms
@@ -1747,7 +1747,7 @@ class TenderAppHandler(BaseHTTPRequestHandler):
                     WHERE id = ?
                 """, (title, description, json.dumps(fields, ensure_ascii=False), tpath, is_active, int(fid)))
             else:
-                tpath = os.path.join(FORMS_UPLOAD_DIR, f"Форма_{int(datetime.now().timestamp())}.docx")
+                tpath = os.path.join(FORMS_UPLOAD_DIR, f"Form_{int(datetime.now().timestamp())}.docx")
                 doc_generator.generate_form_template_docx(title, fields, tpath)
                 cur.execute("""
                     INSERT INTO forms (title, description, fields_json, docx_template_path, is_active, created_at)

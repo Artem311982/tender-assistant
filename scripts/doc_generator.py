@@ -9,6 +9,30 @@ from docx.oxml.ns import qn, nsdecls
 from datetime import datetime
 
 
+_CYR_TO_LAT = {
+    'а': 'a', 'б': 'b', 'в': 'v', 'г': 'h', 'ґ': 'g', 'д': 'd', 'е': 'e', 'є': 'ye',
+    'ж': 'zh', 'з': 'z', 'и': 'y', 'і': 'i', 'ї': 'yi', 'й': 'y', 'к': 'k', 'л': 'l',
+    'м': 'm', 'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'у': 'u',
+    'ф': 'f', 'х': 'kh', 'ц': 'ts', 'ч': 'ch', 'ш': 'sh', 'щ': 'shch', 'ь': '',
+    'ю': 'yu', 'я': 'ya', 'ы': 'y', 'э': 'e', 'ё': 'yo', 'ъ': ''
+}
+
+
+def to_english_slug(text, fallback="procurement_item"):
+    if not text:
+        return fallback
+    res = []
+    for ch in str(text).lower():
+        if ch in _CYR_TO_LAT:
+            res.append(_CYR_TO_LAT[ch])
+        elif ('a' <= ch <= 'z') or ('0' <= ch <= '9'):
+            res.append(ch)
+        else:
+            res.append('_')
+    slug = re.sub(r'_+', '_', ''.join(res)).strip('_')[:40]
+    return slug or fallback
+
+
 def clean_spaces(text):
     """Прибирає подвійні та кратні пробіли у кожному рядку, зберігаючи переноси рядків."""
     if text is None:
@@ -297,12 +321,12 @@ def generate_justification_bundle(order_data, benchmarks, output_dir):
         if not (has_higher_unit or has_higher_amount):
             is_expected_value_highest = True
 
-    subj_slug = re.sub(r'[^a-zA-Z0-9а-яА-ЯіїєґІЇЄҐ_-]', '_', subject_name).strip('_')[:40] or "Предмет_закупівлі"
+    subj_slug = to_english_slug(subject_name, "procurement_item")
     subj_dir = os.path.join(output_dir, subj_slug)
     os.makedirs(subj_dir, exist_ok=True)
 
-    file1_name = f"Обґрунтування_{subj_slug}.docx"
-    file2_name = f"Додаток_до_обґрунтування_{subj_slug}.docx"
+    file1_name = f"Justification_{subj_slug}.docx"
+    file2_name = f"Annex_{subj_slug}.docx"
     file1_path = os.path.join(subj_dir, file1_name)
     file2_path = os.path.join(subj_dir, file2_name)
 
@@ -770,7 +794,7 @@ def guess_field_key(label):
         for kw in keywords:
             if kw in l_low:
                 return key
-    slug = re.sub(r'[^a-zA-Z0-9а-яА-ЯіїєґІЇЄҐ]+', '_', l_low).strip('_')
+    slug = to_english_slug(l_low, "field")
     return f"custom_{slug[:30]}"
 
 
